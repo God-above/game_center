@@ -1,0 +1,105 @@
+<div ng-init=vm.batchInit()>
+	<div class="panel panel-default" ng-class="{hidden: vm.hidden}">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span>流量卡订单查询 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vm.collapsed = !vm.collapsed"></span>
+				</span>
+			</h4>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body size_font" id='batch'>
+				<!-- 第一行 -->
+			
+				
+				<form class="form-horizontal mt_20" role="form">
+					<div class="form-group">
+						<div class="col-md-4">
+							<input type="text" placeholder="流量卡编号/商品编号/商品名称"
+								class="form-control" ng-model="searchContent" />
+						</div>
+					</div>
+				</form>
+				
+				<form class="form-inline mt_15">
+					<label for="inputPassword">流量卡状态:</label> <select class="select"
+						ng-model="status" id="status"
+						ng-options="status.code as status.description for status in vm.orderStatus">
+						<option value="">全部</option>
+					</select> <label for="inputPassword">创建时间:</label> <input
+						class="Wdate date input-group form-control" style="height: 34px;"
+						type="text" id="startCreateTime"
+						onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+						placeholder="请选择开始时间" ng-model="startCreateTime"> <label
+						class="line">—</label> <input
+						class="Wdate date input-group form-control" style="height: 34px;"
+						type="text" id="endCreateTime"
+						onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+						placeholder="请选择截止时间" ng-model="endCreateDate">
+				</form>
+				<button class="btn btn-primary mt_15" type="button"
+					ng-click="vm.batchBtn(1,'btn')">查询</button>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default" ng-if="vm.batchList.length>0">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 流量卡订单列表 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vmList.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vmList.collapsed = !vmList.collapsed"></span>
+				</span>
+			</h4>
+
+		</div>
+		<div class="panel-collapse collapse"
+			ng-class="{in: !vmList.collapsed}">
+			<div class="panel-body">
+				<div class="table-responsive panel-table">
+					<table class="table table-hover panel-table-line">
+						<thead>
+							<tr>
+								<th>流量卡订单号</th>
+								<th>商品</th>
+								<th>单价</th>
+								<th>数量</th>
+								<th>订购金额</th>
+								<th>订购时间</th>
+								<th>订购状态</th>
+								<th>操作</th>
+							 </tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="coupon in vm.batchList">
+								<td>{{coupon.orderNo}}</td>
+								<td>{{coupon.productName}}</td>
+								<td>{{coupon.price/100 | currency : '￥'}}</td>
+								<td>{{coupon.proCount}}</td>
+								<td>{{coupon.totalPrice/100 | currency : '￥'}}</td>
+								<td>{{coupon.createDate | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+								<td ng-class="{true: 'table_hover'}[$index!=0]">
+									{{{true : coupon.statusText,false:coupon.statusText}[coupon.status == 3]}}
+									<br>{{{true : '48小时自动取消',false:''}[coupon.status == 1]}}							
+								</td>
+								<td>
+									<a href="#couponBatchDetail/{{coupon.orderNo}}">查看详情</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- 页码  -->
+					<div id="listPage">
+					   <tm-pagination conf="paginationConf"> </tm-pagination>
+					   <!--<expander> </expander> -->
+					</div>
+					<!-- 页码  -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

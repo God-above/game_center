@@ -1,0 +1,267 @@
+.cardManger {
+	margin: 0 10px;
+	font-family: 'Microsoft YaHei' ! important;
+}
+
+.logo {
+	border-bottom: 1px solid #eeeeee;
+	height: 40px;
+	line-height: 40px;
+	text-align: center left;
+	font-size: 16px;
+	color: #9D9D9D;
+}
+
+.userTab {
+	width: 100%;
+	float: left;
+	background: #E7E7E7;
+	height: 40px;
+	cursor: pointer;
+	margin-top: 20px;
+}
+
+.userTab .tab {
+	float: left;
+	width: 90px;
+	margin-top: 5px;
+	margin-left: 10px;
+	height: 30px;
+	background: #E7E7E7;
+	position: relative;
+}
+
+.tab .san {
+	width: 0;
+	height: 0;
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+	border-bottom: 6px solid #E7E7E7;
+	bottom: 0px;
+	position: absolute;
+	left: 40px;
+}
+
+.tab .title {
+	top: 4px;
+	left: 32px;
+	position: absolute;
+	left: 32px;
+}
+
+.userTab .tab_hover {
+	background: #F5F5F5;
+}
+
+.tab_content {
+	float: left;
+	margin-top: 20px;
+	width: 100%;
+}
+
+.tab_content .tabDate {
+	width: 155px ! important;
+	height: 38px ! important;
+	float: left;
+	border: 1px solid #CECECE;
+}
+
+.tab_content .tabSearch {
+	width: 290px;
+	height: 38px;
+	float: left;
+}
+
+.tab_content .divDate {
+	height: 38px;
+	line-height: 38px;
+	text-align: center left;
+	margin-left: 115px;
+	float: left;
+	width: 70px;
+}
+
+.tab_content .divDate_mid {
+	float: left;
+	height: 38px;
+	line-height: 38px;
+	text-align: center;
+	margin: 0 6px;
+}
+
+.tab_content .btn {
+	height: 38px;
+	float: left;
+	margin-left: 16px;
+	width: 110px;
+	background: #006BC0
+}
+
+.tab_content .sec {
+	width: 100%;
+	margin-top: 32px;
+	float: left;
+}
+
+.tab_content .divlabel {
+	float: left;
+	height: 31px;
+	line-height: 31px;
+	text-align: center left;
+	width: 70px;
+}
+
+.tab_content .tab_ul {
+	list-style: none;
+	float: left;
+	margin: 0px;
+	padding: 0px;
+}
+
+.tab_content .tab_li {
+	width: 76px;
+	height: 31px;
+	line-height: 31px;
+	text-align: center;
+	border: 1px solid #eeeeee;
+	background: #FFFFFF;
+	font-size: 12px;
+	float: left;
+	margin-right: 18px;
+	cursor: pointer;
+}
+
+.li_hover {
+	color: #FFFFFF;
+	background: #006BC0;
+}
+.li_hover_manger {
+	color: #FFFFFF;
+
+	background: #006BC0! important;
+}
+.table {
+	margin-top: 12px;
+	float: left;
+}
+
+.table-bordered td {
+	font-size: 12px;
+	text-align: center;
+	border-top: 0px ! important;
+	border-left: 0px ! important;
+	border-right: 0px ! important;
+	border-top: 0px ! important;
+	text-align: center;
+}
+
+.table-bordered th {
+	background: #E4E4E4;
+	font-size: 12px;
+	text-align: center;
+	border-top: 0px ! important;
+	border-left: 0px ! important;
+	border-right: 0px ! important;
+}
+
+.table td span{
+  color:#006BC0;
+  cursor: pointer;
+  margin-right:10px;
+}
+
+/*
+  ================流量卡兑换
+*/
+.cardExchange {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.cardExchange .url {
+	margin-top: 15px;
+	width: 100%;
+	float: left;
+}
+
+.cardExchange .url .urlContent {
+	float: left;
+	height: 32px;
+	line-height: 32px;
+	text-align: center left;
+}
+
+.cardExchange .url .btn {
+	float: left;
+	margin-left: 20px;
+}
+
+.cardExchange .explanation{
+margin-top: 15px; float: left; width: 100%;
+}
+.cardExchange .no{
+height: 60px; width: 100%; float: left;
+}
+
+.cardExchange  .batchName{
+float: left; width: 100%;
+}
+
+.cardExchange  .batchName input{
+float: left; width: 290px;
+}
+
+.cardExchange  .batchName  div{
+float: left; height: 32px; margin-left: 32px; line-height: 32px; text-align: center left;
+}
+
+.cardExchange  .upload{
+float: left; width: 100%; margin-top: 30px;
+}
+
+.cardExchange  .upload .btn{
+float: left;
+}
+.cardExchange  .upload div{
+float: left; height: 32px; margin-left: 15px; line-height: 32px; text-align: center left;
+}
+
+.cardExchange  .panel{
+float: left; width: 100%; margin-top: 30px;
+}
+
+.cardExchange  .panel .clear{
+float: right; color: #006AC0
+}
+
+.cardExchange .panel-body{
+padding: 0px;
+}
+
+.cardExchange .panel-body .leftDown{
+width: 465px; float: left; height: 190px; text-align: center;
+}
+
+.cardExchange .panel-body  .box{
+margin-top: 45px;
+}
+.cardExchange .panel-body  .box .title{
+
+}
+.cardExchange .panel-body  .box .count{
+margin-top: 30px;
+}
+
+.cardExchange .panel-body .box .btn{
+background: #006AC0; margin-top: 24px;
+}
+
+.cardExchange .panel-body .line{
+width: 1px; float: left; height: 140px; background: #eeeeee; margin-top: 25px;}
+
+.cardExchange .panel-body .commit{
+float: left; width: 100%; margin-top: 30px;
+}
+.cardExchange .panel-body .commit .btn{
+background: #006AC0
+}

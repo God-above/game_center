@@ -1,0 +1,100 @@
+<div ng-init="editGoods()">
+	<ol class="breadcrumb">
+		<li><a href="#goods">商品管理</a></li>
+		<li class="active">编辑商品</li>
+	</ol>
+	<div class="panel panel-default">
+		<div class="panel-heading">编辑商品</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-6">
+					<form class="form-horizontal mt_20" role="form">
+						<div class="form-group">
+							<label class="col-md-3 col-md-offset-2 control-label ">商品编号：</label>
+							<div class="col-md-7">
+								<input type="text" class="form-control"
+									ng-model="product.productNo" readonly="readonly">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3  col-md-offset-2 control-label">商品名称：</label>
+							<div class="col-md-7">
+								<input type="text" class="form-control"
+									ng-model="product.productName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3  col-md-offset-2 control-label">商品价格：</label>
+							<div class="col-md-7">
+								<input type="text" class="form-control" ng-model="product.price">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3  col-md-offset-2 control-label">商品类型：</label>
+							<div class="col-md-7">
+								<select class="form-control" ng-model="product.type">
+									<option value="">选择商品类型</option>
+									<option value="1">虚拟商品</option>
+									<option value="2">券</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3  col-md-offset-2 control-label">账号类型：</label>
+							<div class="col-md-7">
+								<select class="form-control" ng-model="product.accountType">
+									<option value="">选择账号类型</option>
+									<option value="1">手机</option>
+									<option value="2">邮箱</option>
+									<option value="3">QQ</option>
+									<option value="4">固话</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3  col-md-offset-2 control-label">商品状态：</label>
+								<div class="col-sm-7" style="margin-top: 5px;">
+									<span style="{{{true: 'color : red;', false:''}[product.status=='0']}}">
+										{{{true:'禁用',false:''}[product.status==0]}}</span> 
+									{{{true:'正常',false:''}[product.status== 1]}}
+								</div>
+							</div>
+							<div class="form-group" ng-show="product.status=='0'">
+								<label for="inputEmail3" class="col-sm-3  col-md-offset-2 control-label">
+									禁用原因: </label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" name="disableReason"
+										ng-model="product.disableReason" >
+								</div>
+							</div>
+						<div class="form-group">
+							<label class="col-md-3  col-md-offset-2 control-label">备注：</label>
+							<div class="col-md-7">
+								<input type="text" class="form-control" ng-model="product.remark">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-md-offset-2  control-label"></label>
+							<div class="col-md-7">
+								<button type="button" class="btn btn-success" ng-click="updateGoods()">保存</button>
+								<a href="javascript:history.go(-1);"><button type="button"
+										class="btn  btn-default col-md-offset-6">返回</button></a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- <div class="form-group">
+				<label class="col-md-3 col-md-offset-2  control-label"></label>
+				<div class="col-md-9">
+					<button type="button" class="btn btn-success" ng-click="updateGoods()">保存</button>
+					<a href="javascript:history.go(-1);"><button type="button"
+							class="btn  btn-default col-md-offset-1">返回</button></a>
+				</div>
+				
+			</div> -->
+		</div>
+	</div>
+
+
+</div>

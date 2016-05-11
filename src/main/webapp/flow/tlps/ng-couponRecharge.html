@@ -1,0 +1,137 @@
+<div ng-init="initRecharge()">
+	<!-- 面板-->
+	<div class="panel panel-default" ng-class="{hidden: vm.hidden}">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 充值<span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<form class="form-horizontal showcase-form form_position"
+					name="form" novalidate>
+					<div class="step">
+						<a class="first-b-on"><s class="first-on"></s>创建订单<b></b></a> <a><s></s>确认支付<b
+							class="last"></b></a>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label">充值账号</label>
+						<div class="col-md-3">
+							<input class="form-control" type="text" name="userCode"
+								ng-model="userCode" placeholder="请输入充值账号"
+								ng-pattern="/^[A-Za-z]{1}[0-9A-Za-z_]{2,29}$/" maxlength=11 />
+						</div>
+						<div class="col-md-2  col-sm-2 ng-hide"
+							ng-show="form.$invalid && form.$dirty">
+							<div class="errorColor"
+								ng-show="form.userCode.$dirty && form.userCode.$error.required">
+								充值账号不能为空！</div>
+							<div class="errorColor"
+								ng-show="form.userCode.$dirty && form.userCode.$error.pattern">
+								充值账号格式不正确！</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2  col-sm-2 control-label">账号密码</label>
+
+						<div class="col-md-3  col-sm-4">
+							<input type="text" name="userPwd" ng-model="userPwd"
+								ng-maxlength="20" ng-minlength="6" class="form-control"
+								placeholder="6-20个字符" required>
+						</div>
+						<div class="col-md-2 col-sm-2 ng-hide"
+							ng-show="form.$invalid && form.$dirty">
+							<div class="errorColor"
+								ng-show="form.userPwd.$dirty && form.userPwd.$error.required">
+								账号密码不能为空！</div>
+							<div class="errorColor"
+								ng-show="form.userPwd.$dirty && form.userPwd.$error.maxlength">
+								账号密码长度不能大于20个字符！</div>
+							<div class="errorColor"
+								ng-show="form.userPwd.$dirty && form.userPwd.$error.minlength">
+								账号密码长度不能小于6个字符！</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label">手机号</label>
+						<div class="col-md-3">
+							<input class="form-control" type="text" name="rechargeAccount"
+								ng-model="rechargeAccount" placeholder="请输入正确的手机号"
+								ng-change="getProductByAccount()"
+								ng-pattern="/^0{0,1}(13[0-9]|15[3-9]|15[0-2]|18[0-9]|177)[0-9]{8}$/"
+								maxlength=11 />
+						</div>
+						<div class="col-md-2  col-sm-2 ng-hide"
+							ng-show="form.$invalid && form.$dirty">
+							<div class="errorColor"
+								ng-show="form.rechargeAccount.$dirty && form.rechargeAccount.$error.required">
+								手机号不能为空！</div>
+							<div class="errorColor"
+								ng-show="form.rechargeAccount.$dirty && form.rechargeAccount.$error.pattern">
+								手机号格式不正确！</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<!-- ng-disabled="form.$invalid " -->
+						<div class="col-md-offset-4 col-sm-4">
+							<button type="submit" ng-click="addRecharge()"
+								class="btn btn-success">提交订单</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="panel panel-default"
+		ng-show="rechargeAccount!=undefined && rechargeAccount!=null && rechargeAccount!=''">
+		<div class="panel-heading">
+			<div class="form-group">
+				<div class="col-md-2">最近订单</div>
+				<div class="col-md-2 col-md-offset-8">
+					<a > 隐藏 </a>
+				</div>
+			</div>
+
+		</div>
+		<div class="panel-body" ng-init="btnSearch()">
+			<div class="row table-responsive" style="margin-top: 20px;">
+				<table class="table users-table table-condensed table-hover ">
+					<thead>
+						<tr>
+							<th>订单编号</th>
+							<th>商品名称</th>
+							<th>充值账号</th>
+							<th>金额/元</th>
+							<th>时间</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="order in orderList">
+							<td>{{order.orderNo}}</td>
+							<td>{{order.productName}}</td>
+							<td>{{order.rechargeAccount}}</td>
+							<td>{{order.price/100 | currency:''}}</td>
+							<td>{{order.createTime}}</td>
+							<td>{{{true:order.statusStr,false:'---'}[order.statusStr!=undefined
+								&& order.statusStr!=null && order.statusStr!='']}}</td>
+							<td>
+								<div ng-show="order.status=='10'">
+									<a href="#confirmOrder/{{order.orderNo}}/single/{{order.status}}">充值</a>
+								</div>
+								<div ng-show="order.status!='10'">---</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div> -->
+</div>

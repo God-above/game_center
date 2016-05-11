@@ -1,0 +1,142 @@
+<link href="./css/user.css" rel="stylesheet">
+<link href="./css/regUser.css" rel="stylesheet">
+<div ng-init="init()">
+	<div class="logo"
+		ng-if="showType=='upEmailSuc' || showType=='unbindFail'">修改绑定邮箱</div>
+	<div class="logo" ng-if="showType=='tel' || showType=='telBypayPwd'">修改绑定手机</div>
+	<div class="logo"
+		ng-if="showType=='email' || showType=='bindEmail' || showType=='emailBypayPwd' ||showType=='bindEmailSuc' || showType=='failEmail'">绑定邮箱</div>
+	<div class="logo"
+		ng-if="showType=='bindTel'">绑定手机</div>
+	<div class="logo"
+		ng-if="showType=='emailByfindPwd' || showType=='telByfindPwd' || showType=='payPwdByfindPwd'">找回登录密码</div>
+	<div class="logo"
+		ng-if="showType=='emailByfindPayPwd' || showType=='telByfindPayPwd' ">找回支付密码</div>
+
+	<div class="logo"
+		ng-if="showType=='emailBySetPayPwd' || showType=='telBySetPayPwd' ">设置支付密码</div>
+	<div class="logo" ng-if="showType=='paySucces' || showType=='payFail' ">支付结果</div>
+
+	<div style="width: 700px; margin: 0 auto;">
+		<div style="padding-top: 20px; float: left; margin-left: 75px;">
+			<div class="box">
+				<div class="lingxing_active"></div>
+				<div class="size size_yes">1</div>
+				<div class="box_size">验证身份</div>
+			</div>
+		</div>
+		<!-- ----------------------设置账户----------------------- -->
+		<div class="line_active line_one"></div>
+
+		<div style="padding-top: 20px; float: left">
+			<div class="box">
+				<div class="lingxing_active"></div>
+				<div class="size size_yes">2</div>
+				<div class="box_size"
+					ng-if="showType=='email' || showType=='bindEmail' || showType=='emailBypayPwd' || showType=='unbindFail' ||showType=='bindEmailSuc' || showType=='failEmail' || showType=='upEmailSuc'">绑定邮箱</div>
+				<div class="box_size"
+					ng-if="showType=='tel' || showType=='bindTel' || showType=='telBypayPwd'">绑定手机</div>
+				<div class="box_size"
+					ng-if="showType=='emailByfindPwd' || showType=='telByfindPwd' || showType=='payPwdByfindPwd'">找回密码</div>
+				<div class="box_size"
+					ng-if="showType=='emailByfindPayPwd' || showType=='telByfindPayPwd' || showType=='telBySetPayPwd' ||showType=='emailBySetPayPwd'">设置密码</div>
+				<div class="box_size"
+					ng-if="showType=='paySucces' || showType=='payFail' ">支付结果</div>
+			</div>
+		</div>
+		<!-- ----------------------完成----------------------- -->
+		<div class="line_active line_one"></div>
+		<div style="padding-top: 20px; float: left">
+			<div class="box">
+				<div class="lingxing_active"></div>
+				<div class="size size_yes">3</div>
+				<div class="box_size" ng-if="showType!='email' && showType!='bindEmail' && showType!='emailBypayPwd' &&  showType!='bindEmailSuc' && showType!='bindTel' && showType!='telBySetPayPwd' && showType!='emailBySetPayPwd'">修改成功</div>
+				<div class="box_size" ng-if="showType=='email' || showType=='bindEmail' || showType=='emailBypayPwd' ||showType=='bindEmailSuc' || showType=='bindTel'">绑定成功</div>
+				<div class="box_size" ng-if="showType=='telBySetPayPwd' ||showType=='emailBySetPayPwd' ">设置成功</div>
+			</div>
+		</div>
+	</div>
+	<!-- ----------------------------支付密码-------------------------------- -->
+	<div class="resultDiv"
+		ng-if="showType=='emailByfindPayPwd' || showType=='telByfindPayPwd'">
+		<img alt="" src="img/step/ok.jpg"> <span class="suc_content">恭喜更换支付密码成功！</span>
+		<hr class="hrDiv" />
+		<h4 style="font-weight: bold;">尊敬的用户，您已成功修改支付密码!</h4>
+		<a href="#user"><button class="btn btn-primary mg_t_20 mg_b_30">返回我的8流量</button></a>
+	</div>
+	<!-- ----------------------------设置支付密码-------------------------------- -->
+	<div class="resultDiv"
+		ng-if="showType=='emailBySetPayPwd' ||  showType=='telBySetPayPwd'">
+		<img alt="" src="img/step/ok.jpg"> <span class="suc_content">设置支付密码成功！</span>
+		<hr class="hrDiv" />
+		<h4 style="font-weight: bold;">尊敬的用户，您已成功设置支付密码!</h4>
+		<a href="#user"><button class="btn btn-primary mg_t_20 mg_b_30">返回我的8流量</button></a>
+	</div>
+	<!-- ----------------------------登录密码-------------------------------- -->
+	<div class="resultDiv"
+		ng-if="showType=='emailByfindPwd'|| showType=='telByfindPwd' || showType=='payPwdByfindPwd'">
+		<img alt="" src="img/step/ok.jpg"> <span class="suc_content">恭喜更换登录密码成功！</span>
+		<hr class="hrDiv" />
+		<h4 style="font-weight: bold;">尊敬的用户，您已成功修改登录密码!</h4>
+		<a href="login.html"><button
+				class="btn btn-primary mg_t_20 mg_b_30">返回登录</button></a>
+	</div>
+	<!-- ----------------------------更换邮箱-------------------------------- -->
+	<div class="resultDiv"
+		ng-if="showType=='email' ||  showType=='emailBypayPwd' || showType=='upEmailSuc'">
+		<img alt="" src="img/step/ok.jpg"> <span class="suc_content">恭喜更换绑定邮箱成功！</span>
+		<hr class="hrDiv" />
+		<h4 style="font-weight: bold;">尊敬的用户，您已成功更换绑定邮箱!</h4>
+		<a href="#user"><button class="btn btn-primary mg_t_20 mg_b_30">返回我的8流量</button></a>
+	</div>
+
+	<div class="resultDiv" ng-if="showType=='unbindFail' ">
+		<span class="suc_content">更换绑定邮箱失败！</span>
+		<hr class="hrDiv" />
+		<h4 style="font-weight: bold;">尊敬的用户，更换绑定邮箱操作失败!</h4>
+		<a href="#user"><button class="btn btn-primary mg_t_20 mg_b_30">返回我的8流量</button></a>
+	</div>
+	<!-- ----------------------------绑定邮箱-------------------------------- -->
+	<div class="resultDiv" ng-if="showType=='bindEmailSuc'">
+		<img alt="" src="img/step/ok.jpg"> <span class="suc_content">恭喜绑定邮箱成功！</span>
+		<hr class="hrDiv" />
+		<h4 style="font-weight: bold;">尊敬的用户，您已成功绑定邮箱!</h4>
+		<a href="#user"><button class="btn btn-primary mg_t_20 mg_b_30">返回我的8流量</button></a>
+	</div>
+	<div class="resultDiv" ng-if="showType=='failEmail' ">
+		<span class="suc_content">绑定邮箱失败！</span>
+		<hr class="hrDiv" />
+		<h4 style="font-weight: bold;">尊敬的用户，您绑定邮箱操作失败!</h4>
+		<a href="#user"><button class="btn btn-primary mg_t_20 mg_b_30">返回我的8流量</button></a>
+	</div>
+
+	<!-- ----------------------------更换手机号-------------------------------- -->
+	<div class="resultDiv"
+		ng-if="showType=='tel' ||  showType=='telBypayPwd'">
+		<img alt="" src="img/step/ok.jpg"> <span class="suc_content">恭喜更换绑定手机号成功！</span>
+		<hr class="hrDiv" />
+		<h4 style="font-weight: bold;">尊敬的用户，您已成功更换绑定手机号!</h4>
+		<a href="#user"><button class="btn btn-primary mg_t_20 mg_b_30">返回我的8流量</button></a>
+	</div>
+	<!-- ----------------------------绑定手机号-------------------------------- -->
+	<div class="resultDiv" ng-if="showType=='bindTel'">
+		<img alt="" src="img/step/ok.jpg"> <span class="suc_content">恭喜绑定手机号成功！</span>
+		<hr class="hrDiv" />
+		<h4 style="font-weight: bold;">尊敬的用户，您已成功绑定手机号!</h4>
+		<a href="#user"><button class="btn btn-primary mg_t_20 mg_b_30">返回我的8流量</button></a>
+	</div>
+
+	<!-- ------------------------------支付结果--------------------------------- -->
+	<div class="resultDiv" ng-if=" showType=='payFail' ">
+		<span class="suc_content">支付失败！</span>
+		<hr class="hrDiv" />
+		<h4 style="font-weight: bold;">尊敬的用户，您支付订单失败!</h4>
+		<a href="#order"><button class="btn btn-primary mg_t_20 mg_b_30">返回订单</button></a>
+	</div>
+	<div class="resultDiv" ng-if="showType=='paySucces' ">
+		<span class="suc_content">支付成功！</span>
+		<hr class="hrDiv" />
+		<h4 style="font-weight: bold;">尊敬的用户，您支付订单成功!</h4>
+		<a href="#order"><button class="btn btn-primary mg_t_20 mg_b_30">返回订单</button></a>
+	</div>
+</div>

@@ -1,0 +1,112 @@
+<link href="../8flow/css/liuliang.css" rel="stylesheet">
+<div class="content" ng-init="init()">
+	<div class="row">
+		<h4>确认订单</h4>
+		<hr />
+	</div>
+	<div class="row mg_t_10" ng-if="batchCouponVm.batch!=undefined">
+		<span class="col-md-3 timeStyle" >
+		{{batchCouponVm.batch.createDate | date : "yyyy-MM-dd HH:mm:ss"}}</span> 订单号:{{batchCouponVm.batch.number}}
+	</div>
+	<div class="row mg_t_10" ng-if="singleCouponVm.orderInfo!=undefined">
+		<span class="col-md-3 timeStyle" >
+		{{singleCouponVm.orderInfo.createDate | date : "yyyy-MM-dd HH:mm:ss"}}</span> 订单号:{{singleCouponVm.orderInfo.orderNo}}
+	</div>
+	<div class="row mg_t_10" ng-if="backCouponVm.batch!=undefined">
+		<span class="col-md-3 timeStyle" >
+		{{backCouponVm.batch.createDate | date : "yyyy-MM-dd HH:mm:ss"}}</span> 订单号:{{backCouponVm.batch.orderId}}
+	</div>
+	<div class="row mg_t_10">
+		<table class="table ">
+			<thead class="theadColor">
+				<tr>
+					<td>商品</td>
+					<td>单价(元)</td>
+					<td>数量</td>
+					<td>金额</td>
+				</tr>
+			</thead>
+			<tbody ng-show="batchCouponVm.orderList.length>0">
+				<tr class='bd_Color' ng-repeat="orderInfo in batchCouponVm.orderList" >
+		
+					<td>{{orderInfo.productName}}</td>
+					<td>{{orderInfo.price/100 |currency :''}}</td>
+					<td>{{orderInfo.proCount}}</td>
+					<td>{{orderInfo.totalPrice /100 |currency :''}}</td>
+				</tr>
+				
+				<tr>
+					<td colspan="4" class="text-right priceSize" style="padding-right: 15px;">
+						订单金额：{{batchCouponVm.batch.totalPrice / 100| currency : ''}}
+					</td>
+				</tr>
+			</tbody>
+			<tbody ng-if="singleCouponVm.showSingle">
+				<tr class='bd_Color'>
+					<td>{{singleCouponVm.orderInfo.productName}}</td>
+					<td>{{singleCouponVm.orderInfo.price/100 |currency :''}}</td>
+					<td>{{singleCouponVm.orderInfo.proCount}}</td>
+					<td>{{singleCouponVm.orderInfo.totalPrice /100 |currency :''}}</td>
+				</tr>
+				<tr>
+					<td colspan="4" class="text-right priceSize" style="padding-right: 15px;">
+						订单金额：{{singleCouponVm.orderInfo.totalPrice / 100| currency : ''}}
+					</td>
+				</tr>
+			</tbody>
+			
+			<tbody ng-show="backCouponVm.orderList.length>0">
+				<tr class='bd_Color' ng-repeat="orderInfo in backCouponVm.orderList" >
+					<td>{{orderInfo.productName}}</td>
+					<td>{{orderInfo.price/100 |currency :''}}</td>
+					<td>{{orderInfo.proCount}}</td>
+					<td>{{orderInfo.backMoney /100 |currency :''}}</td>
+				</tr>
+				
+				<tr>
+					<td colspan="4" class="text-right priceSize" style="padding-right: 15px;">
+						订单金额：{{backCouponVm.batch.totalPrice / 100| currency : ''}}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="text-right couponDiv">
+		<!-- <div class="row">
+			<div class="col-md-7 col-sm-7">代金券：</div>
+			<div class="col-md-2 col-sm-2">10元通用代金券  </div>
+			<div class="priceColor col-md-3 col-sm-3">-{{price1/100 |currency :''}}元</div>
+		</div>
+		<div class="row">
+			<div class="col-md-7 col-sm-7"><input type="checkbox" ng-model="isChecked" /> 流量币：</div>
+			<div class="text-left pd_l_50 col-md-4 col-sm-4">使用<input type="number" style="width:50px;" ng-disabled="!isChecked" ng-model="userCount" ng-blur="countCal(userCount)" max='300'>流量币（共300流量币）  </div>
+			<div class="priceColor col-md-1 col-sm-1">  -{{price2/100 |currency :''}}元</div>
+		</div> -->
+		
+		<div>应付金额：
+			<span class="priceColor" ng-if="batchCouponVm.batch!=undefined">{{batchCouponVm.batch.totalPrice / 100| currency : ''}} 元</span>
+			<span class="priceColor" ng-if="singleCouponVm.orderInfo!=undefined">{{singleCouponVm.orderInfo.totalPrice / 100| currency : ''}} 元</span>
+			<span class="priceColor" ng-if="backCouponVm.batch!=undefined">{{backCouponVm.batch.totalPrice / 100| currency : ''}} 元</span>
+		</div>
+		
+	</div>
+	<div class="text-right">
+		<div class="row mg_t_20">
+			<!-- 批量购卡 -->
+			<div class="col-md-offset-6 col-md-6" ng-if="batchCouponVm.batch!=undefined">
+				<!-- <span class="priceSize">应付金额：{{batchCouponVm.batch.totalPrice / 100| currency : ''}}元 </span> -->
+				<a href="#confirmPay/1/{{batchCouponVm.batch.number}}"><button class="primaryBtn" style="width:110px;">确认订单</button></a>
+			</div>
+			<!-- 单个充值-->
+			<div class="col-md-offset-6 col-md-6" ng-if="singleCouponVm.orderInfo!=undefined">
+				<!-- <span class="priceSize">应付金额：{{singleCouponVm.orderInfo.totalPrice / 100| currency : ''}}元 </span> -->  
+				
+				<a href="#confirmPay/0/{{singleCouponVm.orderInfo.orderNo}}"><button class="primaryBtn" style="width:110px;">确认订单</button></a>
+			</div>
+			
+			<div class="col-md-offset-6 col-md-6" ng-if="backCouponVm.batch!=undefined">
+				<button class="primaryBtn" style="margin-top: 10px;" ng-click="commitOrder()">提交订单</button>				
+			</div>
+		</div>
+	</div>
+</div>

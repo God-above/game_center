@@ -1,0 +1,125 @@
+<div ng-init="initProduct()">
+	<!-- 面板-->
+	<div class="panel panel-default" ng-class="{hidden: vm.hidden}">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 购券<span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+		</div>
+	<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+		<div class="panel-body">
+			<form class="form-horizontal showcase-form form_position" name="form"
+				novalidate>
+				<div class="step">
+					<a class="first-b-on"><s class="first-on"></s>创建订单<b></b></a> <a><s></s>确认支付<b
+						class="last"></b></a>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">商品名称</label>
+					<div class="col-md-3">
+						<select class="form-control small" name="product" id="productName"
+							ng-change="changeProduct(product)"
+							ng-options="product  as product.productName for product in productList"
+							ng-model="product" required="required">
+							<option value="">选择商品</option>
+						</select>
+					</div>
+					<div class="col-md-2  col-sm-2">
+						<div class="errorColor"
+							ng-show="form.product.$dirty && form.product.$error.required">
+							请选择商品信息！</div>
+						<div style="color: red;" ng-show="product!=''&&product!=undefined">
+							零售价格{{{true:price,false:'0.00'}[price!=undefined && price!=null]
+							| currency :''}}元</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">购买数量</label>
+					<div class="col-md-3 errorColor mg_t_5">
+						<input class="form-control" type="number" name="payCount"
+							ng-model="payCount" placeholder="可购买范围1-100" ng-maxlength=100
+							ng-minlength=1 ng-blur="showPrice(product,payCount)" />
+					</div>
+					<div class="col-md-2 col-sm-2"
+						ng-show="form.$invalid && form.$dirty">
+						<div class="errorColor"
+							ng-show="form.payCount.$dirty && form.payCount.$error.required">
+							数量不能为空！</div>
+						<div class="errorColor"
+							ng-show="form.payCount.$dirty && form.payCount.$error.maxlength">
+							数量长度不能大于20个字符！</div>
+						<div class="errorColor"
+							ng-show="form.payCount.$dirty && form.payCount.$error.minlength">
+							数量长度不能小于6个字符！</div>
+					</div>
+				</div>
+				<div class="form-group"
+					ng-show="product!=undefined && payCount!=undefined">
+					<label class="col-md-2 control-label">零售价格</label>
+					<div class="col-md-3 errorColor mg_t_5">
+						<strong class="h3">{{{true:totalPrice,false:'---'}[totalPrice!=undefined]}}
+						</strong>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<div class="col-md-offset-4 col-sm-4">
+						<button type="submit" ng-click="addCoupon()"
+							class="btn btn-success" ng-disabled="form.$invalid ">提交订单
+						</button>
+					</div>
+				</div>
+			</form>
+	</div>
+	<div class="panel panel-default"
+		ng-show="rechargeAccount!=undefined && rechargeAccount!=null && rechargeAccount!=''">
+		<div class="panel-heading">
+			<div class="form-group">
+				<div class="col-md-2">最近订单</div>
+				<!-- <div class="col-md-2 col-md-offset-8">
+					<a > 隐藏 </a>
+				</div> -->
+			</div>
+
+		</div>
+		<div class="panel-body" ng-init="btnSearch()">
+			<div class="row table-responsive" style="margin-top: 20px;">
+				<table class="table users-table table-condensed table-hover ">
+					<thead>
+						<tr>
+							<th>订单编号</th>
+							<th>商品名称</th>
+							<th>充值账号</th>
+							<th>金额/元</th>
+							<th>时间</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="order in orderList">
+							<td>{{order.orderNo}}</td>
+							<td>{{order.productName}}</td>
+							<td>{{order.rechargeAccount}}</td>
+							<td>{{order.price/100 | currency:''}}</td>
+							<td>{{order.createTime}}</td>
+							<td>{{{true:order.statusStr,false:'---'}[order.statusStr!=undefined
+								&& order.statusStr!=null && order.statusStr!='']}}</td>
+							<td>
+								<div ng-show="order.status=='10'">
+									<a href="#confirmOrder/{{order.orderNo}}/single/{{order.status}}">充值</a>
+								</div>
+								<div ng-show="order.status!='10'">---</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

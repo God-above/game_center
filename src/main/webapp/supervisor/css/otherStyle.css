@@ -1,0 +1,140 @@
+#toast {
+  position: absolute;
+  top: 50px;
+  left: 40%;
+  width: 320px;
+  text-align: center;
+  z-index: 9999;
+}
+#drag {
+	color: #b94a48;
+	height: 180px;
+	width: 320px;
+	text-align: center;
+	position: absolute;
+	padding: 0px;
+	left: 40%;
+	top: 40%;
+	background: #EEEEEE;
+	z-index: 10;
+}
+#drag .alertTitle{
+	width: 100%;
+	height:30px;
+	background-color: #424F63;
+	padding: 0px;
+	color: #ffffff;
+	text-align: left;
+	padding-top: 5px;
+}
+#drag .alertTitle button{
+	color: #ffffff;
+}
+#drag .alertContent{
+	width: 100%;
+	height: 100px;
+	line-height: 100px;
+	float:left;
+	margin:0 auto;
+	
+	
+}
+#drag .alertFooter{
+	width: 100%;
+	height: auto;
+}
+
+.div_inline {
+	margin-left: 15px;
+	margin-top: 15px;
+}
+
+.ml_15{
+	margin-left:15px;
+}
+.mr_10 {
+	margin-right: 10px;
+}
+.mt_15{
+	margin-top: 15px;
+}
+
+.form-group select {
+	width:100px ! improtant;
+	margin-right:5px;
+	
+}
+.size_font .form-group label {
+	width:75px;
+}
+.size_font .form-inline  label {
+	width:75px;
+}
+.size_font .form-group .line {
+	width:20px;
+}
+.size_font .form-inline .line {
+	width:20px;
+}
+
+.checkbox label {
+margin-right:10px;
+}
+.form-inline  select {
+	margin-right:5px;
+}
+
+select{
+	border:1px solid #374152;
+}
+
+select:hover{
+	border:1px solid #374152;
+}
+select:active{
+	border:1px solid #374152;
+}
+
+select:focus{
+	border:1px solid #374152;
+}
+
+.mr_10{
+	margin-right:10px;
+}
+
+.form-group .label_inline {
+	margin-left: 10px;
+}
+
+.form-group .dateinline {
+	height: 35px;
+	border: 1px solid #ccc;
+}
+.select{
+    width:175px;
+	height:35px;
+	border-radius: 4px;
+    border: 1px solid #ccc;
+    text-align:center;
+    line-height:35px;
+}
+.pr_7{
+	padding-left: 0px;
+	padding-right:7px;
+}
+
+.select_good{
+    width:105px;
+	height:35px;
+	border-radius: 4px;
+    border: 1px solid #ccc;
+    text-align:center;
+    line-height:35px;
+}
+.panel-table{
+	width: 100%;overflow: auto;overflow-y: hidden;
+}
+.panel-table-line{
+	white-space: nowrap;overflow: hidden;
+}

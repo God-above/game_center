@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<link rel="8liuliang icon" href="./img/index_img/8liuliang.ico">
+<link href="./css/buy.css" rel="stylesheet">
+<title>8流量首页</title>
+</head>
+<body>
+	<div id="main">
+		<!-- 导航 -->
+		<div class="top_bar">
+			<div class="top_title">
+				欢迎来到8流量！<a href="./upgrade.html"> 请登录/免费注册</a>
+			</div>
+			<div class="top_dh">
+				<div class="top_content">
+					<img src="./img/new_img/LOGO.png" />
+					<div class="top_nav">
+						<div class="top_nav_button"
+							onclick="javascript:window.location='./index.html'">首页</div>
+						<div class="top_nav_button"
+							onclick="javascript:window.location='./service.html'">产品</div>
+						<div class="top_nav_button"
+							onclick="javascript:window.location='./plan.html'">方案</div>
+						<div class="top_nav_button" onclick="javascript:window.location='./about.html'">关于我们</div>
+						<div class="top_nav_button active"  id="flowgo">
+							<img src="./img/new_img/flowgo2.png">
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- 导航 -->
+
+		<!-- 顶部导航栏 结束 -->
+		<!-- 动画展示开始 -->
+		<div class="banner" style="height:210px;background:#011748;">
+		 <div style="height:210px;width:960px;margin:0 auto;background:url('./img/buy/banner.jpg') no-repeat;"></div>
+		</div>
+		<div class="tab_title" style="padding: 0px; margin: 0px;">
+			<div class="tab_content">
+				<div class="tabClass">
+					<div class="dx_active"><img src="./img/buy/dianxin_c.png" id="dx_img" style="float:left;margin-top:12px;padding-left:30px;" /><span style="float:left;margin-left:10px;">电信流量</span></div>
+					<div class="lt"><img src="./img/buy/liantong.png" id="lt_img" style="float:left;margin-top:15px;padding-left:30px;" /><span style="float:left;margin-left:10px;">联通流量</span></div>
+					<div class="yd"><img src="./img/buy/yidong.png" id="yd_img" style="float:left;margin-top:10px;padding-left:30px;" /><span style="float:left;margin-left:10px;">移动流量</span></div>
+					<div class="qg"><img src="./img/buy/sanwang.png"  id="qg_img" style="float:left;margin-top:15px;padding-left:30px;" /><span style="float:left;margin-left:10px;">全国流量</span></div>
+				</div>
+			</div>
+
+		</div>
+		<!-- tab1 -->
+		<div class="buy" id="buy1">
+		    <div style="width:240px;height:10px;background:#0f4491;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></div>
+			<div style="width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 10px solid #0f4491; position: absolute; margin-top: 0px; margin-left: 105px;"></div>
+			<div id="tab1">
+				<div class="selectOne">
+					<img src="./img/buy/index_icon.png" class="img_icon" />
+				</div>
+				<div class="img_content">
+					<div class="title">请选择流量包</div>
+					<div class="title1">
+						<span>温馨提示：流量包为省内流量，目前支持全国电信2G、3G、4G用户。</span>
+					</div>
+					<div class="selectLiuliang" onclick="getPrice('5M',0.95,'dx')">
+						<div class="selectLiuliang_leftBg">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">5</span> <span class="count">M</span> <span
+								class="price">/0.95元</span>
+						</div>
+					</div>
+					<div class="selectLiuliang" onclick="getPrice('10M',1.90,'dx')">
+						<div class="selectLiuliang_leftBg hover_box">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">10</span> <span class="count">M</span> <span
+								class="price">/1.90元</span>
+						</div>
+					</div>
+					<div class="selectLiuliang" onclick="getPrice('20M',4.75,'dx')">
+
+						<div class="selectLiuliang_leftBg">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">30</span> <span class="count">M</span> <span
+								class="price">/4.75元</span>
+						</div>
+					</div>
+
+					<div class="selectLiuliang" onclick="getPrice('50M',6.65,'dx')">
+
+						<div class="selectLiuliang_leftBg">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">50</span> <span class="count">M</span> <span
+								class="price">/6.65元</span>
+						</div>
+					</div>
+
+					<div class="selectLiuliang" onclick="getPrice('100M',9.50,'dx')">
+
+						<div class="selectLiuliang_leftBg">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">100</span> <span class="count">M</span> <span
+								class="price">/9.50元</span>
+						</div>
+					</div>
+					<div class="selectLiuliang" onclick="getPrice('200M',14.25,'dx')">
+
+						<div class="selectLiuliang_leftBg">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">200</span> <span class="count">M</span> <span
+								class="price">/14.25元</span>
+						</div>
+					</div>
+					<div class="selectLiuliang" onclick="getPrice('100M',28.50,'dx')">
+
+						<div class="selectLiuliang_leftBg">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">500</span> <span class="count">M</span> <span
+								class="price">/28.50元</span>
+						</div>
+					</div>
+					<div class="selectLiuliang" onclick="getPrice('1G',47.50,'dx')">
+
+						<div class="selectLiuliang_leftBg">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">1</span> <span class="count">G</span> <span
+								class="price">/47.50元</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="selectTwo">
+
+					<img src="./img/buy/index_icon.png" class="img_icon" />
+
+				</div>
+				<div class="img_contentTwo">
+					<div class="buy_want">我要购买</div>
+					<a class="buy_want_minis" onclick="minisCount1()"></a> <input type="text" id="size1" onkeyup="getSize1(this.value)"  onafterpaste="this.value=this.value.replace(/\D/g,'')"  onkeyup="onkeyupDoValue(this)" maxlength="5"  name="amount" type="text" 
+						class="buy_want_input" > <a class="buy_want_add" onclick="addCount1()"></a>
+					<div class="buy_want_size">
+						个流量包<span style="font-size: 14px;">（每次限购10000个）</span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="line"></div>
+
+			<div class="buy_confim">
+				<div class="moneyContent">
+
+					<div class="paySize">实付款：</div>
+					<div class="priceContent">
+						<div style="float: left; margin-top: 5px;">￥</div>
+						<div id="actually_paid_id"
+							style="float: left; height: 40px; line-height: 40px;">
+							<span style="font-size: 40px; color: #ff6600;" class="totalprice" id="totalprice1">0</span><span
+								style="font-size: 24px; color: #ff6600;"></span>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+				</div>
+
+				<div class="buttonMain">
+					<a class="button" style="text-decoration:none;" onclick="goLogin1()">立即购买</a>
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<!-- tab2-->
+			<div class="buy" id="buy2" style="display:none;">
+		    <div style="margin-left:240px;width:240px;height:10px;background:#d7000f;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></div>
+			<div style="width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 10px solid #d7000f; position: absolute; margin-top: 0px; margin-left: 345px;"></div>
+			<div id="tab1">
+				<div class="selectOne">
+					<img src="./img/buy/index_icon.png" class="img_icon" />
+				</div>
+				<div class="img_content">
+					<div class="title">请选择流量包</div>
+					<div class="title1">
+						<span>温馨提示：流量包为全国流量，目前支持全国联通2G、3G、4G用户。</span>
+					</div>
+					<div class="selectLiuliang" onclick="getTwoPrice('50M',6.83,'lt')">
+						<div class="selectLiuliang_leftBg">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">50</span> <span class="count">M</span> <span
+								class="price">/6.83元</span>
+						</div>
+					</div>
+					<div class="selectLiuliang" onclick="getTwoPrice('200M',17.38,'lt')">
+						<div class="selectLiuliang_leftBg hover_box">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">200</span> <span class="count">M</span> <span
+								class="price">/17.38元</span>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="selectTwo">
+
+					<img src="./img/buy/index_icon.png" class="img_icon" />
+
+				</div>
+				<div class="img_contentTwo">
+					<div class="buy_want">我要购买</div>
+					<a class="buy_want_minis" onclick="minisCount2()"></a> <input type="text" id="size2" onkeyup="getSize2(this.value)"  onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="5" size="14" name="amount" type="text" 
+						class="buy_want_input" > <a class="buy_want_add" onclick="addCount2()"></a>
+					<div class="buy_want_size">
+						个流量包<span style="font-size: 14px;">（每次限购10000个）</span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="line"></div>
+
+			<div class="buy_confim">
+				<div class="moneyContent">
+
+					<div class="paySize">实付款：</div>
+					<div class="priceContent">
+						<div style="float: left; margin-top: 5px;">￥</div>
+						<div id="actually_paid_id"
+							style="float: left; height: 40px; line-height: 40px;">
+							<span style="font-size: 40px; color: #ff6600;" class="totalprice" id="totalprice2">0</span><span
+								style="font-size: 24px; color: #ff6600;"></span>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+				</div>
+
+				<div class="buttonMain">
+					<a class="button" style="text-decoration:none;" onclick="goLogin2()">立即购买</a>
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+		</div>
+		<!-- tab3-->
+			<div class="buy" id="buy3" style="display:none;">
+		    <div style="margin-left:480px;width:240px;height:10px;background:#005cac;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></div>
+			<div style="width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 10px solid #005cac; position: absolute; margin-top: 0px; margin-left: 585px;"></div>
+			<div id="tab1">
+				<div class="selectOne">
+					<img src="./img/buy/index_icon.png" class="img_icon" />
+				</div>
+				<div class="img_content">
+					<div class="title">请选择流量包</div>
+					<div class="title1">
+						<span>温馨提示：流量包为全国流量，目前支持全国移动2G、3G、4G用户。</span>
+					</div>
+					<div class="selectLiuliang" onclick="getThreePrice('2M',0.85,'yd')">
+						<div class="selectLiuliang_leftBg">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">2</span> <span class="count">M</span> <span
+								class="price">/0.85元</span>
+						</div>
+					</div>
+					<div class="selectLiuliang" onclick="getThreePrice('10M',2.54,'yd')">
+						<div class="selectLiuliang_leftBg hover_box">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">10</span> <span class="count">M</span> <span
+								class="price">/2.54元</span>
+						</div>
+					</div>
+					<div class="selectLiuliang" onclick="getThreePrice('30M',4.25,'yd')">
+						<div class="selectLiuliang_leftBg hover_box">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">30</span> <span class="count">M</span> <span
+								class="price">/4.25元</span>
+						</div>
+					</div>
+					<div class="selectLiuliang" onclick="getThreePrice('100M',8.51,'yd')">
+						<div class="selectLiuliang_leftBg hover_box">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">100</span> <span class="count">M</span> <span
+								class="price">/8.51元</span>
+						</div>
+					</div>
+					<div class="selectLiuliang" onclick="getThreePrice('1G',44.10,'yd')">
+						<div class="selectLiuliang_leftBg hover_box">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">1</span> <span class="count">G</span> <span
+								class="price">/44.10元</span>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="selectTwo">
+
+					<img src="./img/buy/index_icon.png" class="img_icon" />
+
+				</div>
+				<div class="img_contentTwo">
+					<div class="buy_want">我要购买</div>
+					<a class="buy_want_minis" onclick="minisCount3()"></a> <input type="text" id="size3" onkeyup="getSize3(this.value)"  onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="5" size="14" name="amount" type="text" 
+						class="buy_want_input" > <a class="buy_want_add" onclick="addCount3()"></a>
+					<div class="buy_want_size">
+						个流量包<span style="font-size: 14px;">（每次限购10000个）</span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="line"></div>
+
+			<div class="buy_confim">
+				<div class="moneyContent">
+
+					<div class="paySize">实付款：</div>
+					<div class="priceContent">
+						<div style="float: left; margin-top: 5px;">￥</div>
+						<div id="actually_paid_id"
+							style="float: left; height: 40px; line-height: 40px;">
+							<span style="font-size: 40px; color: #ff6600;" class="totalprice" id="totalprice3">0</span><span
+								style="font-size: 24px; color: #ff6600;"></span>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+				</div>
+
+				<div class="buttonMain">
+					<a class="button" style="text-decoration:none;" onclick="goLogin3()">立即购买</a>
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- tab4-->
+			<div class="buy" id="buy4" style="display:none;">
+		    <div style="margin-left:720px;width:240px;height:10px;background:#a0c944;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></div>
+			<div style="width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 10px solid #a0c944; position: absolute; margin-top: 0px; margin-left:830px;"></div>
+			<div id="tab1">
+				<div class="selectOne">
+					<img src="./img/buy/index_icon.png" class="img_icon" />
+				</div>
+				<div class="img_content">
+					<div class="title">请选择流量包</div>
+					<div class="title1">
+						<span>温馨提示：流量包为全国流量，目前支持全国联通，全国电信,全国移动2G、3G、4G用户。</span>
+					</div>
+					<div class="selectLiuliang" onclick="getFourPrice('100M',15,'qg')">
+						<div class="selectLiuliang_leftBg">
+							<div class="selectLiuliang_leftIcon"></div>
+						</div>
+						<div class="selectLiuliang_rightSize">
+							<span class="num">100</span> <span class="count">M</span> <span
+								class="price">/15.00元</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="selectTwo">
+
+					<img src="./img/buy/index_icon.png" class="img_icon" />
+
+				</div>
+				<div class="img_contentTwo">
+					<div class="buy_want">我要购买</div>
+					<a class="buy_want_minis" onclick="minisCount4()"></a> <input type="text" id="size4" onkeyup="getSize4(this.value)"  onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="5" size="14" name="amount" type="text" 
+						class="buy_want_input" > <a class="buy_want_add" onclick="addCount4()"></a>
+					<div class="buy_want_size">
+						个流量包<span style="font-size: 14px;">（每次限购10000个）</span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="line"></div>
+
+			<div class="buy_confim">
+				<div class="moneyContent">
+
+					<div class="paySize">实付款：</div>
+					<div class="priceContent">
+						<div style="float: left; margin-top: 5px;">￥</div>
+						<div id="actually_paid_id"
+							style="float: left; height: 40px; line-height: 40px;">
+							<span style="font-size: 40px; color: #ff6600;" class="totalprice" id="totalprice4">0</span><span
+								style="font-size: 24px; color: #ff6600;"></span>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+				</div>
+
+				<div class="buttonMain">
+					<a class="button" style="text-decoration:none;" onclick="goLogin4()">立即购买</a>
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	 <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=834400572&site=qq&menu=yes" style="position: fixed;z-index: 10;bottom: 120px;left:40px;"><img border="0" src="./img/buy/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></div>
+		
+	<div class="main_bottom">Copyright © 江苏奇点网络有限公司 版权所有
+		苏ICP备14050048号-3</div>
+
+</body>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/buy.js"></script>
+</html>

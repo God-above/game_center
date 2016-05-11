@@ -1,0 +1,124 @@
+<div ng-init=vm.batchInit()>
+	<div class="panel panel-default" ng-class="{hidden: vm.hidden}">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 批次订单查询 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vm.collapsed = !vm.collapsed"></span>
+				</span>
+			</h4>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body size_font" id='batch'>
+				<!-- 第一行 -->
+			
+				
+				<form class="form-horizontal mt_20" role="form">
+					<div class="form-group">
+						<div class="col-md-4">
+							<input type="text" placeholder="批次编号/批次名称/商品编号/商品名称"
+								class="form-control" ng-model="searchContent" />
+						</div>
+						<div class="col-md-3">
+							<input type="text" placeholder="注册用户账号名" class="form-control"
+								id="userInfo" ng-model="userInfo">
+						</div>
+					</div>
+				</form>
+				
+				<form class="form-inline mt_15">
+					<label for="inputPassword">批次状态:</label> <select class="select"
+						ng-model="status" id="status"
+						ng-options="status.code as status.name for status in vm.orderStatus">
+						<option value="">全部</option>
+					</select> <label for="inputPassword">批次金额:</label> <input type="text"
+						class="form-control" placeholder="最低金额" ng-model="startTotalPrice" />
+					<label class="line">—</label> <input type="text"
+						class="form-control" placeholder="最高金额" ng-model="endTotalPrice" />
+				</form>
+				<form class="form-inline mt_15">
+					<label for="inputPassword">排序方式:</label> <select class="select"
+						id="status" ng-model="sortType">
+						<option value="">全部</option>
+						<option value="create">创建时间</option>
+						<option value="update">更新时间</option>
+					</select> <label for="inputPassword">创建时间:</label> <input
+						class="Wdate date input-group form-control" style="height: 34px;"
+						type="text" id="startCreateTime"
+						onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+						placeholder="请选择开始时间" ng-model="startCreateTime"> <label
+						class="line">—</label> <input
+						class="Wdate date input-group form-control" style="height: 34px;"
+						type="text" id="endCreateTime"
+						onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+						placeholder="请选择截止时间" ng-model="endCreateDate">
+				</form>
+
+				<button class="btn btn-primary mt_15" type="button"
+					ng-click="vm.batchBtn()">查询</button>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default" ng-if="vm.batchList.length>0">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 批次订单列表 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vmList.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vmList.collapsed = !vmList.collapsed"></span>
+				</span>
+			</h4>
+
+		</div>
+		<div class="panel-collapse collapse"
+			ng-class="{in: !vmList.collapsed}">
+			<div class="panel-body">
+				<div class="table-responsive panel-table">
+					<table class="table table-hover panel-table-line">
+						<thead>
+							<tr>
+								<th>批次号</th>
+								<th>批次名称</th>
+								<th>批次状态</th>
+								<th>待充值</th>
+								<th>发货成功</th>
+								<th>发货中</th>
+								<th>发货失败</th>
+								<th>订购金额</th>
+								<th>订购数量</th>
+								<th>订购时间</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="batch in vm.batchList">
+								<td>{{batch.number}}</td>
+								<td>{{batch.name}}</td>
+								<td>{{vm.getStatusStr(batch.status)}}</td>
+								<td>{{batch.chargeAwaitTotal}}</td>
+								<td>{{batch.chargeSucceedTotal}}</td>
+								<td>{{batch.chargingTotal}}</td>
+								<td>{{batch.chargeFailedTotal}}</td>
+								<td>{{batch.totalPrice/100 |currency :""}}</td>
+								<td>{{batch.validAccountTotal}}</td>
+								<td>{{batch.createDate | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+								<td><span class="btn btn-primary"
+									ng-if="batch.status != 1 && batch.status != 2"
+									ng-click="vm.goDetail(batch.number)">查看详情</span> <span
+									ng-if="batch.status == 1 || batch.status == 2">---</span></td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- 页码  -->
+					<div id="listPage">
+						<expander> </expander>
+					</div>
+					<!-- 页码  -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

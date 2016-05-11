@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="www.8liuliang.com" />
+<meta name="viewport"
+	content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+<!-- Bootstrap -->
+<link href="css/bootstrap/bootstrap.css" rel="stylesheet">
+<script src="./js/angular/lib/jquery.js"></script>
+<style>
+body{
+background:#F7F7F7;
+font-family: "Microsoft YaHei" ! important;
+}
+
+.top{
+background:#337ab7;height:40px;line-height:40px;text-align:center;
+}
+.top span{
+color:#FFFFFF;font-size:16px; font-weight:bold;
+}
+.main{
+width:480px;margin:0 auto;
+}
+
+.main form{
+margin-top:80px;
+}
+.telErrorSpan,.quanErrorSpan,.pwdErrorSpan{
+	position: relative;
+	height: 32px;
+	line-height: 32px;
+	color: red;
+}
+.resultErrorSpan{
+	position: absolute;
+ 	 top: 60px;
+ 	 left: 40%;
+ 	 width: 320px;
+ 	 text-align: center;
+}
+</style>
+<script>
+$(function(){
+		var showError=function(span,text){
+			$(span).show();
+			$(span).text(text);
+		}
+		
+		var hideError=function(span){
+			$(span).hide();
+			$(span).text("");
+		}
+		var showMsg=function(span,text,time){
+			$(span).show();
+			$(span).text(text);
+			hideMsg(span,time)
+		}
+		var hideMsg=function(span,time){
+			setTimeout(function(){
+    			 hideError(span);
+    		}, time);
+		}
+	 $('#btn').click(function(){
+		 var myreg = /^1[3|4|5|7|8][0-9]\d{4,8}$/;
+		 
+	     if(!myreg.test($('#phone').val())){
+	    	 	showError('.telErrorSpan',"请输入有效的手机号码");
+	            return;
+	     }else{
+	    	 hideError('.telErrorSpan');
+	     }
+		 if($('#quan').val()==undefined || $('#quan').val()==""){
+			    showError('.quanErrorSpan',"请输入正确券号");
+	            return;
+		 }else{
+			 hideError('.quanErrorSpan');
+		 }
+		 if($('#quanPassword').val()==undefined || $('#quanPassword').val()==""){
+			    showError('.pwdErrorSpan',"请输入券号密码");
+	            return;
+		 }else{
+			  hideError('.pwdErrorSpan');
+		 }
+		 $.ajax({
+			 type:"POST",
+             url: "../coupon/singleExchange",
+             data: JSON.stringify({rechargeAccount:$('#phone').val(), couponCode:$('#quan').val(),couponScrect:$('#quanPassword').val()}),
+             dataType: "json",
+             success: function(data){
+            	 if(data.resultCode == 1){
+            		 showMsg('.resultErrorSpan',"兑换成功",3000);
+            	 }else{
+            		showMsg('.resultErrorSpan',data.resultMsg,3000);
+            	 }         
+             },
+             error : function(data){
+            	 showMsg('.resultErrorSpan',"兑换异常错误！",3000);
+             }
+         });
+	 });
+	
+})
+ 
+</script>
+<title>用户兑换页面</title>
+</head>
+<body>
+<div class="top">
+	<span>8流量卡券兑换</span>
+</div>
+<div class="main">
+ <span class="resultErrorSpan alert alert-danger" style="display: none;">sssssssssss</span>
+<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">手机号</label>
+    <input type="text" class="form-control" id="phone" placeholder="请输入11位手机号码">
+    <span class="telErrorSpan" style="display: none;"></span>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">兑换劵号</label>
+    <input type="text" class="form-control" id="quan" placeholder="请输入券号">
+    <span class="quanErrorSpan" style="display: none;"></span>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">券号卡密</label>
+    <input type="text" class="form-control" id="quanPassword" placeholder="请输入券号卡密">
+    <span class="pwdErrorSpan" style="display: none;"></span>
+  </div>
+  <button type="button" class="btn btn-primary btn-lg btn-block" id="btn">兑&nbsp&nbsp换</button>
+</form>
+</div>
+</body>
+</html>

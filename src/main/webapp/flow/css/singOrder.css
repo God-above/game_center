@@ -1,0 +1,52 @@
+.ng-hide {
+	/* this is just another form of hiding an element */
+	display: none !important;
+}
+
+/*table样式  不换行*/
+
+table {
+	white-space: nowrap; /*强制在同一行内显示所有文本，直到文本结束或者遭遇br对象*/
+	overflow: hidden;
+}
+.divStyle {
+	width: 100%;
+	overflow-x: scroll;
+}
+
+.mg_t_5 {
+	margin-top: 5px;
+}
+
+.mg_t_10 {
+	margin-top: 10px;
+}
+.mg_t_20 {
+	margin-top: 20px;
+}
+
+.mg_l_10{
+	margin-left: 10px;
+}
+.codeStyle {
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	color: #FF0000
+}
+.pd_t_5{
+	padding-top: 5px;
+}
+
+.couponLabel label{
+	width: auto;
+	display: inline-block;
+	margin-left: 10px;
+	padding:5px;
+}
+
+.proDiv div{
+	margin:5px;
+}

@@ -1,0 +1,79 @@
+<link href="../8flow/css/liuliang.css" rel="stylesheet">
+<div class="content">
+	<!-- <div class="row">
+		<div class="col-md-2"><a href="#confirmOrder">确认订单</a></div>
+		<div class="col-md-2"><a href="#confirmBack">确认退卡</a></div>
+	</div> -->
+	<div class="logo">手机号段筛选</div>
+	<div class="row mg_t_20 mg_l">
+		<!-- <input ng-file-select type="file" /> -->
+		<input class="form-control" type="file" name="phoneNum" ng-hide="true" ng-model="phoneNum"
+				onchange="angular.element(this).scope().selectFile(this)" />
+		<button class="btn btn-default btnCls"
+			ng-click="clickFile()">上传手机号</button> 
+		*仅支持  xls 格式
+	</div>
+	<div class="row mg_t_20 mg_l"  ng-show="false">
+		<div class="col-md-2">
+			<span class="glyphicon glyphicon-ok"></span><span id="fileName" class="mg_l_10"></span>
+		</div>
+		<a href="" ng-click="removeFile()">删除</a>
+	</div>
+	<div class="row mg_t_120 mg_l">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-6 col-md-6"><h5>共上传:{{countTotal}}0个手机号码</h5></div>
+					
+					<div class="mg_t_7 col-xs-6 col-md-6  text-right "><a href="" ng-click="clearAll()"><span class="glyphicon glyphicon-trash"></span>清空</a></div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="row text-center">
+						<div class="brColor col-md-3 col-xs-6 col-sm-6">
+							<p>中国移动</p>
+							<p><strong>{{cmccCount}}个</strong></p>
+							<p ng-if="cmccCount==0 || cmccCount==undefined || cmccCount==null || cmccCount==''">
+								<button class="btn  btnCls" ng-disabled="true">下载</button>
+							</p>
+							<p ng-if="cmccCount!=0 && cmccCount!=undefined && cmccCount!=null && cmccCount!=''">
+								<button class="btn btn-primary btnCls" >下载</button>
+							</p>
+						</div>
+						<div class="brColor col-md-3 col-xs-6 col-sm-6">
+							<p>中国联通</p>
+							<p><strong>{{cuccCount}}个</strong></p>
+							<p ng-if="cuccCount==0 || cuccCount==undefined || cuccCount==null || cuccCount==''">
+								<button class="btn btnCls " ng-disabled="true">下载</button>
+							</p>
+							<p ng-if="cuccCount!=0 && cuccCount!=undefined && cuccCount!=null && cuccCount!=''">
+								<button class="btn btn-primary btnCls" >下载</button>
+							</p>
+						</div>
+						<div class="brColor col-md-3 col-xs-6 col-sm-6">
+							<p>中国电信</p>
+							<p><strong>{{dxCount}}个</strong></p>
+							<p ng-if="dxCount==0 || dxCount==undefined || dxCount==null || dxCount==''">
+								<button class="btn btnCls" ng-disabled="true">下载</button>
+							</p>
+							<p ng-if="dxCount!=0 && dxCount!=undefined && dxCount!=null && dxCount!=''">
+								<button class="btn btn-primary btnCls" >下载</button>
+							</p>
+						</div>
+						<div class="col-md-3 text-center col-xs-6 col-sm-6">
+							<p>无效号码</p>
+							<p><strong>{{invalidCount}}个</strong></p>
+							<p ng-if="invalidCount==0 || invalidCount==undefined || invalidCount==null || invalidCount==''">
+								<button class="btn  btnCls" ng-disabled="true">下载</button>
+							</p>
+							<p ng-if="invalidCount!=0 && invalidCount!=undefined && invalidCount!=null && invalidCount!=''">
+								<button class="btn btn-primary btnCls" >下载</button>
+							</p>
+						</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	<div class="row mg_l">*下载文件为xxxxxxxxxxx格式</div>
+</div>

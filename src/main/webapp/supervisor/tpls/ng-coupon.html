@@ -1,0 +1,124 @@
+<div ng-init=vm.coupon()>
+	<div class="panel panel-default" ng-class="{hidden: vm.hidden}">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 优惠券管理 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vm.collapsed = !vm.collapsed"></span>
+				</span>
+			</h4>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body size_font" id='batch'>
+				<!-- 第一行 -->
+			
+				
+				<form class="form-horizontal mt_20" role="form">
+					<div class="form-group">
+						<div class="col-md-2">
+							<input type="text" placeholder="劵号"
+								class="form-control" ng-model="vm.searchNo" />
+						</div>
+						<div class="col-md-2">
+							<input type="text" placeholder="劵名称"
+								class="form-control" ng-model="vm.searchName" />
+						</div>
+						<div class="col-md-3">
+							<input type="text" placeholder="购买用户账号" class="form-control"
+								id="userInfo" ng-model="userInfo">
+						</div>
+					</div>
+				</form>
+				
+				<form class="form-inline mt_15">
+					<label for="inputPassword">劵状态:</label> 
+					<select class="select" ng-model="vm.status" id="status">
+						<option value="">全部</option>
+						<option value="1">可用</option>
+						<option value="2">已过期 </option>
+						<option value="3">未开始</option>
+						<option value="4">已消费</option>
+					</select>
+					<label for="inputPassword">通用状态:</label> 
+					<select class="select" ng-model="vm.isAlive" id="status">
+						<option value="">全部</option>
+						<option value="1">正常</option>
+						<option value="0">使用 </option>
+					</select>
+				</form>
+				<button class="btn btn-primary mt_15" type="button"
+					ng-click="vm.batchBtn(1,'btn')">查询</button>
+
+			</div>
+		</div>
+	</div>
+	<!-- table显示   -->
+	<div class="panel panel-default" ng-show="vm.couponList.length>0">
+		<div class="panel-heading">
+			<div class="form-group">
+				<div class="col-md-2">优惠券列表</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<!-- table  -->
+			<div class="table-responsive panel-table">
+			<table class="table  table-hover panel-table-line">
+				<thead>
+					<tr>
+						<th>优惠券号</th>
+						<th>优惠券名称</th>
+						<th>订单号</th>
+						<th>优惠券价值/元</th>
+						<th>创建时间</th>
+						<th>是否停用</th>
+						<th>用户编号</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="coupon in vm.couponList"
+						ng-class="{true: 'danger', false: 'inactive'}[coupon.status==0]">
+						<td class="hand" ng-mouseover="getGoods(this,coupon.couponCode)"
+							ng-mouseout="getTime(this)"
+							ng-click="showGoodsGo(coupon.couponCode)">{{coupon.couponCode}}
+						</td>
+						<td ng-mouseover="getGoods(this,coupon.name)"
+							ng-mouseout="getTime(this)">
+							{{{true:coupon.name,false:'暂无'}[coupon.name!=null && coupon.name!='']}}
+						</td>
+						<td>{{coupon.batchCode}}</td>
+						<td>{{coupon.value /100| currency :''}}</td>
+						<td ng-mouseover="getGoods(this,coupon.createDateText)"
+							ng-mouseout="getTime(this)">{{coupon.createDateText}}</td>
+						<td>
+							{{{true:'使用',false:'停用'}[coupon.isAlive==true]}}
+						</td>
+						<td>{{coupon.userId}}</td>
+						<td>{{coupon.stateText}}</td>
+						<td>
+							<a href="#couponDetail/{{coupon.couponCode}}">查看详情</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<!--table  -->
+			<!-- 页码  -->
+			<div id="listPage">
+			        <tm-pagination conf="paginationConf"> </tm-pagination>
+					<!-- <expander>
+					
+					</expander> -->
+			</div>
+			<!-- 页码  -->
+		</div>
+	</div>
+	<!-- table显示   -->
+	<!-- 浮动显示  -->
+	<div class="toastTiger1" id="liu" ng-show="test11"
+		ng-mouseout="outOrder()">{{vm.couponList}}</div>
+
+
+</div>

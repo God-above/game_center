@@ -1,0 +1,46 @@
+
+#listPage{
+	width:100%;
+   text-align:center;
+   height:45px;
+   margin-bottom:20px;
+   
+}
+
+#listPage .pagination a {
+    border: 0px;
+    margin: 5px;
+}
+
+#listPage .pagination .gopage {
+	cursor: pointer;
+    color: #424F63;
+}
+
+
+
+
+#listPage .pagination .nopage {
+	cursor: default;
+	margin-top: 2px;
+    color: #aaaaaa;
+    background: #FFFFFF; 
+    border:0px;
+}
+#listPage .pagination input {
+    width: 40px;
+    margin-top: 6px;
+}
+
+#listPage .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus, .pagination > li.active > a, .pagination > li.active > a:hover, .pager li > a:hover, .pager li > a:focus {
+background-color: #424F63;
+border-color: #FFFFFF;
+color: #fff;
+}
+#listPage .pagination li .active {
+	position: relative;
+	top:-1px;
+	font-size:14px;
+	font-weight: bold;
+	bottom:-100;
+	}

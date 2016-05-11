@@ -1,0 +1,294 @@
+<link href="css/buyCar.css" rel="stylesheet">
+<style>
+.telDiv {
+	width: 100%;
+	height: 40px;
+	background: #F5F5F5;
+	border: 1px #eeeeee solid;
+	padding-left: 10px;
+	margin-top: 118px;
+}
+</style>
+<div ng-init="vm.buyCarInit()">
+
+	<div class="select_product buy_car_list">
+		<div class="top">
+			<span> 批次购卡(每次最多能选择10个商品)</span>
+		</div>
+		<!-- begin  tab-->
+		<div class="buyCarTab" style="margin: 20px 0;">
+			<div class="tab tab_hover"
+				ng-class="{true: 'tab_hover'}[vm.tabContent==1]"
+				ng-click="vm.showTab(1)">
+				<div class="title" style="left: 23px;">单商品</div>
+				<div class="san" ng-show="vm.tabContent==1"></div>
+			</div>
+			<div class="tab" ng-class="{true: 'tab_hover'}[vm.tabContent==2]"
+				ng-click="vm.showTab(2)">
+				<div class="title" style="left: 22px;">混合包</div>
+				<div class="san" ng-show="vm.tabContent==2"></div>
+			</div>
+		</div>
+		<!-- /end  tab-->
+		<div class="tabContent" ng-show="vm.tabContent==1">
+			<!-- area -->
+			<form class="form-inline" style="display: none;">
+				<div class="form-group">
+					<label>支持地域</label> <select class="form-control">
+						<option>请选择地域</option>
+						<option>北京</option>
+						<option>上海</option>
+						<option>广州</option>
+					</select>
+				</div>
+			</form>
+			<!-- 运营商 -->
+			<form class="form-inline carrieroperator" style="float: left">
+				<div class="form-group yunying">
+					<label>运营商</label> <img src="./img/index/yd.jpg" class="boxY"
+						id="yd" ng-click="vm.getOperator('yd',1)"> <img
+						src="./img/index/lt.jpg" class="boxY" id="lt"
+						ng-click="vm.getOperator('lt',1)"> <img
+						src="./img/index/dx.jpg" class="boxY" id="dx"
+						ng-click="vm.getOperator('dx',1)">
+				</div>
+			</form>
+			<!-- 面值 -->
+			<div class="face_value">
+				<label
+					style="float: left; color: #a7a7a7; width: 80px; height: 40px; line-height: 40px; text-align: center left">选择面值</label>
+				<div style="margin-left: 50px;" ng-show="vm.productList.length > 0">
+					<ul style="float: left; width: 520px;">
+						<li ng-repeat="pro in vm.productList"
+							ng-click="vm.getValue(pro,$index)"
+							ng-class='{selected: $index==selectedRow}'
+							onselectstart="return false">{{pro.par}}</li>
+
+					</ul>
+
+				</div>
+
+				<div ng-show="vm.productList==undefined">
+					<span>请选择运营商，或者该分类下暂无商品选择</span>
+				</div>
+
+			</div>
+			
+			<!-- count -->
+			<form class="form-inline count" style="float: left; width: 100%">
+				<div class="form-group">
+					<label>数量</label> <input type="text" class="form-control"
+						style="margin-left: 10px;" ng-keyup="vm.inValue()"
+						ng-model="count">
+					<p style="float: left">张</p>
+				</div>
+			</form>
+			<form class="form-inline singleValue"
+				style="float: left; width: 100%">
+				<div class="form-group">
+					<label>售价</label>
+				</div>
+				<div class="form-group">
+					<p id="totalPrice">{{vm.totalSingle() | currency : '￥'}}元</p>
+				</div>
+			</form>
+			<form class="form-inline" style="float: left; width: 100%">
+				<div class="form-group">
+					<label></label>
+					<button class="primaryBtn" ng-click="vm.addList()">加入清单</button>
+				</div>
+			</form>
+		</div>
+		<div class="tabContent" ng-show="vm.tabContent==2">
+			<!-- area -->
+			<form class="form-inline" style="display: none;">
+				<div class="form-group">
+					<label>支持地域</label> <select class="form-control">
+						<option>请选择地域</option>
+						<option>北京</option>
+						<option>上海</option>
+						<option>广州</option>
+					</select>
+				</div>
+			</form>
+			
+			
+            <div class="face_value2">
+                <label
+                    style="float: left; color: #a7a7a7; width: 80px; height: 40px; line-height: 40px; text-align: center left">中国移动：</label>
+                <div style="margin-left: 50px;" ng-show="vm.ydProList.length > 0">
+                    <ul style="float: left; width: 520px;">
+                        <li ng-repeat="pro in vm.ydProList"
+                            ng-click="vm.getValue(pro,$index,'yd')"
+                            ng-class='{selected: $index==selectedRow1}'
+                            onselectstart="return false">{{pro.par}}</li>
+                    </ul>
+                </div>
+                <div ng-show="vm.ydProList==undefined">
+                    <span>请选择运营商，或者该分类下暂无商品选择</span>
+                </div>
+            </div>
+           
+            <div class="face_value2">
+                <label
+                    style="float: left; color: #a7a7a7; width: 80px; height: 40px; line-height: 40px; text-align: center left">中国联通：</label>
+                <div style="margin-left: 50px;" ng-show="vm.ltProList.length > 0">
+                    <ul style="float: left; width: 520px;">
+                        <li ng-repeat="pro in vm.ltProList"
+                            ng-click="vm.getValue(pro,$index,'lt')"
+                            ng-class='{selected: $index==selectedRow2}'
+                            onselectstart="return false">{{pro.par}}</li>
+                    </ul>
+                </div>
+                <div ng-show="vm.ltProList==undefined">
+                    <span>请选择运营商，或者该分类下暂无商品选择</span>
+                </div>
+            </div>
+            <div class="face_value2">
+                <label
+                    style="float: left; color: #a7a7a7; width: 80px; height: 40px; line-height: 40px; text-align: center left">中国电信：</label>
+                <div style="margin-left: 50px;" ng-show="vm.dxProList.length > 0">
+                    <ul style="float: left; width: 520px;">
+                        <li ng-repeat="pro in vm.dxProList"
+                            ng-click="vm.getValue(pro,$index,'dx')"
+                            ng-class='{selected: $index==selectedRow3}'
+                            onselectstart="return false">{{pro.par}}</li>
+                    </ul>
+                </div>
+                <div ng-show="vm.dxProList==undefined">
+                    <span>请选择运营商，或者该分类下暂无商品选择</span>
+                </div>
+            </div>
+			
+			<!--  售价 -->
+			<!-- <form class="form-inline singleValue"
+                style="float: left; width: 100%">
+                <div class="form-group">
+                    <label>售价</label>
+                </div>
+                <div class="form-group">
+                    <p id="totalPrice">{{{true:pm.sValue,false:'0.00'}[!!pm.sValue] /100| currency : '￥'}}元</p>
+                </div>
+            </form> -->
+
+          
+			<!-- count -->
+			<form class="form-inline count" style="float: left; width: 100%; margin-top: 20px; ">
+				<div class="form-group">
+					<label>数量</label> <input type="text" class="form-control"
+						style="margin-left: 10px;" ng-keyup="vm.inValue()"
+						ng-model="count">
+					<p style="float: left">张</p>
+				</div>
+			</form>
+			<form class="form-inline singleValue"
+				style="float: left; width: 100%">
+				<div class="form-group">
+					<label>总价</label>
+				</div>
+				<div class="form-group">
+					<p id="totalPrice">{{vm.totalSingle() | currency : '￥'}}元</p>
+				</div>
+			</form>
+			<form class="form-inline" style="float: left; width: 100%">
+				<div class="form-group">
+					<label></label>
+					<button class="primaryBtn" ng-click="vm.addList(2)">加入清单</button>
+				</div>
+			</form>
+		</div>
+
+		<form class="form-inline" style="float: left; width: 100%">
+			<div class="telDiv">
+				<span>批量购买，可获得额外折扣，客服电话：400-870-2280；联系电话:021-58373227 </span><br />
+				<!-- <span>客服电话：400-870-2280</span><br/>
+				<span>联系电话：021-58373227 </span> -->
+			</div>
+		</form>
+	</div>
+
+	<div class="shopppingCarList">
+		<div class="top">
+			<span class="left">购物清单({{vm.buyCarList.length}})</span>
+		</div>
+		<div class="middle">
+			<div style="height: 516px; overflow-x: auto;">
+				<ul>
+					<li ng-repeat="b_car in vm.buyCarList">
+						<p>
+							{{b_car.name}}<span class="del" ng-click="vm.del(b_car)">删除</span>
+						</p>
+						<p>
+							购买数量 <span class="buy_min" ng-click="vm.minCount(b_car)"
+								onselectstart="return false">-</span><input type="text"
+								class="buy_input" ng-model="b_car.count"
+								ng-keyup="inValue(b_car)" /><span class="buy_add"
+								ng-click="vm.addCount(b_car)" onselectstart="return false">+</span><span
+								class="buy_size">张</span>
+						</p>
+						<p>{{b_totalPrice(b_car) | currency : '￥'}}</p>
+					</li>
+				</ul>
+			</div>
+			<div class="down" data-toggle="modal" data-target="#myModal"
+				ng-show="vm.buyCarList.length > 1">
+				<div>展开全部订单</div>
+				<div class="glyphicon glyphicon-triangle-bottom"></div>
+			</div>
+
+			<div class="bottom">
+				<div class="size">合计:{{totalCart() | currency : '￥'}}</div>
+				<div class="btn btn-primary" ng-click="vm.orderBuy()">结算</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>
+<!-- CartList -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog dialog_Car" style="margin-top: 300px;">
+		<div class="modal-content" style="border-radius: 0px;">
+			<div class="modal-body dialog_Car">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="total">
+					<span>总计：{{totalCart() | currency : '￥'}}元</span>
+				</div>
+
+
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr class="active">
+							<th>商品</th>
+							<th>数量</th>
+							<th>金额</th>
+							<th>操作</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="pro in vm.buyCarList">
+							<td>{{pro.name}}</td>
+							<td><span class="buy_min" ng-click="vm.minCount(pro)"
+								onselectstart="return false">-</span><input type="text"
+								class="buy_input" ng-model="pro.count" ng-keyup="inValue(pro)" /><span
+								class="buy_add" ng-click="vm.addCount(pro)"
+								onselectstart="return false">+</span><span class="buy_size">张</span></td>
+							<td>{{b_totalPrice(pro) | currency : '￥'}}</td>
+							<td><span ng-click="vm.del(pro)" style="color: #2797cf">删除</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<button type="button" class="btn btn-primary"
+					ng-click="vm.orderBuy()">结算</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,147 @@
+<div ng-init="initRecord()">
+	<div class="panel panel-default">
+		<div class="panel-heading">用户充值</div>
+		<div class="panel-body size_font">
+			<!-- <a href="#userAdd">
+				<button type="button" class="btn btn-primary">
+					<span class="glyphicon glyphicon-plus"></span>新增用户
+				</button>
+			</a> -->
+			<form class="form-horizontal">
+				<div class="form-group mt_15">
+						<div class="col-md-9" >
+							<div class="input-group">
+								<input type="text" placeholder="输入流水号/用户编号/用户名称进行查询"
+									class="form-control"  ng-model="searchText" maxlength="40">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" type="button"
+										ng-click="searchbtn()">查询</button>
+								</span>
+							</div>
+						</div>
+				</div>
+			</form>
+			<form class="form-inline mt_15">
+            <label for="inputPassword">资产类型:</label>
+				<select class="select"
+						ng-model="flowType" id="flowType"
+						ng-options="types.code as types.description for types in flowTypes">
+						<option value="">全部</option>
+				</select>
+			<label for="inputPassword">创建时间:</label>
+			<input class="Wdate date input-group form-control"
+									style="height: 34px;" type="text" 
+									id="start_time"
+									onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+									placeholder="创建开始时间" ng-model="start_time">
+			<label class="line">—</label>
+			<input class="Wdate date input-group form-control"
+									style="height: 34px;" type="text" 
+									id="end_time"
+									onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+									placeholder="创建结束时间" ng-model="end_time">
+            </form>
+            <form class="form-inline mt_15">
+				<label for="inputPassword">资金状态:</label>
+				<select class="select"
+						ng-model="status" id="status"
+						ng-options="payStatus.code as payStatus.description for payStatus in payStatusList">
+						<option value="">全部</option>
+				</select>
+				<input ng-model="disableReason" class="form-control"
+								placeholder="输入禁用原因" ng-show="status==0" />
+           		<label for="inputPassword">用户金额:</label>
+				<input type="text" class="form-control" placeholder="最低金额"
+										ng-model="minPrice" />
+				<label class="line">—</label>
+				<input type="text" class="form-control" placeholder="最高金额"
+									ng-model="maxPrice" />	
+            </form>
+		</div>
+	</div>
+	<div class="panel panel-default" ng-show="userRecordList.length>0">
+		<div class="panel-heading">充值列表</div>
+		<div class="panel-body">
+			<div>
+				<div class="table-responsive panel-table" >
+					<table class="table panel-table-line">
+						<thead>
+							<tr>
+								<th>流水号</th>
+								<th>用户编号</th>
+								<th>用户名称</th>
+								<th>资产金额/元</th>
+								<th>资金流水类型</th>
+								<th>创建时间</th>
+								<th>资产类型</th>
+								<th>操作人</th>
+								<th>资金状态</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="user in userRecordList" ng-class="{true: 'danger', false: ''}[user.status==0]">
+								<td>{{{true:user.flowNo,false:'---'}[user.flowNo!=undefined
+									&& user.flowNo!=null&& user.flowNo!='']}}</td>
+								<td>{{{true:user.userCode,false:'---'}[user.userCode!=undefined
+									&& user.userCode!=null&& user.userCode!='']}}</td>
+								<td>{{{true:user.userName,false:'---'}[user.userName!=undefined
+									&& user.userName!=null&& user.userName!='']}}</td>
+								<td>{{{true:user.amount/100,false:'---'}[user.amount!=undefined
+									&& user.amount!=null && user.amount!='']|currency:''}}</td>
+								<td>{{getTypeStr(user.type)}}</td>
+								<td>{{{true:user.createDate,false:'---'}[user.createDate!=undefined
+									&& user.createDate!=null && user.createDate!=""]|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+
+								<td>
+									{{user.flowAssetTypeStr}}
+									<!-- <span ng-if="user.flowAssetType==1">积分</span>
+									<span ng-if="user.flowAssetType==2">余额</span> -->
+								</td>
+								<td>{{{true:user.operateName,false:'---'}[user.operateName!=undefined
+									&& user.operateName!=null]}}</td>
+								<td>{{getStatuStr(user.status)}}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="listPage">
+					<expander>
+					
+					</expander>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="newmyModal" ng-show="newshowpupupDiv"
+	style="display: none;">
+	<div class="modal-dialog" style="width: 450px; margin-top: 200px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title" id="myLargeModalLabel">禁用原因</h4>
+			</div>
+			<div class="modal-body" style="background: #eff0f4;">
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-md-10">
+						<input type="text" class="form-control" ng-model="disUserReason"
+							id="disUserReason" placeholder="请输入禁用原因" />
+					</div>
+				</div>
+
+				<div class="row" style="margin-top: 50px; margin-left: 60%;">
+					<div class="col-md-offset-4">
+						<button type="submit" class="btn btn-success"
+							ng-click="updateUserStatus();">确认</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,16 @@
+<div ng-init="initResult()">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 设置结果<span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<h3>{{msg}}</h3>
+			</div>
+		</div>
+	</div>
+</div>

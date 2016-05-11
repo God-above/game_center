@@ -1,0 +1,61 @@
+<div class="content">
+	<form class="form-horizontal" role="form" id="msform" name="user_form"
+		novalidate>
+		<div class="form-group">
+			<label for="inputPassword3"
+				class="col-md-offset-1 col-md-2 col-sm-4 control-label">
+				用户名:</label>
+			<div class="col-md-5 col-sm-5">
+				<input type="text" name="userTel" ng-model="user.tel"
+					class="form-control" placeholder="请输入您的用户名" maxlength=50 ng-focus
+					required>
+			</div>
+			<div class="validate_style ng-hide"
+				ng-show="user_form.$invalid && user_form.$dirty">
+				<div
+					ng-show="user_form.userTel.$dirty && !user_form.userTel.$focused  && user_form.userTel.$error.required ">
+					<span class="glyphicon glyphicon-exclamation-sign"></span> 用户名不能为空！
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3"
+				class="col-md-offset-1 col-md-2 col-sm-4  control-label">
+				验证码</label>
+			<div class="col-md-3  col-sm-3">
+				<input type="text" class="form-control" name="validateCode"
+					 ng-model="validateCode" maxlength=4  placeholder="验证码" ng-focus  ng-blur="findCodeBlur()"/>
+
+			</div>
+			<div class=" col-md-2 col-sm-2">
+				<img src="../validateCode" width=100px height=32px
+					onclick='this.src = "../validateCode?rand=" + Date.parse(new Date())'
+					title="更新验证码" />
+			</div>
+ 			<div class="validate_style ng-hide" 
+				ng-show="showCodeDiv">
+				<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;
+				<span ng-bind="code_showMsg"></span>
+			</div> 
+			<!-- <div class="validate_style ng-hide"
+				ng-show="user_form.$invalid && user_form.$dirty">
+				<div
+					ng-show="user_form.validateCode.$dirty && !user_form.validateCode.$focused && user_form.validateCode.$error.required">
+					<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;请输入验证码！
+				</div>
+			</div> -->
+		</div>
+		<div class="form-group mg_t_20">
+			<label for="inputPassword3"
+				class="col-md-offset-1 col-md-2 col-sm-2 control-label"></label>
+			<div class="col-md-6  col-sm-6 text-left">
+				<button class="btn  btn-warning " type="submit"
+					ng-disabled="user_form.$invalid" ng-click="findPwd(user.tel,validateCode)">下一步</button>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$("[data-toggle='popover']").popover();
+</script>
+

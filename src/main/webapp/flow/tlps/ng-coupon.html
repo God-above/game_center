@@ -1,0 +1,83 @@
+<div ng-init="initCoupconList()">
+	<div class="panel panel-default" id="changePayType">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 优惠券 <span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-7">
+						<div class="input-group">
+							<input type="text" ng-model="keyword" class="form-control"
+								placeholder="请输入订单编号/充值账号/商品编号/商品名称" /> <span
+								class="input-group-btn">
+								<button class="btn btn-primary" type="button"
+									ng-click="btnSearch()">查询</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="panel panel-default" ng-show="productList.length>0">
+			<div class="panel-heading">
+				<span class="glyphicon glyphicon-th-list"></span> 优惠券列表 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vmList.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vmList.collapsed = !vmList.collapsed"></span>
+				</span>
+			</div>
+			<div class="panel-collapse collapse"
+				ng-class="{in: !vmList.collapsed}">
+				<div class="panel-body">
+					<div class="table-responsive divStyle">
+						<table class="table table-hover table-striped">
+							<thead>
+								<tr>
+									<th width="8%">券名</th>
+									<th width="8%">券号</th>
+									<th width="8%">密码</th>
+									<th width="8%">有效期起始</th>
+									<th width="8%">有效期结束</th>
+									<th width="8%">充值账号</th>
+									<th width="8%">状态</th>
+									<th width="8%">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="product in productList">
+									<td width="8%">{{product.ticket_name}}</td>
+									<td width="8%">{{product.ticketNo}}</td>
+									<td width="8%">{{product.ticketPasswrod}}</td>
+									<td width="8%">{{product.startDate}}</td>
+									<td width="8%">{{product.endDate}}</td>
+									<td width="8%">{{product.rechargeAccount}}</td>
+									<td width="8%"><span ng-if="product.status==0">已用</span> <span
+										ng-if="product.status==1">可用</span> <span
+										ng-if="product.status==2">正在使用</span> <span
+										ng-if="product.status==3">使用失败</span></td>
+
+									<td><span ng-show="product.status==1"> <a
+											href="#couponRecharge/{{product.ticketNo}}/{{product.ticketPasswrod}}">充值</a>
+									</span> <span ng-show="product.status!=1">---</span></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div id="listPage">
+						<expander> </expander>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+

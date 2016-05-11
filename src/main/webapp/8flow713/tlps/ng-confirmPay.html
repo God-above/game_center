@@ -1,0 +1,221 @@
+<!-- <link href="../8flow/css/liuliang.css" rel="stylesheet"> -->
+<div class="logo">确认支付</div>
+<div class="content mg_t_10" ng-init="init()">
+
+	<div class="orderDiv">
+		<h5>
+			<strong>订单详情</strong>
+		</h5>
+
+		<div ng-show="batch">
+			<p>订单号：{{batch.number}}</p>
+			<p>购买时间：{{batch.createDate | date : "yyyy-MM-dd HH:mm:ss"}}</p>
+			<p>订单金额：{{batch.totalPrice / 100 | currency :''}}元</p>
+			<p class="priceDiv">总金额：{{batch.totalPrice / 100 | currency
+				:''}}元</p>
+		</div>
+		<div ng-show="!batch">
+			<p>订单号：{{orderInfo.orderNo}}</p>
+			<p>商品名称：{{orderInfo.productName}}</p>
+			<p>购买时间：{{orderInfo.createDate | date : "yyyy-MM-dd HH:mm:ss"}}</p>
+			<p>订单金额：{{orderInfo.totalPrice/100 | currency :''}}元</p>
+			<p class="priceDiv">总金额：{{orderInfo.totalPrice/100 | currency
+				:''}}元</p>
+		</div>
+
+	</div>
+	<p class="typeDiv">您可以使用以下方式付款</p>
+
+	<!-- 支付 -->
+	<div class="payDiv ng-cloak" ng-cloak id="firstPay"
+		ng-show="hisOrderList==undefined || hisOrderList==null || hisOrderList=='' || hisOrderList.length<0">
+		<div>
+			<!-- 余额支付 -->
+			<div id="type1"
+				class="rowBg row" ng-if="balance!=undefined && balance!=0 && balance>orderPrice">
+				<div class="col-md-7 col-sm-7 col-xs-7"
+					ng-click="changePayType(1,balance,orderPrice,userInfo.payPassword)">
+					<div class="payPic" style="padding-left: 10px;">
+						账户余额: {{balance/100 |currency:''}}元&nbsp;&nbsp; 
+					</div>
+					<span ng-show="okPic1"><img alt="" src="img/correct.png"></span>
+				</div>
+				<div class="text-right">
+					<span ng-show="userInfo.payPassword=='false'"> <a
+						href="#changeType/setPayPwd">去设置支付密码</a>
+					</span>
+				</div>
+			</div>
+			<!-- 余额不足 -->
+			<div id="type3" style="display: none;" class="rowBg row bgDisColor" ng-if="!!balance||balance<orderPrice">
+				<div class="col-md-7 col-sm-7 col-xs-7"
+					ng-click="changePayType(1,balance,orderPrice,userInfo.payPassword)">
+					<div class="payPic" style="padding-left: 10px;">
+						账户余额: {{{true:balance,false:'0'}[!!balance ||balance < orderPrice] /100 |currency:''}}元&nbsp;&nbsp; 
+						<span ng-cloak ng-if="!!balance ||balance<orderPrice"
+							class="errorColor ng-cloak"> <span
+							class="glyphicon glyphicon-exclamation-sign "></span> 余额不足，无法支付
+						</span>
+					</div>
+					<span ng-show="okPic1"><img alt="" src="img/correct.png"></span>
+				</div>
+
+				<div class="text-right">
+					<span ng-show="userInfo.payPassword=='false'"> <a
+						href="#changeType/setPayPwd">去设置支付密码</a>
+					</span>
+				</div>
+			</div>
+			<div class="rowBg3 row mg_t_20"
+				ng-click="changePayType(2,balance,orderPrice)" id="type2">
+				<div class="col-md-7 col-sm-7 col-xs-7">
+					<div class="payTitle">在线支付:</div>
+					<div class="payPic">
+						<img alt="" src="img/payType.jpg" width="126px;" height="56px;"
+							style="border: 1px solid #DAD3D3;">
+					</div>
+					<div class="paySelect" ng-show="okPic2">
+						<img alt="" src="img/correct.png">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mg_t_20">
+			<button class="primaryBtn" style="width: 110px;"
+				ng-click="open()">确认</button>
+		</div>
+	</div>
+	<!-- 继续支付 -->
+	<div class="payDiv ng-cloak" ng-cloak ng-if="hisOrderList.length>0">
+		<div ng-repeat="hisOrder in hisOrderList">
+			<div ng-if="hisOrder.paymentAssetType=='10'"
+				class="rowBg3 row mg_t_20"
+				ng-click="changePayType(2,balance,orderPrice)" id="type2">
+				<div class="col-md-7 col-sm-7 col-xs-7">
+					<div class="payTitle">在线支付:</div>
+					<div class="payPic">
+						<img alt="" src="img/payType.jpg" width="126px;" height="56px;"
+							style="border: 1px solid #DAD3D3;">
+					</div>
+					<div class="paySelect" ng-show="okPic2">
+						<img alt="" src="img/correct.png">
+					</div>
+				</div>
+			</div>
+			<!-- 余额支付 -->
+			<div ng-if="hisOrder.paymentAssetType=='2'" class="rowBg row" 
+				ng-click="changePayType(1,balance,orderPrice,userInfo.payPassword)" id="type1">
+				<div class="col-md-7 col-sm-7 col-xs-7"
+					ng-click="changePayType(1,balance,orderPrice,userInfo.payPassword)">
+					<div class="payPic" style="padding-left: 10px;">
+						账户余额: {{balance/100 |currency:''}}元&nbsp;&nbsp; 
+					</div>
+					<span ng-show="okPic1"><img alt="" src="img/correct.png"></span>
+				</div>
+				<div class="text-right">
+					<span ng-show="userInfo.payPassword=='false'"> <a
+						href="#changeType/setPayPwd">去设置支付密码</a>
+					</span>
+				</div>
+			</div>
+			<!-- 余额不足 -->
+			<div id="type3"  style="display: none;" class="rowBg row bgDisColor" ng-if="!!balance||balance<orderPrice">
+				<div class="col-md-7 col-sm-7 col-xs-7"
+					ng-click="changePayType(1,balance,orderPrice,userInfo.payPassword)">
+					<div class="payPic" style="padding-left: 10px;">
+						账户余额: {{{true:balance,false:'0'}[balance!=undefined && balance!=null && balance>orderPrice ] /100 |currency:''}}元&nbsp;&nbsp; 
+						<span  ng-cloak ng-if="!!balance||balance<orderPrice"
+							class="errorColor ng-cloak"> <span
+							class="glyphicon glyphicon-exclamation-sign "></span> 余额不足，无法支付
+						</span>
+					</div>
+					<span ng-show="okPic1"><img alt="" src="img/correct.png"></span>
+				</div>
+
+				<div class="text-right">
+					<span ng-show="userInfo.payPassword=='false'"> <a
+						href="#changeType/setPayPwd">去设置支付密码</a>
+					</span>
+				</div>
+			</div>
+			<div class="row mg_t_20">
+				<button type="button" ng-click="continuePayPwd()"
+					class="btn btn-success" id="btnConfirm">继续支付</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal  验证支付密码 start -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- <button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>-->
+				<h4 class="modal-title">请输入支付密码</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row" ng-show="showAlert">
+					<div class="alert alert-warning alert-dismissible fade in"
+						role="alert">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<!-- <span aria-hidden="true">×</span> -->
+						</button>
+						<strong>提示：</strong> 密码错了，还可输入{{inputCount}}次！
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-md-5">
+						<input type="password" name="userPwd" ng-model="payPwd"
+							class="form-control" placeholder="请输入支付密码" required>
+					</div>
+					<div class="col-md-5 mg_t_5">
+						<a href="#changeType/findPayPwd">忘记支付密码?</a>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"
+					ng-click="okPay(payPwd)">确定</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					ng-click="cancelPay(payPwd)">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Modal  验证支付密码 end -->
+<!-- ------------第三方支付提示信息 start------ -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: #2e6da4;">
+				<h4 class="modal-title" style="color: #fff;">网上支付提示</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<h3 class="text-center">支付完成前，请不要关闭支付验证窗口。</h3>
+					<h3 class="text-center">支付完成后，请根据您支付的情况点击下面按钮。</h3>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="text-center">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+						ng-click="payResultBtn()">支付遇到问题</button>
+					<button type="button" class="btn btn-warning" data-dismiss="modal"
+						ng-click="payResultBtn()">完成支付</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ------------第三方支付提示信息 end------ -->
+<script type="text/javaScript">
+	$('.modal').modal({
+		backdrop : "static",
+		show : false
+	})
+</script>

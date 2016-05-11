@@ -1,0 +1,178 @@
+<div ng-init="init()">
+	<div class="panel panel-default" id="changePayType">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 绑定邮箱 <span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<form class="form-horizontal form_position" name="form" novalidate>
+					<!-- <div class="step">
+						<a class="first-b-on"><s class="first-on"></s>设置邮箱<b></b></a> <a><s></s>设置支付密码<b></b></a>
+						<a><s></s>密码设置结果<b class="last"></b></a>
+					</div> -->
+					<div class="form-group">
+						<label class="col-md-2 control-label">  
+							绑定邮箱
+						</label>
+						<div class="col-md-3">
+							<input type="email" name="userEmail" ng-model="email"
+								class="form-control" placeholder="请输入需要绑定的邮箱"
+								ng-pattern="/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/"
+								required ng-focus/>
+						</div>
+						<div class="col-md-2 col-sm-2 ng-hide"
+							ng-show="form.$invalid && form.$dirty">
+							<div class="errorColor"
+								ng-show="form.userEmail.$dirty && !form.userEmail.$focused && form.userEmail.$error.required">
+								邮箱地址不能为空！</div>
+							<div class="errorColor"
+								ng-show="form.userEmail.$dirty && !form.userEmail.$focused && form.userEmail.$error.pattern">
+								邮箱地址格式不正确！</div>
+						</div>
+					</div>
+
+					<div class="col-md-12">
+						<!-- disabled="disabled"  -->
+						<button class="btn btn-primary btn-success col-md-offset-10 "
+							id="firstBtn" data-toggle="modal" ng-click="openSecond()"
+							ng-disabled="form.$invalid">确认</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default" id="resetPayPwd">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 用户设置 <span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<form class="form-horizontal showcase-form " role="form"
+					id="user2_form" name="formset" novalidate>
+
+					<div class="form-group">
+						<label class="col-md-2  col-sm-2 control-label">* 原密码</label>
+
+						<div class="col-md-4  col-sm-4">
+							<input type="password" name="oldPayPwd" ng-model="oldPayPwd"
+								ng-maxlength="20" ng-minlength="6" class="form-control"
+								placeholder="6-20个字符" required ng-focus>
+						</div>
+						<div class="col-md-2 col-sm-2 ng-hide"
+							ng-show="formset.$invalid && formset.$dirty">
+							<div class="errorColor"
+								ng-show="formset.oldPayPwd.$dirty && !formset.oldPayPwd.$focused && formset.oldPayPwd.$error.required">
+								支付密码不能为空！</div>
+							<div class="errorColor"
+								ng-show="formset.oldPayPwd.$dirty && !formset.oldPayPwd.$focused  && formset.oldPayPwd.$error.maxlength">
+								支付密码长度不能大于20个字符！</div>
+							<div class="errorColor"
+								ng-show="formset.oldPayPwd.$dirty && !formset.oldPayPwd.$focused  && formset.oldPayPwd.$error.minlength">
+								支付密码长度不能小于6个字符！</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2  col-sm-2 control-label">* 支付密码</label>
+
+						<div class="col-md-4  col-sm-4">
+							<input type="password" name="payPwd" ng-model="payPwd"
+								ng-maxlength="20" ng-minlength="6" class="form-control"
+								placeholder="6-20个字符" required ng-focus>
+						</div>
+						<div class="col-md-2 col-sm-2 ng-hide"
+							ng-show="formset.$invalid && formset.$dirty">
+							<div class="errorColor"
+								ng-show="formset.payPwd.$dirty && !formset.payPwd.$focused  && formset.payPwd.$error.required">
+								支付密码不能为空！</div>
+							<div class="errorColor"
+								ng-show="formset.payPwd.$dirty && !formset.payPwd.$focused  && formset.payPwd.$error.maxlength">
+								支付密码长度不能大于20个字符！</div>
+							<div class="errorColor"
+								ng-show="formset.payPwd.$dirty && !formset.payPwd.$focused   && formset.payPwd.$error.minlength">
+								支付密码长度不能小于6个字符！</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2  col-sm-2 control-label">* 请再一次输入密码</label>
+
+						<div class="col-md-4  col-sm-4">
+							<input type="password" name="rePayPwd" ng-model="rePayPwd"
+								ng-maxlength="20" ng-minlength="6" class="form-control"
+								placeholder="请再一次输入密码" repeat="payPwd" required ng-focus>
+						</div>
+						<div class="col-md-2 col-sm-2 ng-hide"
+							ng-show="formset.rePayPwd!=formset.payPwd">
+							<div class="errorColor"
+								ng-show="formset.rePayPwd.$dirty && !formset.rePayPwd.$focused  && formset.rePayPwd.$error.required">
+								支付密码不能为空！</div>
+							<div class="errorColor"
+								ng-show="formset.rePayPwd.$dirty && !formset.rePayPwd.$focused  && formset.rePayPwd.$error.maxlength">
+								支付密码长度不能大于20个字符！</div>
+							<div class="errorColor"
+								ng-show="formset.rePayPwd.$dirty && !formset.rePayPwd.$focused  && formset.rePayPwd.$error.minlength">
+								支付密码长度不能小于6个字符！</div>
+							<div class="errorColor"
+								ng-show="formset.rePayPwd.$dirty && !formset.rePayPwd.$focused  && formset.rePayPwd.$error.repeat">
+								两次密码输入不一致！</div>
+						</div>
+					</div>
+
+					<div class="col-md-12">
+						<!-- disabled="disabled" -->
+						<button class="btn btn-primary btn-success col-md-offset-10 "
+							id="secBtn" ng-click="resetPayPwd(rePayPwd)"
+							ng-disabled="formset.$invalid">确认</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- model  模态框 -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">标题</h4> -->
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-offset-1">
+							<h3>
+								验证邮件已发送到邮箱 <span class="errorColor">{{email}}</span>
+							</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1">
+							<h5>请在24小时内点击邮箱中的链接继续注册</h5>
+						</div>
+					</div>
+					<div class="row mg_t_20">
+						<div class="col-md-offset-1 col-md-3">
+							<button class="btn btn-primary" ng-click="openEmailUrl(email)">立即查收邮件</button>
+						</div>
+						<a data-toggle="tooltip" data-placement="bottom"
+							title="Tooltip on bottom" ng-click="reSendEmail()">没有收到邮件？</a>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

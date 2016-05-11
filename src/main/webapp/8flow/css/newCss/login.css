@@ -1,0 +1,161 @@
+#main{
+	font-family: "Microsoft YaHei" ! important;
+}
+body{
+	font-family: "Microsoft YaHei" ! important;
+}
+
+.login_banner{
+	width: 960px;
+	margin: 0 auto;
+	height:400px;
+	margin-top:150px;
+}
+.mar18 {
+	margin-top: 10px
+}
+.error{
+ color:#000000;
+}
+
+.mar10{
+ margin-top:10px;
+}
+.box{
+	height: 370px;
+	padding: 20px;
+	position: relative;	
+	padding-top: 10px;
+}
+.box_bottom .left{
+	position:relative;
+    width:100%;
+    font-size:16px;
+    height: 25px;
+    top:12px;
+}
+.box_bottom a{
+	text-decoration:none;
+    cursor: pointer;
+}
+
+.box .font_style{
+	font-size: 14px;
+}
+
+a {text-decoration:none;}   
+a:link {text-decoration:none;} //Î´·ÃÎÊ£ºÀ¶É«¡¢ÎÞÏÂ»®Ïß   
+a:active:{text-decoration:none;} //¼¤»î£ººìÉ«   
+a:visited {text-decoration:none;} //ÒÑ·ÃÎÊ£º×ÏÉ«¡¢ÎÞÏÂ»®Ïß   
+a:hover {text-decoration:underline;} //Êó±êÒÆ½ü£ººìÉ«¡¢ÏÂ»®Ïß   
+
+.box .title{
+	font-size: 18px; color: #6d6e71;
+}
+
+.title_dl{
+	font-size: 22px; color: #6d6e71;width: 120px;
+}
+.title .nav-tabs > li.active > a, .title .nav-tabs > li.active > a:hover, .title .nav-tabs > li.active > a:focus {
+  color: #555;
+  cursor: default;
+  border:transparent;
+  border-bottom: 2px solid  #0F86C1;
+  background-color: #F5F5F5;
+  font-size: 18px;
+  font-weight: bold;
+   font-family: "Microsoft YaHei";
+}
+
+.title .nav-tabs > li > a, .title .nav-tabs > li > a:hover, .title .nav-tabs > li > a:focus {
+  color: #B7B5B5;
+  cursor: default;
+  border:transparent;
+  background-color: #F5F5F5;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Microsoft YaHei";
+}
+
+
+.login_dd_max{
+	width: 960px;
+	margin: 0 auto;
+	height:380px;
+}
+
+.login_banner  .login_left{
+	float:left;
+}
+.login_banner  .login_left img{
+	width:450px;height:236px;margin-top:85px;margin-left:50px;
+}
+
+.login_banner  .login_right{
+float:left;height:400px;margin-left:146px;
+}
+.login_banner  .login_right .box_main{
+width:280px;height:330px;margin-top:30px;background:#F5F5F5;
+border-top: 2px solid #0F86C1;
+}
+.login_banner  .login_right .box_bottom .left{
+color:#167ED4;text-decoration:none;
+}
+
+.login_banner  .login_right .box_bottom .right{
+ margin-left:40px;text-decoration:none;
+ float: right;
+}
+
+.validate_style{
+	width: 73px;
+	float: right;
+	text-align: right;
+	border: 0px solid red;
+	position: relative;
+	right: 27px;
+	top: 1px;
+}
+
+
+.login_dd{
+	width: 100%;
+	height:400px;
+	background:#F5F5F5
+}
+
+.login_dd .img_buy{
+	margin-top:40px;
+}
+
+.login_dd .img_dd{
+	width:820px;height:109px;margin-left:70px;margin-top:40px;
+}
+
+.ng-hide{
+	display:none !improtant
+	
+}
+.find_pwd{
+	position: relative;
+  text-align: right;
+    left: 180px;
+  top: -20px
+}
+.inputBg{
+	position: relative;
+  top: 23px;
+  left: 8px;
+  z-index: 90;
+  width: 3px;
+}
+.errorAlert{
+  height: 35px;
+  border: 1px solid #ff8f8f;
+  line-height: 35px;
+  padding-left: 10px;
+  background-color: #fff3f3;
+ }
+.mg_t_30{
+	margin-top: 30px;
+}

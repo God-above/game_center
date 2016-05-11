@@ -1,0 +1,85 @@
+<div ng-init="initMenu()">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 设置支付密码 <span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<form class="form-horizontal showcase-form " role="form"
+					id="user_form" name="user_form" novalidate>
+					<!-- <div class="step">
+						<a class="first"><s class="bon"></s>设置邮箱<b></b></a> <a
+							class="on"><s></s>设置支付密码<b></b></a> <a><s></s>密码设置结果<b
+							class="last"></b></a>
+					</div> -->
+					<div class="form-group">
+					<label for="inputPassword3" class="col-md-offset-1 col-md-3  col-sm-3 control-label">
+						* 支付密码:</label>
+
+					<div class="col-md-4  col-sm-4">
+						<input type="password" name="payPwd" ng-model="payPwd"
+							ng-maxlength="20" ng-minlength="6" class="form-control"
+							placeholder="请输入6-20位字符密码" required ng-focus>
+					</div>
+					<div class="validate_style ng-hide"
+						ng-show="user_form.$invalid && user_form.$dirty">
+						<div
+							ng-show="user_form.payPwd.$dirty && !user_form.payPwd.$focused && user_form.payPwd.$error.required">
+							<img src="img/5.png">支付密码不能为空！
+						</div>
+						<div
+							ng-show="user_form.payPwd.$dirty && !user_form.payPwd.$focused && user_form.payPwd.$error.maxlength">
+							<img src="img/5.png">支付密码长度不能大于20个字符！
+						</div>
+						<div
+							ng-show="user_form.payPwd.$dirty && !user_form.payPwd.$focused && user_form.payPwd.$error.minlength">
+							<img src="img/5.png">支付密码长度不能小于6个字符！
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputPassword3" class="col-md-offset-1 col-md-3  col-sm-3 control-label">
+						* 请再一次输入密码:</label>
+					<div class="col-md-4  col-sm-4">
+						<input type="password" name="rePayPwd" ng-model="rePayPwd"
+							ng-maxlength="20" ng-minlength="6" class="form-control"
+							placeholder="请再一次输入密码" repeat="payPwd" required ng-focus>
+					</div>
+					<div class="validate_style ng-hide"
+						ng-show="user_form.rePayPwd!=user_form.payPwd">
+						<div
+							ng-show="user_form.rePayPwd.$dirty && !user_form.rePayPwd.$focused  && user_form.rePayPwd.$error.required">
+							<img src="img/5.png">支付密码不能为空！
+						</div>
+						<div
+							ng-show="user_form.rePayPwd.$dirty && !user_form.rePayPwd.$focused  && user_form.rePayPwd.$error.maxlength">
+							<img src="img/5.png">支付密码长度不能大于20个字符！
+						</div>
+						<div
+							ng-show="user_form.rePayPwd.$dirty && !user_form.rePayPwd.$focused  && user_form.rePayPwd.$error.minlength">
+							<img src="img/5.png">支付密码长度不能小于6个字符！
+						</div>
+						<div
+							ng-show="(user_form.rePayPwd.$dirty && !user_form.rePayPwd.$focused  && user_form.rePayPwd.$error.repeat )&& !user_form.rePayPwd.$error.minlength">
+							<img src="img/5.png">两次密码输入不一致！
+						</div>
+
+					</div>
+				</div>
+					
+					<div class="col-md-12">
+						<!-- disabled="disabled" -->
+						<button class="btn btn-primary btn-success col-md-offset-10 "
+							id="secBtn" ng-click="savePayPwd(rePayPwd)"
+							ng-disabled="user_form.$invalid">确认</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+</div>

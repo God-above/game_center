@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="../css/bootstrap/bootstrap.css" rel="stylesheet">
+<style>
+.page-list .pagination {
+	float: left;
+}
+
+.page-list .pagination span {
+	cursor: pointer;
+}
+
+.page-list .pagination .separate span {
+	cursor: default;
+	border-top: none;
+	border-bottom: none;
+}
+
+.page-list .pagination .separate span:hover {
+	background: none;
+}
+
+.page-list .page-total {
+	float: left;
+	margin: 25px 20px;
+}
+
+.page-list .page-total input,.page-list .page-total select {
+	height: 26px;
+	border: 1px solid #ddd;
+}
+
+.page-list .page-total input {
+	width: 40px;
+	padding-left: 3px;
+}
+
+.page-list .page-total select {
+	width: 50px;
+}
+</style>
+</head>
+<body ng-controller="testController" ng-init="getAssetFlowList()">
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th width="30%">流水号</th>
+				<th width="6%">类型</th>
+				<th width="15%">时间</th>
+				<th width="40%">内容</th>
+				<th width="9%">金额</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="flow in orderList">
+				<td>{{flow.flowNo}}</td>
+				<td>{{flow.payOrRefund}}</td>
+				<td>{{flow.createDate | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+				<td>{{flow.usageInfo}}</td>
+				<td>{{flow.amount/100 | currency:'￥'}}</td>
+			</tr>
+		</tbody>
+
+	</table>
+	<tm-pagination conf="paginationConf"> </tm-pagination>
+
+	<script src="../js/angular/lib/angular.min.js"></script>
+	<!-- <script src="../js/angular/lib/angular.min.js"></script> -->
+	<script src="tm.pagination.js"></script>
+	<script src="testapp.js"></script>
+	<script src="../js/common/ivan.js"></script>
+</body>
+</html>

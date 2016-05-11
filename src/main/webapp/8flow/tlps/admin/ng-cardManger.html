@@ -1,0 +1,295 @@
+<link href="css/cardManger.css" rel="stylesheet">
+<style>
+table {
+	white-space: nowrap;
+	overflow-x: scroll;
+	width: 100%;
+}
+
+.newTab {
+	list-style: none;
+	width: 100%;
+	height: auto;
+	margin-top: 20px;
+	width: 940px;
+	padding: 0px;
+}
+
+.newTab li {
+	width: 100%;
+	height: auto;
+	padding: 0px;
+	margin: 0px;
+	margin-bottom: 20px;
+}
+
+.newTab .top {
+	height: 40px;
+	background: #f7f7f7;
+	line-height: 40px;
+	width:940px;
+	text-align: center left;
+	float:left;
+}
+.newTab .table_top{
+margin-top:0px;
+}
+.newTab .top span {
+	margin-left: 5px;
+}
+
+.newTab .top .right {
+	float: right;
+	margin-right: 5px;
+}
+
+.newTab .table th {
+	background: #e4e4e4;
+}
+
+.newTab .table th,td {
+	border-right-style: none ! important;
+	border-left-style: none ! important;
+}
+
+.newTab .table tr td {
+	border-right-style: none ! important;
+	border-left-style: none ! important;
+}
+</style>
+<!-- 订单 -->
+<div class="cardManger" ng-init="vm.getUserCard()">
+	<!-- 流量卡logo -->
+	<div class="logo">
+		<span>流量卡管理</span>
+	</div>
+	<!-- /流量卡logo -->
+
+	<!-- tab -->
+	<div class="userTab">
+		<div class="tab tab_hover"
+			ng-class="{true: 'tab_hover'}[vm.tabContent==0]"
+			ng-click="vm.showTab('0')">
+			<div class="title">总览</div>
+			<div class="san" ng-show="vm.tabContent==0"></div>
+		</div>
+		<div class="tab" ng-class="{true: 'tab_hover'}[vm.tabContent==1]"
+			ng-click="vm.showTab('1')">
+			<div class="title">明细</div>
+			<div class="san" ng-show="vm.tabContent==1"></div>
+		</div>
+	</div>
+	<!-- /tab -->
+
+	<!-- tab-one -->
+	<div class="tab_content" ng-show="vm.tabContent	==	0">
+		<div>
+			<input class="form-control tabSearch" type="text"
+				ng-model="om.serchContent" placeholder="商品名称" />
+			<button class="btn btn-primary" ng-click="vm.btnSeach('total')">查询</button>
+			<div class="divDate">订购时间：</div>
+			<input class="Wdate date form-control tabDate" style="height: 30px;"
+				type="text"
+				onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+				placeholder="起始时间" id="om_startTime" /> <span class="divDate_mid">到</span>
+			<input class="Wdate date form-control tabDate" style="height: 30px;"
+				type="text"
+				onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+				placeholder="结束时间" id="om_endTime" />
+		</div>
+
+		<div class="sec" ng-show="vm.orderlist.length>0">
+			<span class="divlabel">排序：</span>
+			<ul class="tab_ul">
+				<li ng-repeat="item in vm.list"
+					ng-click="vm.getItem(item,$index,'1')" class="tab_li"
+					ng-class="{true: 'li_hover_manger'}[vm.itemCountext == $index]">
+					{{item.name}}<span class="glyphicon glyphicon-arrow-up"
+					ng-show="item.display == 0"></span> <span
+					class="glyphicon glyphicon-arrow-down" ng-show="item.display == 1"></span>
+				</li>
+			</ul>
+		</div>
+
+		<table class="table table-bordered" ng-show="vm.orderlist.length>0">
+			<thead>
+				<tr>
+					<th>商品名称</th>
+					<th>订购数量(张)</th>
+					<th>消费数量(张)</th>
+					<th>已退数量(张)</th>
+					<th>订购金额(元)</th>
+					<th>消费金额(元)</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="order in vm.orderlist">
+					<td>{{order.productName}}</td>
+					<td>{{order.proCount}}</td>
+					<td>{{order.usedCount}}</td>
+					<td>{{order.backedCount}}</td>
+					<td>{{order.priceTotal / 100| currency : ''}}</td>
+					<td>{{order.usedPrice / 100| currency : ''}}</td>
+					<td><a
+						ng-href="../coupon/downloadFlowCard?couponBatchNo={{order.couponBatchNoArrayStr}}">
+							<span><u>下载卡密</u></span>
+					</a> <a
+						ng-href="../coupon/downloadCouponUserdRecord?productNo={{order.productNo}}"
+						ng-show="order.usedCount != undefined && order.usedCount != 0">
+							<span><u>下载消费记录</u></span>
+					</a> <a ng-href="javascript:void(0)"><span
+							ng-show="order.usedCount == 0" style="color: gray"><u>下载消费记录</u></span></a>
+						<a ng-href="javascript:void(0)"><span
+							ng-click="vm.getBatch(order);"><u>查看批次</u></span></a> <a
+						ng-href="#/backCard/{{order.productNo}}/{{order.productName}}"><span
+							ng-show="order.canBackCount != '0'"><u>退卡</u></span></a> <a
+						ng-href="javascript:void(0)"><span style="color: gray;"
+							ng-show="order.canBackCount == '0'"><u>退卡</u></span></a></td>
+				</tr>
+			</tbody>
+
+		</table>
+		<div ng-show="vm.orderlist.length == 0"
+			style="float: left; width: 100%; margin-top: 20px;">
+			<div class="alert alert-info alert-dismissible" role="alert">
+				<strong>当前无购买完成记录!</strong>
+			</div>
+		</div>
+		<div id="listPage" ng-show="vm.orderlist.length > 0">
+			<!-- <expander> </expander> -->
+			<tm-pagination conf="paginationConf"> </tm-pagination>
+		</div>
+
+	</div>
+	<!-- /tab-one -->
+
+	<!-- tab-two -->
+	<div class="tab_content" ng-show="vm.tabContent==1">
+		<div>
+			<div>
+				<input class="form-control tabSearch" placeholder="订单号/批次号/商品名称"
+					type="text" ng-model="tm.serchContent" />
+				<button class="btn btn-primary" ng-click="vm.btnSeach('detail')">查询</button>
+				<div class="divDate">订购时间：</div>
+
+				<input class="Wdate date form-control tabDate" style="height: 30px;"
+					type="text" id="tm_startTime" ng-model="tm.startTime"
+					onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+					placeholder="起始时间" /> <span class="divDate_mid">到</span> <input
+					class="Wdate date form-control tabDate" style="height: 30px;"
+					type="text" id="tm_endTime" ng-model="tm.endTime"
+					onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+					placeholder="结束时间" />
+			</div>
+
+			<div class="sec" ng-show="vm.orderDetailList.length>0">
+				<span class="divlabel">排序：</span>
+				<ul class="tab_ul">
+					<li ng-repeat="item in vm.list"
+						ng-click="vm.getItem(item,$index,'2')" class="tab_li"
+						ng-class="{true: 'li_hover_manger'}[vm.itemCountext == $index]">
+						{{item.name}} <span class="glyphicon glyphicon-arrow-up"
+						ng-show="item.display == 0"></span> <span
+						class="glyphicon glyphicon-arrow-down" ng-show="item.display == 1"></span>
+					</li>
+				</ul>
+			</div>
+			<div style="width: 100%; overflow-x: auto;">
+				<ul class="newTab">
+					<li ng-repeat="order in vm.orderDetailList">
+						<div class="top">
+							<span>{{order.createDate | date :'yyyy-MM-dd HH:mm:ss'}}</span> <span>批次号:{{order.couponBatchNo}}</span>
+							<span class="right">订单号:{{order.orderNo}}1</span>
+						</div>
+						<table class="table table-bordered table_hover table_top">
+							<tr>
+								<th width="180">商品</th>
+								<th>订购数量(张)</th>
+								<th>消费数量(张)</th>
+								<th>已退数量(张)</th>
+								<th>订购金额(元)</th>
+								<th>消费金额(元)</th>
+								<th>操作</th>
+							</tr>
+							<tr>
+								<td class="noneBorder" width="180">{{order.productName}}</td>
+								<td class="noneBorder">{{order.proCount}}</td>
+								<td class="noneBorder">{{{true:order.usedCount,false:'0'}[order.usedCount!=undefined]}}</td>
+								<td class="noneBorder">{{order.userCode}}</td>
+								<td class="noneBorder">{{order.totalPrice / 100 | currency : ''}}</td>
+								<td class="noneBorder">{{{true:order.usedCount * order.price /
+									100,false:'0'}[order.usedCount!=undefind &&
+									order.price!=undefined] | currency : ''}}</td>
+
+								<td class="noneBorder"><a
+									ng-href="../coupon/downloadFlowCard?couponBatchNo={{order.remark}}">
+										<span><u>下载卡密</u></span>
+								</a> <a
+									ng-href="../coupon/downloadCouponUserdRecord?orderNo={{order.orderNo}}"
+									ng-show="order.usedCount != undefined && order.usedCount != 0">
+										<span><u>下载消费记录</u></span>
+								</a> <a href="javascript:void(0)"> <span
+										ng-show="order.usedCount == 0" style="color: gray"><u>下载消费记录</u></span>
+								</a></td>
+							</tr>
+
+						</table>
+					</li>
+				</ul>
+				<!-- <table class="table table-bordered" ng-show="vm.orderDetailList.length>0">
+			<thead>
+				<tr>
+					<th>商品名称</th>
+					<th>批次号</th>
+					<th>订单号</th>
+					<th>订购时间</th>
+					<th>订购数量(张)</th>
+					<th>消费数量(张)</th>
+					<th>已退数量(张)</th>
+					<th>订购金额(元)</th>
+					<th>消费金额(元)</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="order in vm.orderDetailList">
+					<td>{{order.productName}}</td>
+					<td>{{order.couponBatchNo}}</td>
+					<td>{{order.orderNo}}</td>
+					<td>{{order.createDate | date :'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{order.proCount}}</td>
+					<td>{{{true:order.usedCount,false:'0'}[order.usedCount!=undefined]}}</td>
+					<td>{{order.userCode}}</td>
+					<td>{{order.totalPrice / 100 | currency : ''}}</td>
+					<td>{{{true:order.usedCount * order.price / 100,false:'0'}[order.usedCount!=undefind && order.price!=undefined] | currency : ''}}</td>
+					<td>
+					<a ng-href="../coupon/downloadFlowCard?couponBatchNo={{order.remark}}">
+						<span><u>下载卡密</u></span>
+					</a>
+					<a ng-href="../coupon/downloadCouponUserdRecord?orderNo={{order.orderNo}}" ng-show="order.usedCount != undefined && order.usedCount != 0">
+						<span><u>下载消费记录</u></span>
+					</a>
+					<a href="javascript:void(0)">
+						<span ng-show="order.usedCount == 0" style="color: gray"><u>下载消费记录</u></span>
+					</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		 -->
+			</div>
+			<div ng-show="vm.orderDetailList == 0"
+				style="float: left; width: 100%; margin-top: 20px;">
+				<div class="alert alert-info alert-dismissible" role="alert">
+					<strong>当前无购买完成记录!</strong>
+				</div>
+			</div>
+			<div id="listPage" ng-show="vm.orderDetailList.length > 0">
+				<!-- <expander> </expander> -->
+				<tm-pagination conf="paginationConf"> </tm-pagination>
+			</div>
+
+		</div>
+		<!-- /tab-two -->
+	</div>

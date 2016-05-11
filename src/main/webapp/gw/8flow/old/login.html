@@ -1,0 +1,152 @@
+<html ng-app="loginApp">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<link href="../8flow/css/newCss/index.css" rel="stylesheet">
+<link href="../8flow/css/newCss/login.css" rel="stylesheet">
+<link href="../flow/css/bootstrap/bootstrap.css" rel="stylesheet">
+<title>8流量登录页</title>
+</head>
+<body ng-controller="loginCtrl">
+	<div id="main">
+		<!-- 导航 -->
+		<div class="top_bar">
+			<div class="top_title">
+				欢迎来到8流量！请<a> 登录/免费注册</a>
+			</div>
+			<div class="top_dh">
+
+				<div class="top_content">
+					<img src="../8flow/img/new_img/LOGO.png" />
+					<div class="top_nav">
+						<div class="top_nav_button" onclick="javascript:window.location='../8flow/index.html'">首页</div>
+						<div class="top_nav_button" onclick="javascript:window.location='../8flow/service.html'">产品</div>
+						<div class="top_nav_button" onclick="javascript:window.location='../8flow/plan.html'">方案</div>
+						<div class="top_nav_button" onclick="javascript:window.location='../8flow/about.html'">关于我们</div>
+						<div class="top_nav_button active" onclick="javascript:window.location='../flow/login.html'">
+						 <img src="./img/new_img/flowgo2.png">
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- 导航 -->
+		<div class="login_banner">
+			<div class="login_left">
+				<img src="./img/new_img/loginBanner.png" />
+			</div>
+			<div class="login_right">
+				<div class="box_main">
+					<div class="box">
+						<div class="title">
+							<span class="title_dl">登录</span><span class="title_liuliang">&nbsp;流量</span><img
+								src="../8flow/img/new_img/GO.png" class="login_title_img" />
+						</div>
+						<form name="form_valid" class="form-horizontal mar18" novalidate
+							ng-submit="form_submit()">
+							<fieldset>
+
+								<input type="text" name="email" ng-model="username"
+									class="form-control" ng-blur="check_userName_only()" required
+									ng-minlength=5 ng-maxlength=20 placeholder="请输入登录邮箱账号"
+									ng-pattern="/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/"
+									required>
+								<div class="error ng-hide"
+									ng-show="form_valid.$invalid && form_valid.$dirty">
+									<div class="errorColor"
+										ng-show="form_valid.email.$dirty  && form_valid.email.$error.required"
+										><img src="img/5.png"> 邮箱地址不能为空！</div>
+									<div class="errorColor"
+										ng-show="form_valid.email.$dirty  && form_valid.email.$error.pattern"
+										><img src="img/5.png"> 邮箱地址不正确！</div>
+								</div>
+							</fieldset>
+
+							<fieldset class="mar18">
+								<input name="password" class="form-control" type="password"
+									ng-model="password" required placeholder="密码">
+								<div class="error ng-hide"
+									ng-show="form_valid.password.$dirty && form_valid.password.$invalid">
+									<small class="error ng-hide"
+										ng-show="form_valid.password.$error.required"
+										><img src="img/5.png"> 密码不能为空！ </small>
+								</div>
+							</fieldset>
+
+
+							<fieldset class="mar18">
+								<div class="row">
+									<div class="input-control col-md-6 col-xs-6">
+										<input type="text" class="input_style form-control" style="width: 160px;" name="validateCode"
+											required ng-model="validateCode" maxlength=4
+											placeholder="验证码" />
+									</div>
+									<div class="validate_style">
+										<img src="../validateCode" width=85px height=32px
+											onclick='this.src = "../validateCode?rand=" + Date.parse(new Date())'
+											title="更新验证码" />
+									</div>
+								</div>
+								<div class="error"
+									ng-show="submited && form_valid.validateCode.$dirty && form_valid.validateCode.$invalid">
+									<small class="error ng-hide"
+										ng-show="form_valid.validateCode.$error.required"
+										ng-bind="yzm_hint"></small>
+								</div>
+							</fieldset>
+							<div class="checkbox">
+								<label class="font_style"> <input type="checkbox" ng-model="reber">
+									记住密码
+								</label>
+							</div>
+							<button type="button"
+								class="mar10 col-md-12 col-sm-12  col-xs-12 btn btn-info"
+								ng-disabled="form_valid.$invalid || unique" ng-click="loginIn()">登录</button>
+
+						</form>
+
+						<div class="box_bottom font_style"">
+							<a class="left" href='./findPwd.html'>忘记密码</a> 
+							<a class="right"
+								href='./register.html'>新用户?立即注册>></a>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<div class="login_dd">
+			<div class="login_dd_max">
+				<img src="./img/new_img/buy.jpg" class="img_buy" /> <img
+					src="./img/new_img/login_dd.png" class="img_dd" />
+			</div>
+
+		</div>
+		<!--  底部 -->
+		<div class="main_bootom">Copyright @江苏奇点网络有限公司 版权所有
+			苏ICP备14050048号-3</div>
+		<!-- 结束 -->
+	</div>
+</body>
+<script type="text/javascript" src="./js/angular/lib/jquery.js">
+	
+</script>
+<script type="text/javascript" src="./js/bootstrap/bootstrap.js"></script>
+<script type="text/javascript">
+	$(document.body).css({
+		"overflow-x" : "hidden"
+	});
+</script>
+<script src="js/angular/lib/angular.min.js"></script>
+<script src="js/angular/lib/angular-cookies.min.js"></script>
+<script src="js/common/login.js"></script>
+<script src="js/util/base.js"></script>
+<script src="js/util/CommonPerson.js"></script>
+<script src="js/common/ivan.js"></script>
+<script src="js/util/CommonPerson.js"></script>
+</html>
+

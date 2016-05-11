@@ -1,0 +1,54 @@
+<link href="css/cardManger.css" rel="stylesheet">
+<style>
+</style>
+<div ng-init="init()">
+	<div class="logo">
+		<span>流量卡退卡</span>
+	</div>
+
+	<div>
+		<div style="margin-top: 60px;">{{vm.backInfo.productName}}</div>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>批次</th>
+					<th>可退数量</th>
+					<th>填写退卡数量</th>
+					<th>退款金额</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="backCard in vm.backInfo.backCardList">
+					<td>{{backCard.orderNo}}</td>
+					<td>{{backCard.canBackCount}}</td>
+					<td><input type="number" ng-model="backCard.backCount" ng-change="vm.changeCount(backCard)" ng-keyup="vm.changeCount(backCard)" id="backCardCount" /></td>
+					<td><!-- {{{true :backCard.price / 100 * backCard.backCount,false : '0.00'}[backCard.backCount > 0]}} -->
+						{{{true : '0.00',false:''}[backCard.backCount == null || backCard.backCount == undefined]}} <spa ng-show="backCard.backCount != null || backCard.backCount != undefined">{{backCard.price / 100 * backCard.backCount | number:2}}</spa>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div ng-show="vm.backInfo.backCardList.length == 0" style="margin-top: 50px;">
+			<div class="alert alert-info alert-dismissible" role="alert">
+				<strong>当前无可退记录!</strong>
+			</div>
+		</div>
+		<div ng-show="vm.backInfo.backCardList.length > 0">
+			<div style="margin-top: 10px;">退款总数：{{{true : vm.totalCount,false : 0}[vm.totalCount != null]}}</div>
+			<div style="margin-top: 10px;">退款金额：{{vm.totalMoney | number:2}}{{{true : '0.00',false : ''}[vm.totalMoney == null || vm.totalMoney == undefined]}}</div>
+			<!-- <div style="margin-top: 10px;">退款手续费：4990.00</div> -->
+
+			<button class="primaryBtn" style="margin-top: 10px;"
+				ng-click="confirmBack()">确认退卡</button>
+		</div>
+
+		<!-- <div ng-show="vm.backInfo.backCardList.length > 0"
+			style="background: #F7F7F7; width: 100%; height: 120px; padding: 10px; margin-top: 60px;">
+			<div>退卡说明：</div>
+		</div> -->
+	</div>
+
+</div>
+

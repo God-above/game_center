@@ -1,0 +1,96 @@
+<style type="text/css">
+	.uploadErrorSpan{
+		position: relative;
+		height: 32px;
+		line-height: 32px;
+		color: red;
+	}
+</style>
+<div class="cardExchange" ng-init="vm.init()">
+	<!-- 流量卡logo -->
+	<div class="logo">
+		<span>流量卡兑换</span>
+	</div>
+	<!-- /流量卡logo -->
+	<!-- /url -->
+	<div class="url">
+		<div class="urlContent">
+			流量卡兑换连接:<span id="url"></span>
+		</div>
+		<button class="btn btn-default" id="btn_submit_only">复制</button>
+		<div style="height:35px;line-height:35px;text-align:center;color:red;display:none;float:left;margin-left:10px;" id="tongzhi">复制成功!</div>
+	</div>
+	<!-- /url  -->
+
+	<div class="explanation">(通过该链接可兑换8流量卡发放的任一流量卡,通过此链接兑换的流量卡只能在"流量卡消费查询中查看")</div>
+	<div class="no"></div>
+
+	<div class="batchName">
+		<input class="form-control" ng-model="cardName" />
+		<div>可去<a href="#/sumeHistory">兑换记录</a>中去查询</div>
+	</div>
+	<div class="uploadErrorSpan" ng-show="uploadError">
+		▲<span ng-bind="uploadErrorMsg"></span>
+	</div>
+
+	<div class="upload" ng-repeat="nf in nfArray">
+		<!-- <input ng-file-select type="file" /> -->
+		<input class="form-control" type="file" name="phoneNum" ng-hide="true"
+			onchange="angular.element(this).scope().selectFile(this)" />
+		<button class="btn btn-primary" ng-click="clickFile($index)">上传文件</button>
+		<div><a href="../coupon/downloadTemplates?name=exchange">点击下载文件模板(上传文件大小不能超过1M，建议兑换数量在1000条以内)</a></div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<span>上传总数：<span id="total">0</span></span> <span class="clear"
+				ng-click="clearAll()"><i class="glyphicon glyphicon-trash"></i>清空</span>
+		</div>
+		<div class="panel-body">
+			<div class="leftDown">
+				<div class="box">
+					<div>有效兑换</div>
+					<div class="count" id="successCount">0</div>
+					<a class="btn btn-primary" id="successBtn"
+						href="javascript:void(0)">下载</a>
+				</div>
+
+			</div>
+			<div class="line"></div>
+			<div class="leftDown">
+				<div class="box">
+					<div>无效兑换</div>
+					<div class="count" id="faildCount">0</div>
+					<a class="btn btn-primary" id="failBtn" href="javascript:void(0)">下载</a>
+				</div>
+
+			</div>
+		</div>
+		<div style="position: relative; left: 450px; top:-100px;" id="showLoading">
+			<img src="./img/loading.gif">
+		</div>
+	</div>
+
+	<div class="commit">
+		<button class="btn btn-primary" ng-click="reExchange()" id="confirmBtn">确认兑换</button>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		var url = window.location.href;
+		url= url.replace('index.html', "userExchange.html");
+		$("#url").text(url);
+		var clip = null;
+		ZeroClipboard.setMoviePath("./js/angular/lib/ZeroClipboard.swf");
+		clip = new ZeroClipboard.Client();
+		clip.setHandCursor(true);
+		//复制内容
+		clip.setText($("#url").text());
+		clip.glue("btn_submit_only");
+		clip.addEventListener("complete", function() {
+			$("#tongzhi").css('display','block');
+		});
+
+	});
+</script>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<link rel="8liuliang icon" href="./img/index_img/8liuliang.ico">
+<link href="./css/newCss/index.css" rel="stylesheet">
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/animate.css" rel="stylesheet">
+<link href="./css/demo.css" rel="stylesheet">
+<title>8流量首页</title>
+</head>
+<body>
+	<div id="main">
+		<!-- 导航 -->
+		<div class="top_bar">
+			<div class="top_title">
+				欢迎来到8流量！<a
+					href="http://platform.8liuliang.com/flow-web/flow/login.html">
+					请登录/免费注册</a>
+			</div>
+			<div class="top_dh">
+				<div class="top_content">
+					<img src="./img/new_img/LOGO.png" />
+					<div class="top_nav">
+						<div class="top_nav_button active" onclick="javascript:window.location='./index.html'">首页</div>
+						<div class="top_nav_button"
+							onclick="javascript:window.location='./service.html'">产品</div>
+						<div class="top_nav_button"
+							onclick="javascript:window.location='./plan.html'">方案</div>
+						<div class="top_nav_button"
+							onclick="javascript:window.location='./about.html'">关于我们</div>
+						<div class="top_nav_button"
+							onclick="javascript:window.location='./8buy.html'"
+							id="flowgo">
+							<img src="./img/new_img/flowgo1.png">
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- 导航 -->
+		<div id="banner" class="banner">
+			<div class="banner-one">
+				<div class="content">
+					<div class="main_banner_size">
+						<h1 class="mian_content">
+							<span class="mian_title">4G时代</span>
+						</h1>
+						<h1 class="mian_content">企业互联网营销加速</h1>
+						<h1 class="mian_conten_add"> 营销推广 / 粉丝互动 / 增强用户黏性 / 提升活跃度 </h1>
+					</div>
+					<img src="./img/index_img/cloud.png" class="img_cloud" id="myimg" />
+					<img src="./img/index_img/background.png" class="img_background" />
+					<ul
+						style="right: 10px; bottom: -10px; left: 40%; position: absolute; list-style: none; z-index: 24;">
+						<li
+							style="width: 38px; height: 36px; line-height: 36px; font-size: 10px; background: #FF0000; border: 0; color: #666666; text-align: center; margin-right: 8px; font-family: Verdana;cursor: pointer; float: left; -webkit-text-size-adjust: none;"></li>
+						<li
+							style="width: 38px; height: 14px; line-height: 36px; margin-top: 22px; font-size: 10px; background: #000000; border: 0; color: #666666; text-align: center; margin-right: 8px; font-family: Verdana; float: left; cursor: pointer; -webkit-text-size-adjust: none;" onclick="banner1Open(2)"></li>
+						<li
+							style="width: 38px; height: 14px; line-height: 36px; margin-top: 22px; font-size: 10px; background: #000000; border: 0; color: #666666; text-align: center; margin-right: 8px; font-family: Verdana; float: left; cursor: pointer; -webkit-text-size-adjust: none;" onclick="banner1Open(3)"></li>
+					</ul>
+				</div>
+				<img src="./img/index_img/plane_one.png" class="plane_one" />
+			</div>
+		
+		<div class="banner-two">
+			<div class="banner-content">
+				<div class="main_banner2_size">
+					<img src="./img/banner/banner2_plane.png"
+						style="position: absolute; z-index: 0; left: 200px; top: 10px;">
+					<h1 class="mian_content">Free~ 流量营销</h1>
+					<h1 class="mian_content">想怎么玩就怎么玩</h1>
+					<h1 class="mian_conten_add">API / SDK / HTML5 / 随机红包 / 网站直充 /
+						后台服务</h1>
+				</div>
+				<img src="./img/banner/banner2_bg.png"
+					style="position: absolute; z-index: 26; left: 218px; bottom: 0px;">
+				<img src="./img/banner/banner2_earth.png"
+					style="position: absolute; z-index: 0; left: 278px; top: -280px;display:none;" id="banner2_earth">
+				<ul
+						style="right: 10px; bottom: -10px; left: 40%; position: absolute; list-style: none; z-index: 34;">
+						<li
+							style="width: 38px; height: 14px; line-height: 36px;margin-top: 22px; font-size: 10px; background: #000000; border: 0;  text-align: center; margin-right: 8px; float: left;cursor: pointer; -webkit-text-size-adjust: none;" onclick="banner2Open(1)"></li>
+						<li
+							style="width: 38px; height: 36px; line-height: 36px; font-size: 10px; background: #FF0000; border: 0; text-align: center; margin-right: 8px; float: left; cursor: pointer; -webkit-text-size-adjust: none;"></li>
+						<li
+							style="width: 38px; height: 14px; line-height: 36px; margin-top: 22px; font-size: 10px; background: #000000; border: 0;text-align: center; margin-right: 8px; float: left; cursor: pointer; -webkit-text-size-adjust: none;" onclick="banner2Open(3)"></li>
+					</ul>	
+			</div>
+
+
+		</div>
+		<div class="banner-three">
+			<div class="banner-content">
+				<div class="main_banner3_size">
+				   
+					<h1 class="mian_content" style='font-family: "Microsoft YaHei" ! important;'>全国通用流量包 , 一站搞定</h1>
+					 <h1 class="main_title" style='font-family: "Microsoft YaHei" ! important;'>三网通用 / 全国通用 / 各种包型 / 灵活配置</h1>
+					<img src="./img/banner/banner3_cloud.png" style="margin-top:40px;">
+				</div>
+				
+				<img src="./img/banner/banner3_rocket.png"
+					style="position: absolute; z-index: 1; left: 290px; bottom: 0px;">
+			    	<ul
+						style="right: 10px; bottom: -10px; left: 40%; position: absolute; list-style: none; z-index: 34;">
+						<li
+							style="width: 38px; height: 14px; line-height: 14px;margin-top: 22px; font-size: 10px; background: #000000; border: 0;  text-align: center; margin-right: 8px; float: left; cursor: pointer;-webkit-text-size-adjust: none;" onclick="banner3Open(1)"></li>
+						<li
+							style="width: 38px; height: 14px; line-height: 36px; margin-top: 22px; font-size: 10px; background: #000000; border: 0; text-align: center; margin-right: 8px; float: left; cursor: pointer; -webkit-text-size-adjust: none;" onclick="banner3Open(2)"></li>
+						<li
+							style="width: 38px; height: 36px; line-height: 36px; font-size: 10px; background: #FF0000; border: 0; color: #666666; text-align: center; margin-right: 8px; float: left; cursor: pointer; -webkit-text-size-adjust: none;"></li>
+					</ul>	
+			</div>
+			
+		</div>
+		</div>
+		
+		
+		<!-- 导航 -->
+		<!-- 产品 -->
+		<div class="main_product">
+			<div class="content">
+				<img src="./img/new_img/product.png" class="title_img">
+				<div class="content-icon list">
+					<a class="bounceIn animated" data-delay="300"><img alt
+						src="./img/new_img/liuliangchi.png">
+						<div>流量包</div> <span>全网全国通用</span>
+						<p>支持按需定制</p></a> <a class="bounceIn animated" data-delay="300"><img
+						alt src="./img/new_img/liuliangquan.png">
+						<div>流量卡券</div> <span>独享批量优惠</span>
+						<p>可转赠可兑换</p></a> <a class="bounceIn animated" data-delay="300"><img
+						alt src="./img/new_img/liuliangbi.png">
+						<div>流量币</div> <span>三网通用、灵活兑换</span>
+						<p>流通性更强</p></a> <a class="bounceIn animated" data-delay="300"><img
+						alt src="./img/new_img/liulianggou.png">
+						<div>流量GO</div> <span>全网流量价格最优</span>
+						<p>流量完美加油</p></a>
+
+				</div>
+				<img src="./img/new_img/MORE.png" class="more mar60"
+					onclick="javascript:window.location='./service.html'" />
+
+			</div>
+
+		</div>
+
+		<!-- 方案 -->
+		<div class="main_plan">
+			<div class="plan_content">
+				<div
+					style="background-image: url(./img/new_img/small_bg.png); margin: 0 auto; width: 41px; height: 21px;">
+					<a href="javascript:jump('main_plan')"><img
+						src="./img/new_img/small.png" class="swing"></a>
+				</div>
+				<img src="./img/new_img/soulution.png" class="title_img">
+				<div class="plan_content_max">
+					<div id="wrap">
+						<div class="plan_item" style="margin-left: 30px; color: #FFFFFF">
+							<img src="./img/ourProduct/API.jpg" width="270" height="200" />
+							<h2>
+								<p></p>
+							</h2>
+							<div class="cornerCC"></div>
+							<dl>
+								<dd>
+									<p class="p_title">API</p>
+									<p class="p_line"></p>
+									<p class="p_content">灵活设计营销模式
+									<p>
+									<p class="p_content">提供最优流量资源
+									<p>
+								</dd>
+							</dl>
+						</div>
+						<div class="plan_item" style="margin-left: 50px;">
+							<img src="./img/ourProduct/SDK.jpg" width="270" height="200" />
+							<h2>
+								<p></p>
+							</h2>
+							<div class="cornerCC"></div>
+							<dl>
+								<dd>
+									<p class="p_title">SDK</p>
+									<p class="p_line"></p>
+									<p class="p_content">轻松接入流量资源
+									<p>
+									<p class="p_content">灵活配置营销方案
+									<p>
+								</dd>
+							</dl>
+						</div>
+						<div class="plan_item" style="margin-left: 50px;">
+							<img src="./img/ourProduct/html5.jpg" width="270" height="200" />
+							<h2>
+								<p></p>
+							</h2>
+							<div class="cornerCC"></div>
+							<dl>
+								<dd>
+									<p class="p_title" style="padding-right: 160px;">HTML5</p>
+									<p class="p_line"></p>
+									<p class="p_content">按需定制活动应用
+									<p>
+									<p class="p_content">快速实现营销推广
+									<p>
+								</dd>
+							</dl>
+						</div>
+						<div class="plan_item" style="margin-left: 30px;">
+							<img src="./img/ourProduct/wh.jpg" width="270" height="200" />
+							<h2>
+								<p></p>
+							</h2>
+							<div class="cornerCC"></div>
+							<dl>
+								<dd>
+									<p class="p_title" style="padding-right: 140px;">用户激活</p>
+									<p class="p_line"></p>
+									<p class="p_content_r">积分兑换流量、活动礼品赠送
+									<p>
+									<p class="p_content">满足用户刚性需求
+									<p>
+								</dd>
+							</dl>
+						</div>
+						<div class="plan_item" style="margin-left: 50px;">
+							<img src="./img/ourProduct/jh.jpg" width="270" height="200" />
+							<h2>
+								<p></p>
+							</h2>
+							<div class="cornerCC"></div>
+							<dl>
+								<dd>
+									<p class="p_title" style="padding-right: 140px;">用户维护</p>
+									<p class="p_line"></p>
+									<p class="p_content_r" style="padding-right: 75px;">应用推广,下载激活送流量
+
+
+
+
+
+
+									
+									<p>
+									<p class="p_content_r" style="padding-right: 135px;">轻松提高转化率
+
+
+
+
+
+
+									
+									<p>
+								</dd>
+							</dl>
+						</div>
+						<div class="plan_item" style="margin-left: 50px;">
+							<img src="./img/ourProduct/hh.jpg" width="270" height="200" />
+							<h2>
+								<p></p>
+							</h2>
+							<div class="cornerCC"></div>
+							<dl>
+								<dd>
+									<p class="p_title" style="padding-right: 140px;">互惠服务</p>
+									<p class="p_line"></p>
+									<p class="p_content">提供流量充值入口
+									<p>
+									<p class="p_content_r" style="padding-right: 80px;">将用户量转化为充值利润									
+									<p>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+				<img src="./img/new_img/MORE.png" class="more"
+					style="margin-top: 55px;"
+					onclick="javascript:window.location='./plan.html'" />
+			</div>
+		</div>
+
+		<!-- 优势 -->
+		<div class="main_super">
+			<div class="contain_super">
+				<div
+					style="background-image: url(./img/new_img/small_bg2.png); margin: 0 auto; width: 41px; height: 21px;">
+					<a href="javascript:jump('main_super')"><img
+						src="./img/new_img/small.png" class="swing"></a>
+				</div>
+				<img src="./img/new_img/advantage.png" class="title_img">
+				<div class="good">
+					<div class="good_kk">
+
+						<img src="./img/firends/icon_hover/good1.png" id="good1" />
+						<div class="title">
+							<p class="title-font">三网融合</p>
+						</div>
+						<div class="content">
+							<p>整合移动、联通、电信全国流量</p>
+							<p>直面运营商，产品高效、安全、稳定</p>
+							<p>覆盖全国范围的通用流量包，一站搞定</p>
+						</div>
+					</div>
+					<div class="good_kk">
+
+						<img src="./img/firends/icon_hover/good2.png" id="good2" />
+						<div class="title">
+							<p class="title-font">价格优惠</p>
+						</div>
+						<div class="content">
+							<p>标准精算模式，适配灵活价格方案</p>
+							<p>量化商业运作，让利合作伙伴</p>
+							<p>地方包陆续加盟，价格优惠，组合灵活</p>
+						</div>
+					</div>
+					<div class="good_kk">
+						<img src="./img/firends/icon_hover/good3.png" id="good3" />
+						<div class="title">
+							<p class="title-font">营销方案</p>
+						</div>
+						<div class="content">
+							<p>根据需求量身打造营销策略</p>
+							<p>按客户需求灵活搭配流量产品</p>
+							<p>多种对接方式，实现最优活动效果</p>
+						</div>
+					</div>
+				</div>
+				<img src="./img/new_img/MORE.png" class="more mar10"
+					onclick="javascript:window.location='./about.html'" />
+			</div>
+		</div>
+		<!-- 联系我们 -->
+		<div class="main_contain_us">
+			<div class="contain_content">
+				<div class=""
+					style="background-image: url(./img/new_img/small_bg.png); margin: 0 auto; width: 41px; height: 21px;">
+					<a href="javascript:jump('main_us_firends')"><img
+						src="./img/new_img/small.png" class="swing"></a>
+				</div>
+				<img src="./img/new_img/conntect.png" class="title_img">
+
+				<div class="size_content">
+					<div class="kk">
+						<div class="title">北京</div>
+						<div class="title_content">
+							<span>地址/Add：北京市朝阳区建国路89号华贸公寓4号楼2707室(100010)</span><br> <span>网站/Web：www.singulax.com</span><br>
+							<span>邮箱/Mail：bj@singulax.com</span>
+						</div>
+						<img src="./img/new_img/bj_call.png" class="mar40" />
+					</div>
+					<div class="kk">
+						<div class="title">上海</div>
+						<div class="title_content">
+							<span>地址/Add： 上海市浦东新区松涛路200弄43号101室（201203）</span><br> <span>网站/Web：www.singulax.com</span><br>
+							<span>邮箱/Mail：sh@singulax.com</span>
+						</div>
+						<img src="./img/new_img/sh_call.png" class="mar40" />
+					</div>
+				</div>
+			</div>
+			<!-- 伙伴 -->
+			<div class="main_us_firends">
+				<div class="firends_content">
+					<div class="firends_title">合作伙伴</div>
+					<div class="firends_img">
+						<div>
+							<img src="./img/firends/icon_hover/DX.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/HAJJ.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/LM.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/LT.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/NNK.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/PF.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/WLT.jpg">
+						</div>
+					</div>
+					<div class="firends_img" style="padding-top: 20px;">
+						<div>
+							<img src="./img/firends/icon_hover/XXHH.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/YAYX.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/YD.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/YL.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/YY.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/ZGYL.jpg">
+						</div>
+						<div>
+							<img src="./img/firends/icon_hover/ZX.jpg">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--  底部 -->
+			<div class="main_bootom">Copyright © 江苏奇点网络有限公司 版权所有
+				苏ICP备14050048号-3</div>
+			<!-- 结束 -->
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/comm.js"></script>
+<script type="text/javascript" src="./js/index.js"></script>
+<script type="text/javascript" src="./js/banner.js"></script>
+<script>
+	
+</script>
+</html>

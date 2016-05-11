@@ -1,0 +1,103 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #444
+		url(http://sandbox.runjs.cn/uploads/rs/418/nkls38xx/carbon_fibre_big.png)
+}
+
+.loginBox {
+	width: 460px;
+	height: 260px;
+	padding: 0 20px;
+	border: 1px solid #fff;
+	color: #000;
+	margin-top: 40px;
+	border-radius: 8px;
+	background: white;
+	box-shadow: 0 0 15px #222;
+	background: -moz-linear-gradient(top, #fff, #efefef 8%);
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6),
+		to(#f4f4f4));
+	font: 11px/1.5em 'Microsoft YaHei';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -230px;
+	margin-top: -115px;
+}
+
+.loginBox h2 {
+	height: 45px;
+	font-size: 20px;
+	font-weight: normal;
+}
+
+.loginBox .left {
+	border-right: 1px solid #ccc;
+	height: 100%;
+	padding-right: 20px;
+}
+
+.loginRember {
+	float: right;
+	padding-right: 30px;
+	padding-top: 2px;
+}
+
+fieldset{
+  margin-top:10px;
+}
+.ma_20{
+  margin-top:20px;
+}
+
+.ma_10{
+  margin-top:10px;
+}
+.error{
+  color:#F00000;
+  margin-top:5px;
+  margin-left:3px;
+}
+
+.ng-hide{
+	display:none !improtant
+	
+}
+
+
+/*È«ÆÁ±³¾°ÕÚÕÖ²ã*/
+.loadingPage_bg1 {
+	background: none repeat scroll 0 0 #000;
+	height: 100%;
+	left: 0; /*:rgba(0,0,0,0.5);*/
+	opacity: 0.7;
+	filter: alpha(opacity =   70);
+	width: 200%;
+	position: absolute;
+	top: 0px;
+	z-index: 110;
+}
+
+#loadingPage {
+	display: block;
+	font-weight: bold;
+	font-size: 12px;
+	color: #595959;
+	height: 48px;
+	left: 50%;
+	line-height: 47px;
+	margin-left: -74px;
+	margin-top: -14px;
+	padding: 0px 10px 10px 50px;
+	position: absolute;
+	text-align: left center;
+	top: 50%;
+	width: 248px;
+	z-index: 111;
+	background: url(../img/loading.gif) no-repeat scroll 12px center #FFFFFF;
+	border: 2px solid #86A5AD;
+}

@@ -1,0 +1,71 @@
+body{
+	background: #F5F5F5; font-family: Microsoft YaHei
+	
+}
+.color-b {
+	color: #FFFFFF
+}
+
+.navbar-background {
+	margin-top: 50px;
+	margin-bottom: 0px;
+	background: #F5F5F5;
+}
+
+.navbar-img {
+	background: url(../img/topL.jpg);
+	height: 40px;
+	width: 250px;
+	padding-top: 10px;
+}
+
+.main {
+	background: #FDFDFD;
+	border-radius: 0px;
+	border: 0px;
+	height: 405px;
+}
+
+.main .img {
+	background: url(../img/leftB.png);
+	width: 595px;
+	height: 404px;
+}
+
+.bottom-font {
+	text-align: center;
+	padding-top: 20px;
+}
+
+.main .box {
+	background: #F5F5F5;
+	height: 320px;
+	padding: 10px
+}
+
+.main .box .title {
+	font-size: 22px;
+}
+
+.mar20 {
+	margin-top: 20px
+}
+
+.main .box .button {
+	margin-top: 30px;
+	margin-bottom: 40px;
+}
+
+.buy-img {
+	background: url(../img/buy.jpg);
+	width: 220px;
+	height: 46px;
+}
+
+.route {
+	text-align: center;
+	line-height: 100px;
+	height: 100px;
+}
+
+

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="flowApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8流量demo</title>
+
+<!-- Bootstrap -->
+<link href="css/bootstrap/bootstrap.css" rel="stylesheet">
+<link href="css/singOrder.css" rel="stylesheet">
+<link href="css/index.css" rel="stylesheet">
+<link href="css/page.css" rel="stylesheet">
+<link href="css/regUser.css" rel="stylesheet">
+<link href="css/batch.css" rel="stylesheet">
+
+<style type="text/css">
+#drag {
+	position: absolute;
+	top: 50px;
+	left: 40%;
+	width: 320px;
+	text-align: center;
+	z-index: 9999;
+}
+</style>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-controller="indexController">
+	<nav class="navbar navbar-i navbar-fixed-top"
+		style="background: #ffffff;">
+		<div class="container-fluid">
+
+			<div class="navbar-header">
+				<a><img src="./img/LOGO.jpg" alt=""></a>
+
+			</div>
+			
+			<div id="navbar" class="navbar-collapse collapse" hidden-sm>
+				<form class="navbar-form navbar-right visible-xs-12">
+					<!-- /input-group -->
+
+					<a href="#userSet"><span
+						class="glyphicon glyphicon-cog iconButton hidden-sm"
+						aria-hidden="true" data-toggle="tooltip" data-placement="bottom"
+						title="设置"></span></a> <span
+						class="glyphicon glyphicon-th-large iconButton hidden-sm"
+						aria-hidden="true" data-toggle="tooltip" data-placement="bottom"
+						title="用户详情"></span> <span
+						class="glyphicon glyphicon-off iconButton hidden-sm"
+						aria-hidden="true" data-toggle="tooltip" data-placement="bottom"
+						title="退出系统" ng-click="layout()"></span>
+
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false"> <span
+							ng-bind="userName"></span> <span class="caret"></span>
+					</a>
+						
+						<ul class="dropdown-menu" role="menu"
+							aria-labelledby="dropdownMenu2">
+							<li role="presentation" class="dropdown-header">安全账户：<span
+								ng-bind="userName"></span>
+							</li>
+							<li role="presentation" class="dropdown-header">账户余额：<span>{{{true:price/100,false:'0.00'}[price!=undefined
+									&& price!=null && price!=''] |currency:''}}</span>
+							</li>
+
+						</ul></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class=" alert alert-danger  ng-hide" id="drag"
+		ng-show="DIALOG_TOAST" role="alert">{{DIALOG_TOAST_TITLE}}</div>
+
+	<!-- <div class="container-fluid">
+		<div class="col-sm-2 col-md-2 sidebar" style="margin-top:20px;border-radius:5px; background:#edf2f8;border:0px;"  common-menu></div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 " style="margin-top:20px;" ng-view></div>
+	</div>-->
+	<div class="container-fluid">
+		<div class="sidebar"
+			style="width: 200px; margin-top: 20px; border-radius: 5px; background: #edf2f8; border: 0px;"
+			common-menu></div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 "
+			style="margin-left: 220px; margin-top: 20px;" ng-view></div>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="js/angular/lib/jquery.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap/bootstrap.js"></script>
+
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/angular/lib/angular.min.js"></script>
+		<script src="js/angularjs-ui/ui-bootstrap-tpls-0.12.1.min.js"></script>
+		<script src="js/util/base.js"></script>
+		<script src="js/angular/lib/angular-route.min.js"></script>
+		<script src="js/angular/lib/angular-cookies.min.js"></script>
+		<script src="js/common/app.js"></script>
+		<script src="js/angular/angularCtrl/flow-indexCtrl.js"></script>
+		<script src="js/angular/angularCtrl/flow-singOrderCtrl.js"></script>
+		<script src="js/angular/angularCtrl/flow-editUserCtrl.js"></script>
+		<script src="js/angular/angularCtrl/flow-batchRechargeCtrl.js"></script>
+		<script src="js/angular/angularCtrl/flow-batchOrderCtrl.js"></script>
+		<script src="js/angular/angularCtrl/flow-batchOrderDetailCtrl.js"></script>
+		<script src="js/angular/angularCtrl/flow-orderCtrl.js"></script>
+		<script src="js/angular/angularCtrl/flow-couponCtrl.js"></script>
+		<script src="js/angular/angularCtrl/flow-settingCtrl.js"></script>
+		<script src="js/common/ivan.js"></script>
+		<script src="js/util/CommonPerson.js"></script>
+		<script language="javascript" type="text/javascript"
+			src="js/My97DatePicker/WdatePicker.js"></script>
+		<script>
+			//启动提示 
+			$(function() {
+				$('[data-toggle="tooltip"]').tooltip()
+			})
+		</script>
+
+</body>
+</html>

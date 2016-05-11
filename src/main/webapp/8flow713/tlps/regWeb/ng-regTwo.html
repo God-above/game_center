@@ -1,0 +1,171 @@
+<!-- 导航 -->
+<div ng-init="init()">
+	<div class="topNav">
+			<!--导航控件  -->
+			<div>
+				<div style="padding-top: 20px; float: left;  margin-left: 75px;">
+					<div class="box">
+						<div class="lingxing_active"></div>
+						<div class="size size_yes">1</div>
+						<div class="box_size_active">创建账户</div>
+					</div>
+				</div>
+				<!-- ----------------------设置账户----------------------- -->
+				<div class="line_active line_one" ng-show="two"></div>
+				<div class="line_active line_one" ng-show="three"></div>
+				<div style="padding-top: 20px; float: left">
+					<div class="box">
+						<div class="lingxing_active" ng-show="!one"></div>
+						<div class="size size_yes">2</div>
+						<div class="box_size" ng-show="one">设置账户</div>
+						<div class="box_size_active" ng-show="!one">设置账户</div>
+					</div>
+				</div>
+				<!-- ----------------------完成----------------------- -->
+				<div class="line line_one" ng-show="!three"></div>
+				<div class="line_active line_one" ng-show="three"></div>
+				<div style="padding-top: 20px; float: left">
+					<div class="box">
+						<div class="lingxing_active" ng-show="three"></div>
+						<div class="lingxing" ng-show="!three"></div>
+						<div class="size size_yes">3</div>
+						<div class="box_size" ng-show="!three">&nbsp;&nbsp;&nbsp;成功</div>
+						<div class="box_size" ng-show="three">&nbsp;&nbsp;&nbsp;成功</div>
+					</div>
+				</div>
+			</div>
+			<!--导航控件  -->
+	</div>
+	<!--------------------------- 第一部分  个人注册start -->
+	<div class="tab-content box-shadow">
+		<!--------------------------- 第一部分  个人注册end -->
+		<div class="twoContent" ng-show="two">
+			<div class="divTitle">账户设置</div>
+			<form class="form-horizontal" name="user_form2" novalidate>
+				<div class="form-group  mg_t_30">
+					<label class="col-md-offset-1 col-md-2 col-sm-4 control-label "
+						style="color: #337ab7;font-size:16px;"> 设置用户名:</label>
+					<div class="col-md-5 col-sm-5">
+						<input type="text" name="perUserName" ng-model="per.userName"
+							class="form-control" ng-maxlength=8 required ng-focus ng-blur="userNameBlur()">
+					</div>
+					<div class="validate_style ng-hide"
+						ng-show="user_form2.$invalid && user_form2.$dirty">
+						<div
+							ng-show="user_form2.perUserName.$dirty && !user_form2.perUserName.$focused  && user_form2.perUserName.$error.required ">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;用户名不能为空！
+						</div>
+						<div
+							ng-show="user_form2.perUserName.$dirty && !user_form2.perUserName.$focused  && user_form2.perUserName.$error.maxlength ">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;用户名长度不能大于8个字符！
+						</div>
+					</div>
+					<div class="validate_style" ng-show="user_showDiv">
+								<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;<span ng-bind="user_showMsg"></span>
+					</div>
+
+				</div>
+				<hr class="hrDiv" />
+				<div class="form-group mg_t_30">
+					<label class="col-md-offset-1 col-md-2 col-sm-4  control-label"><span
+						style="color: #337ab7;font-size:16px; " > 设置登录密码</span> </label>
+					<div class="col-md-5 col-sm-8 text-left"
+						style="margin-top: 5px; color: #A29797;">
+						<small>登录时需验证，保护账号信息</small>
+					</div>
+				</div>
+				<div class="form-group mg_t_30">
+					<label class="col-md-offset-1 col-md-2 col-sm-4  control-label"
+						style="font-weight: 200;"> 登录密码</label>
+
+					<div class="col-md-5 col-sm-5">
+						<input type="password" name="perUserPwd" ng-model="per.userPwd"
+							ng-maxlength="20" ng-minlength="6" class="form-control" maxlength="20"
+							placeholder="请输入6-20位字符密码" required ng-focus>
+					</div>
+					<div class="validate_style ng-hide"
+						ng-show="user_form2.$invalid && user_form2.$dirty">
+						<div class="errorColor"
+							ng-show="user_form2.perUserPwd.$dirty &&!user_form2.perUserPwd.$focused && user_form2.perUserPwd.$error.required">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;登录密码不能为空！
+						</div>
+						<div class="errorColor"
+							ng-show="user_form2.perUserPwd.$dirty &&!user_form2.perUserPwd.$focused && user_form2.perUserPwd.$error.maxlength">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;登录密码长度不能大于20个字符！
+						</div>
+						<div class="errorColor"
+							ng-show="user_form2.perUserPwd.$dirty &&!user_form2.perUserPwd.$focused && user_form2.perUserPwd.$error.minlength">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;登录密码长度不能小于6个字符！
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputPassword3"
+						class="col-md-offset-1 col-md-2 col-sm-4  control-label"
+						style="font-weight: 200;"> 再输入一次:</label>
+					<div class="col-md-5 col-sm-5">
+						<input type="password" name="perRePwd" ng-model="per.perRePwd"
+							ng-maxlength="20" ng-minlength="6" class="form-control" maxlength="20"
+							placeholder="请再一次输入密码" repeat="perUserPwd" required ng-focus>
+					</div>
+					<div class="validate_style ng-hide"
+						ng-show="user_form2.perRePwd!=user_form2.perUserPwd">
+						<div
+							ng-show="user_form2.perRePwd.$dirty && !user_form2.perRePwd.$focused  && user_form2.perRePwd.$error.required">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;登录密码不能为空！
+						</div>
+						<div
+							ng-show="user_form2.perRePwd.$dirty && !user_form2.perRePwd.$focused  && user_form2.perRePwd.$error.maxlength">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;登录密码长度不能大于20个字符！
+						</div>
+						<div
+							ng-show="user_form2.perRePwd.$dirty && !user_form2.perRePwd.$focused  && user_form2.perRePwd.$error.minlength">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;登录密码长度不能小于6个字符！
+						</div>
+						<div
+							ng-show="(user_form2.perRePwd.$dirty && !user_form2.perRePwd.$focused  && user_form2.perRePwd.$error.repeat )&& !user_form2.perRePwd.$error.minlength">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;两次密码输入不一致！
+						</div>
+
+					</div>
+				</div>
+				<div class="form-group pd_b_30">
+					<label for="inputPassword3"
+						class="col-md-offset-1 col-md-2 col-sm-4  control-label">
+					</label>
+					<div class="col-md-4 col-sm-4 text-left">
+						<a type="button" class="mg_t_30 btn btn-primary "
+							style="width: 80px;" ng-disabled="user_form2.$invalid"
+							ng-click="regPerUser()">完成</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!----------------------------------------- 完成注册第二步end -->
+		<div class="threeContent" ng-show="three">
+			<!--------------------------------------- 完成注册第三步 start-->
+			<div class="finish">
+				<img alt="" src="img/step/ok.jpg"> <span class="suc_content">恭喜您完成注册</span>
+				<hr class="hrDiv" />
+				<h4 style="font-weight: bold;">尊敬的用户，您已成为8流量用户！</h4>
+				<a href="./login.html"><button
+						class="btn btn-primary mg_t_20 mg_b_30">确认</button></a>
+			</div>
+
+		</div>
+	</div>
+	<!------------------------------------------- 完成注册第三步 end -->
+
+</div>
+
+<script type="text/javaScript">
+	$('#myTab a').click(function(e) {
+		e.preventDefault()
+	})
+	$('.modal').modal({
+		backdrop : "static",
+		show : false
+	})
+	$("[data-toggle='popover']").popover();
+</script>

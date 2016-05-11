@@ -1,0 +1,171 @@
+<div ng-init=vm.init()>
+	<div class="panel panel-default" ng-class="{hidden: vm.hidden}">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span>兑换记录查询 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vm.collapsed = !vm.collapsed"></span>
+				</span>
+			</h4>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body size_font" id='batch'>
+				<!-- 第一行 -->
+			
+				
+				<form class="form-horizontal mt_20" role="form">
+					<div class="form-group">
+						<div class="col-md-3">
+							<input type="text" placeholder="兑换批次号"
+								class="form-control" ng-model="exchangeBatchNo" />
+						</div>
+						<div class="col-md-3">
+							<input type="text" placeholder="流量卡号"
+								class="form-control" ng-model="couponNo" />
+						</div>
+					</div>
+				</form>
+				
+				<form class="form-inline mt_15">
+					<label for="inputPassword">兑换状态:</label> <select class="select"
+						ng-model="status" id="status" 
+						 ng-options="Status.code as Status.description for Status in vm.couponStatus">
+						<option value="">全部</option>
+					</select> <label for="inputPassword">兑换时间:</label> <input
+						class="Wdate date input-group form-control" style="height: 34px;"
+						type="text" id="startCreateTime"
+						onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+						placeholder="请选择开始时间" ng-model="startCreateTime"> <label
+						class="line">—</label> <input
+						class="Wdate date input-group form-control" style="height: 34px;"
+						type="text" id="endCreateTime"
+						onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+						placeholder="请选择结束时间" ng-model="endCreateDate">
+				</form>
+				<button class="btn btn-primary mt_15" type="button"
+					ng-click="vm.couponRecordBtn(1,'btn')">查询</button>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default" ng-if="vm.couponRecordList.length>0">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 兑换列表 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vmList.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vmList.collapsed = !vmList.collapsed"></span>
+				</span>
+			</h4>
+
+		</div>
+		<div class="panel-collapse collapse"
+			ng-class="{in: !vmList.collapsed}">
+			<div class="panel-body">
+				<div class="table-responsive panel-table">
+					<table class="table table-hover panel-table-line">
+						<thead>
+							<tr>
+								<th>兑换批次号</th>
+								<th>流量卡号</th>
+								<th>商品</th>
+								<th>手机号</th>
+								<th>兑换时间</th>
+								<th>用户编号</th>
+								<th>订购状态</th>
+								<th>操作</th>
+							 </tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="coupon in vm.couponRecordList">
+								<td>{{coupon.couponBatchNo}}</td>
+								<td>{{coupon.couponNo}}</td> 
+								<td>{{coupon.productName}}</td>
+								<td>{{coupon.rechargeAccount}}</td>
+								<td>{{coupon.createDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+								<td>{{coupon.userCode}}</td>
+								<td ng-class="{true: 'table_hover'}[$index!=0]">
+									{{{true : coupon.statusText,false:coupon.statusText}[coupon.status == 3]}}
+									<br>{{{true : '48小时自动取消',false:''}[coupon.status == 1]}}							
+								</td>
+								<td>
+									<span ng-if="coupon.status==3" class="btn btn-xs btn-primary" 
+									ng-click="vm.editStatus(coupon)">修改状态</span>
+									 <span ng-if="coupon.status!=3">---</span> 
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- 页码  -->
+					<div id="listPage">
+					       <tm-pagination conf="paginationConf"> </tm-pagination>
+						   <!-- <expander> </expander> -->
+					</div>
+					<!-- 页码  -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="alert alert-dangerin ng-hide" ng-show="disableAlert"
+			id="drag">
+			<div class="alertTitle">
+				<div class="col-md-6">
+					<span>{{disableAlert_title}}</span>
+				</div>
+				<button class="close close_btn" type="button"
+					ng-click="vm.refund.esc()">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+			</div>
+			<div class="alertContent">{{disableAlert_text}}</div>
+			<div class="alertFooter">
+				<button class="col-sm-offset-2 btn btn-primary btn-ls col-sm-2"
+					type="button" ng-click="vm.refund.confirm()">确认</button>
+				<button class="btn btn-default btn-ls" type="button"
+					ng-click="vm.refund.esc()">取消</button>
+			</div>
+		</div>
+
+		<div class="modal fade" id="editModal" ng-cloak>
+			<div class="modal-dialog" style="width: 65%; color: #333333;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title" id="myLargeModalLabel">查看</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-2 control-label">兑换状态</label>
+								<div class="col-sm-5">
+									<select class="form-control" ng-model="vm.editStatus.orderStatus">
+										<option value="">选择兑换状态</option>
+										<option value=4>消费成功</option>
+										<option value=5>消费失败</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group" ng-if="vm.editStatus.orderStatus==5">
+								<label for="inputPassword3" class="col-sm-2 control-label">备注信息</label>
+								<div class="col-sm-5">
+									<textarea class="form-control" 
+										rows="3" ng-model="vm.editStatus.remark" placeholder="请输入备注信息"></textarea>
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer" id="closeBtn"
+							style="padding-right: 50px;">
+							<button type="button" class="btn btn-success"
+								ng-click="vm.editStatus.updateOrderStatus();">保存</button>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>

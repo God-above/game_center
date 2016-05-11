@@ -1,0 +1,166 @@
+body {
+	background: #F5F5F5;
+	font-family: Microsoft YaHei
+}
+
+/* �������� ��ʼ */
+#main {
+	margin: 0 auto;
+	width: expression(document.body.clientWidth <=     960 ?     "960px" :    
+		"auto");
+	min-width: 960px;
+}
+
+#main .top_bar {
+	width: 100%;
+	height: 40px;
+	top: 0px;
+	background: #000000;
+	position: fixed;
+	z-index: 99;
+}
+
+.top_bar .top_title {
+	width: 960px;
+	margin: 0 auto;
+	height: 40px;
+	line-height: 40px;
+	text-align: left;
+	color: #FFFFFF;
+	font-size: 12px;
+	padding-left: 10px;
+}
+.top_content .top_nav_button img{
+	width: 59px;
+	height: 33px;
+	position: relative;
+	top: 12px;
+	left: 11px;
+}
+.top_bar .top_title a {
+	font-family: "SimSun" ! important;
+	color: #2797cf;
+	cursor: pointer;
+}
+
+.top_bar .top_dh {
+	width: 100%;
+	height: 74px;
+	background: #eeeeee;
+}
+
+.top_dh .top_content {
+	width: 960px;
+	margin: 0 auto;
+	height: 74px;
+	color: #FFFFFF;
+}
+
+.top_content img {
+	width: 298px;
+	float: left;
+	padding-top: 15px;
+}
+
+.top_content .top_nav {
+	float: right;
+	height: 74px;
+	color: #000000;
+	background: #EEEEEE;
+	text-align: center;
+}
+.top_content .top_nav_button {
+	float: left;
+	height: 74px;
+	line-height: 74px;
+	text-align: center;
+	width: 80px;
+	color: #6d6e71;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.top_content .top_nav_button:hover {
+	background: #2797cf;
+	color: #FFFFFF;
+}
+
+.top_content .active {
+	background: #2797cf;
+	color: #FFFFFF;
+}
+
+
+/* �������� ���� */
+
+
+
+
+
+
+
+
+.top_nav .content .imgDiv{
+	width: 50%;
+	margin-left: 15%;
+	border: 0px solid red;
+	height: 74px;
+}
+.top_nav .first_div_img {
+	position: relative;
+	top: 23px;
+	height: auto;
+}
+
+
+.login_main {
+	width:100%;
+	position:relative;
+	top:114px;
+	background-color: #FFFFFF;
+}
+
+#msform {
+    width: 70%;
+    margin: 50px auto;
+    text-align: center;
+    position: relative;
+}
+#msform div{
+	text-align: center;	
+}
+
+
+.validate_style{
+	position: relative;
+	left: 5px;
+	float: left;
+	top: 5px;
+}
+
+
+.ng-hide {
+	/* this is just another form of hiding an element */
+	display: none !important;
+}
+
+.mg_l_25 {
+	margin-left: 25%;
+}
+
+.mg_t_25 {
+	margin-top: 25px;
+}
+
+.mg_l_30 {
+	margin-left: 30%;
+}
+
+.mg_t_30 {
+	margin-top: 30px;
+}
+
+/*错误提示文字颜色*/
+.errorColor {
+	color: red;
+}

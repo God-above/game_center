@@ -1,0 +1,82 @@
+<div ng-init="getUserInit()">
+
+	<div class="logo">修改密码</div>
+
+	<div class="editForm">
+		<form name="form_valid" class="form-horizontal" novalidate>
+			<fieldset class="mar20 fontColor">
+				<label class="col-sm-4 col-md-4 control-label">账户名：</label>
+				<div class="col-md-6 col-sm-6 mg_t_7">{{userInfo.userName}}</div>
+			</fieldset>
+			<hr class="hrDiv" />
+			<fieldset class="mar20 ">
+				<label class="col-sm-4 control-label">当前支付密码：</label>
+				<div class="col-md-5 col-sm-5">
+					<input type="password" name="oldPayPwd" ng-model="userPayPwd"
+						class="form-control"  required
+						ng-minlength=6 ng-maxlength=20 ng-focus ng-blur="hideError()">
+					<div class="errorColor"
+						ng-show="form_valid.oldPayPwd.$dirty && form_valid.oldPayPwd.$invalid">
+						<small class="error"
+							ng-show="!form_valid.oldPayPwd.$focused && form_valid.oldPayPwd.$error.required ">▲密码不能为空！
+						</small> <small class="error"
+							ng-show="!form_valid.oldPayPwd.$focused && form_valid.oldPayPwd.$error.minlength || form_valid.oldPayPwd.$error.maxlength">▲密码长度必须在6~20个字符内！
+						</small>
+					</div>
+					<div class="errorColor" ng-show="payError && userPayPwd">
+						<small class="error">▲支付密码错误！
+						</small> 
+					</div>
+					
+				</div>
+				<div class="mg_t_7">
+					<a href="#changeType/findPayPwd">忘记密码？</a>
+				</div>
+			</fieldset>
+
+			<fieldset class="mar20">
+				<label class="col-sm-4 control-label">新支付密码：</label>
+				<div class="col-md-5 col-sm-5">
+					<input type="password" name="newPayPwd" class="form-control"
+						ng-model="newPayPwd" required ng-minlength=6 ng-maxlength=20
+						ng-focus>
+					<div class="errorColor"
+						ng-show="!form_valid.newPayPwd.$focused && form_valid.newPayPwd.$dirty && form_valid.newPayPwd.$invalid">
+						<small class="error"
+							ng-show="!form_valid.newPayPwd.$focused && form_valid.newPayPwd.$error.minlength || form_valid.newPayPwd.$error.maxlength">▲密码长度必须在5~20个字符内！
+						</small>
+					</div>
+				</div>
+				<div class="mg_t_5">必须是6-20位英文字符</div>
+			</fieldset>
+
+
+			<fieldset class="mar20">
+				<label class="col-sm-4 control-label">确认新支付密码：</label>
+				<div class="col-md-5 col-sm-5">
+					<input type="password" name="newRePassword" class="form-control"
+						ng-model="newRePassword" required ng-minlength=5 ng-maxlength=20
+						repeat="newPayPwd" ng-focus>
+					<div class="errorColor"
+						ng-show="!form_valid.newRePassword.$focused && form_valid.newRePassword.$dirty && form_valid.newRePassword.$invalid">
+						<small class="error"
+							ng-show="!form_valid.newRePassword.$focused && form_valid.newRePassword.$error.minlength || form_valid.newRePassword.$error.maxlength">▲密码长度必须在5~20个字符内！
+						</small> <small class="error"
+							ng-show="(form_valid.newRePassword.$dirty && !form_valid.newRePassword.$focused  && form_valid.newRePassword.$error.repeat )&& !form_valid.newRePassword.$error.minlength">
+							▲两次密码输入不一致！ </small>
+					</div>
+				</div>
+
+			</fieldset>
+			<fieldset class="mar20">
+				<label class="col-sm-4 control-label"></label>
+				<div class="col-md-8 col-sm-8">
+					<a type="button" class="btn btn-primary"
+						ng-disabled="form_valid.$invalid || unique" ng-click="updatePayPwd()">确定</a>
+				</div>
+			</fieldset>
+		</form>
+
+
+	</div>
+</div>

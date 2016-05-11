@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+	<jmxConfigurator />
+
+	<!--日志文件保存目录-->
+	<property name="LOG_HOME" value="/tmp/virtual/logs/baliuliang"/>
+
+	<!--默认日志文件保存天数-->
+	<property name="LOG_MAX_HISTORY" value="180"/>
+	<!--警告日志文件保存天数-->
+	<property name="WARN_MAX_HISTORY" value="180"/>
+	<!--错误日志文件保存天数-->
+	<property name="ERROR_MAX_HISTORY" value="180"/>
+
+	<!--  控制台输出  -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder charset="UTF-8">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80}:%L - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!--  正常日志文件压缩保存  -->
+	<appender name="infoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- Support multiple-JVM writing to the same log file -->
+		<prudent>true</prudent>
+		<file>${LOG_HOME}/baliuliang.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<maxHistory>${LOG_MAX_HISTORY}</maxHistory>
+			<fileNamePattern>${LOG_HOME}/baliuliang.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+
+		<encoder charset="UTF-8">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80}:%L - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+
+	<root level="info">
+		<appender-ref ref="console"/>
+		<appender-ref ref="infoFile"/>
+	</root>
+
+	<!-- 定义第三方日志输出级别  -->
+	<logger name="org.springframework" level="info"/>
+	<logger name="org.springframework.scheduling" level="info"/>
+    <logger name="org.springframework.data.redis" level="trace"/>
+    <logger name="redis.clients" level="trace"/>
+	<logger name="java.sql" level="info"/>
+	<logger name="com.opensymphony" level="INFO"/>
+	<logger name="org.apache" level="INFO"/>
+    <logger name="org.mongodb.morphia" level="trace"/>
+    <logger name="com.mongodb" level="trace"/>
+	<logger name="com.singulax.flow.web.dao" level="debug"/>
+	<logger name="com.singulax" level="trace"/>
+
+</configuration>

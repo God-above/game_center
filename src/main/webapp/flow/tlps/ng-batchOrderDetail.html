@@ -1,0 +1,182 @@
+<div ng-init=batchDetailInit()>
+
+	<!-- 批次明细 -->
+	<div class="panel panel-default" style="display:none">
+		<div class="panel-heading">批次明细</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-4 col-sm-6  margin-20-top">
+					<div class="col-md-10 ">
+						批次编号:<span class="col-md-offset-1">20150123345678222555</span>
+					</div>
+
+				</div>
+				<div class="col-md-4 col-sm-6  margin-20-top">
+					<div class="col-md-10">
+						批次名称:<span class="col-md-offset-1">测试批次名称</span>
+					</div>
+
+				</div>
+			
+
+				<div class="col-md-4 col-sm-6 margin-20-top">
+					<div class="col-md-10">
+						创建时间:<span class="col-md-offset-1">2015-03-24 17:00:00</span>
+					</div>
+
+
+				</div>
+
+				<div class="col-md-4 col-sm-6 margin-20-top">
+					<div class="col-md-10">
+						完成时间:<span class="col-md-offset-1">2015-03-24 18:00:00</span>
+					</div>
+
+
+				</div>
+				<div class="col-md-4 col-sm-6  margin-20-top">
+					<div class="col-md-10">
+						创建人&nbsp;&nbsp;:<span class="col-md-offset-1">admin</span>
+					</div>
+
+
+				</div>
+				<div class="col-md-4 col-sm-6 margin-20-top">
+					<div class="col-md-10">
+						批次状态:<span class="col-md-offset-1">充值中</span>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 查询区域-->
+	<div class="panel panel-default" ng-class="{hidden: vm.hidden}">
+		<div class="panel-heading">
+		<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 批次订单检索 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vm.collapsed = !vm.collapsed"></span>
+				</span>
+			</h4>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+		<div class="panel-body">
+			<!-- 第一行 -->
+			<form class="form-horizontal mt_20" role="form">
+				<div class="form-group">
+					<div class="col-md-8">
+						<div class="input-group">
+							<input type="text"
+								placeholder="输入订单编号/手机号码/商品编号/商品名称"
+								class="form-control" ng-model="searchInfo" maxlength="40">
+							<span class="input-group-btn">
+								<button class="btn btn-success" type="button"
+									ng-click="btnSearch()">快速查询</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- /第一行 -->
+			<!-- 第二行 -->
+			<form class="form-inline margin-20-top">
+				<div class="form-group hidden-sm hidden-xs" >
+					<label for="exampleInputName2">订单状态:</label>
+
+				</div>
+				<div class="form-group margin-20-left">
+					<select name="status" ng-model="status" class="form-control" ng-options="statusInfo.code  as statusInfo.description for statusInfo in statusList">
+						<option value="">请选择订单状态</option>
+					</select>
+				</div>
+				
+			</form>
+			<!-- /第二行 -->
+			<!-- 第三行 -->
+			<form class="form-inline margin-20-top">
+				<div class="form-group hidden-sm hidden-xs">
+					<label for="exampleInputName2">创建日期:</label>
+
+				</div>
+
+				<div class="form-group margin-20-left">
+					<input class="Wdate date input-group form-control" type="text" 
+								style="height: 30px;" id="start_time"
+								onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+								placeholder="创建开始时间" >
+					<label for="exampleInputName2" class="margin-10-left hidden-sm hidden-xs">至</label> 
+					<input class="Wdate date input-group form-control" type="text" 
+								style="height: 30px;" id="end_time"
+								onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+								placeholder="创建截止时间">	
+				</div>
+			</form>
+			<!-- /第三行 -->
+		</div>
+		</div>
+	</div>
+	<!-- /查询区域-->
+	<span class="btn btn-primary" ng-click="vm.hidden = false"
+		ng-if="vm.hidden">重新显示</span>
+
+	<!-- 查询-->
+	<div class="panel panel-default" ng-show="orderList.length>0">
+		<div class="panel-heading">
+		<span class="glyphicon glyphicon-th-list"></span> 订单列表 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vmList.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vmList.collapsed = !vmList.collapsed"></span>
+				</span>
+		
+		</div>
+		<div class="panel-collapse collapse"
+			ng-class="{in: !vmList.collapsed}">
+		<div class="panel-body">
+			<div class="divStyle">
+				<table class="table">
+					<thead>
+						<tr>
+							<th width="8%">订单编号</th>
+							<!-- <th width="8%">商品编号</th> -->
+							<th width="8%">商品名称</th>
+							<th width="6%">金额/元</th>
+							<!-- <th width="8%">订单类型</th> -->
+							<th width="8%">充值账号</th>
+							<!-- <th width="8%">用户账号</th> -->
+							<th width="8%">创建时间</th>
+							<th width="8%">订单状态</th>
+							<!-- <th width="8%">备注信息</th> -->
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="order in orderList">
+							<td width="8%">{{order.orderNo}}</td>
+							<!-- <td width="8%">{{order.productNo}}</td> -->
+							<td width="8%">{{order.productName}}</td>
+							<td width="8%">{{order.price/100 | currency:''}}</td>
+							<!-- <td width="8%">
+								<span ng-if="order.orderType==1">系统</span>
+								<span ng-if="order.orderType==2">接口</span>
+								<span ng-if="order.orderType!=1&&order.orderType!=2">---</span>
+							</td> -->
+							<td width="8%">{{order.rechargeAccount}}</td>
+							<!-- <td width="8%">{{{true:order.userCode,false:'---'}[order.userCode!=undefined && order.userCode!='' && order.userCode!=null]}}</td> -->
+							<td width="8%">{{order.createDate | date:'yyyy/MM/dd hh:mm:ss'}}</td>
+							<td width="8%">{{parseStatus(order.status)}}</td>
+						<!-- 	<td width="8%">{{{true:order.remark,false:'---'}[order.remark!=undefined && order.remark!='' && order.remark!=null]}}</td> -->
+						</tr>
+				</table>
+			</div>
+			<div id="listPage">
+				<expander> </expander>
+			</div>
+		</div>
+		</div>
+	</div>
+	<!-- /查询-->
+</div>

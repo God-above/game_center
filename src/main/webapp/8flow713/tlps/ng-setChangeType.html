@@ -1,0 +1,314 @@
+<link href="./css/regUser.css" rel="stylesheet">
+<div ng-init="init()">
+	<div class="logo"
+		ng-if="showType=='bindEmail'">绑定邮箱</div>
+	<div class="logo"
+		ng-if="showType=='email' || showType=='emailBypayPwd'">修改绑定邮箱</div>
+	<div class="logo"
+		ng-if="showType=='tel'">修改绑定手机</div>
+	<div class="logo"
+		ng-if="showType=='bindTel' ||  showType=='telBypayPwd'">绑定手机</div>
+	<div class="logo"
+		ng-if="showType=='emailByfindPwd' || showType=='telByfindPwd' || showType=='payPwdByfindPwd'">找回登录密码</div>
+	<div class="logo"
+		ng-if="showType=='emailByfindPayPwd' || showType=='telByfindPayPwd'">找回支付密码</div>
+	<div class="logo"
+		ng-if="showType=='setPayPwd'||showType=='emailBySetPayPwd' ">设置支付密码</div>
+
+	<!--导航控件  -->
+
+	<div style="width: 700px; margin: 0 auto;">
+		<div style="padding-top: 20px; float: left; margin-left: 75px;">
+			<div class="box">
+				<div class="lingxing_active"></div>
+				<div class="size size_yes">1</div>
+				<div class="box_size">验证身份</div>
+			</div>
+		</div>
+		<!-- ----------------------设置账户----------------------- -->
+		<div class="line line_one"></div>
+
+		<div style="padding-top: 20px; float: left">
+			<div class="box">
+				<div class="lingxing"></div>
+				<div class="size size_yes">2</div>
+				<div class="box_size"
+					ng-if="showType=='email' || showType=='bindEmail' || showType=='emailBypayPwd' ">绑定邮箱</div>
+				<div class="box_size"
+					ng-if="showType=='tel' || showType=='bindTel' || showType=='telBypayPwd'">绑定手机</div>
+				<div class="box_size"
+					ng-if="showType=='emailByfindPwd' || showType=='telByfindPwd' || showType=='payPwdByfindPwd'">找回密码</div>
+				<div class="box_size"
+					ng-if="showType=='emailByfindPayPwd' || showType=='telByfindPayPwd' || showType=='emailBySetPayPwd' || showType=='telBySetPayPwd'">设置密码</div>
+			</div>
+		</div>
+		<!-- ----------------------完成----------------------- -->
+		<div class="line line_one"></div>
+		<div style="padding-top: 20px; float: left">
+			<div class="box">
+				<div class="lingxing"></div>
+				<div class="size size_yes">3</div>
+				<div class="box_size" ng-if="showType!='bindEmail' && showType!='bindTel' &&  showType!='telBypayPwd' && showType!='emailBySetPayPwd' && showType!='telBySetPayPwd'">修改成功</div>
+				<div class="box_size" ng-if="showType=='bindEmail' || showType=='bindTel' ||  showType=='telBypayPwd'">绑定成功</div>
+				<div class="box_size" ng-if="showType=='emailBySetPayPwd' || showType=='telBySetPayPwd'">设置成功</div>
+			</div>
+		</div>
+	</div>
+	<!--导航控件  -->
+
+	<!-- ----------------------------登录密码--------------------------------- -->
+	<div class="typeContent"
+		ng-if="showType=='bindEmail' || showType=='bindTel'">
+		<div class="row mg_t_30">
+			<label class="inputLabel fontWeight"> 输入登录密码</label>
+			<div class="col-md-7  col-sm-7">
+				<input type="text" name="userPwd" ng-model="user.userPwd"
+					id="userPwd" class="form-control" onfocus="this.type='password'" required
+					ng-focus ng-blur="userPwdBlur()">
+			</div>
+			<div class="mg_t_5">
+				<a href="#changeType/findPwd">找回登录密码</a>
+			</div>
+		</div>
+		<div class="row" ng-show="showPwdDiv">
+			<label class="inputLabel fontWeight"> </label>
+			<div class="errorColor" style="padding-left: 15px;">&nbsp;&nbsp;
+				<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;
+				<span ng-bind="showPwdMsg"></span>
+			</div>
+		</div>
+		
+		<div class="row mg_t_30">
+			<label class="inputLabel fontWeight"></label>
+			<div class="col-md-7  col-sm-7">
+				<!-- <button type="button" class="btn btn-primary"
+					ng-click="validMethod(user.userPwd,'pwd')">下一步</button> -->
+				<button type="button" class="btn btn-primary"
+					ng-click="setEmailvm.setBindValidPwd(user.userPwd)"
+					ng-if="showType=='bindEmail'">下一步</button>
+				<button type="button" class="btn btn-primary"
+					ng-click="upTelvm.setBindValidPwd(user.userPwd)"
+					ng-if="showType=='bindTel'">下一步</button>
+			</div>
+		</div>
+	</div>
+	<!-- ----------------------------支付密码--------------------------------- -->
+	<div class="telContent"
+		ng-if="showType=='telBypayPwd' || showType=='emailBypayPwd' || showType=='payPwdByfindPwd'">
+		<div class="titleTel">您正在使用支付密码进行校验</div>
+		<div class="row mg_t_30 mg_l_80">
+			<label class="inputLabel fontWeight"> 支付密码</label>
+			<div class="col-md-7  col-sm-7">
+				<input type="text" name="userPayPwd" ng-model="user.userPayPwd"
+					id="userPayPwd" placeholder="请输入支付密码" class="form-control"
+					onfocus="this.type='password'" required ng-focus ng-blur="userPayPwdBlur()">
+			</div>
+		</div>
+		<div class="row mg_t_30 mg_l_80" ng-show="errorPayPwdMsg">
+			<label class="inputLabel fontWeight"> </label>
+			<div class="errorColor" style="padding-left: 15px;">&nbsp;&nbsp;
+				<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;
+				<span ng-bind="errorMsg"></span>
+			</div>
+		</div>
+		<div class="row mg_t_30 mg_l_80">
+			<label class="inputLabel fontWeight"></label>
+			<div class="col-md-7  col-sm-7">
+				<button type="button" class="btn btn-primary"
+					ng-click="upTelvm.validPayPwd(user.userPayPwd)">下一步</button>
+				
+				<a href="javascript:history.go(-1);">重新选择验证方式</a>
+			</div>
+		</div>
+	</div>
+	<!-- ---------------------------验证邮箱-------------------------- -->
+	<div class="telContent"
+		ng-if="showType=='email' || showType=='emailByfindPwd' || showType=='emailByfindPayPwd' || showType=='emailBySetPayPwd'">
+		<div class="titleTel">您正在使用邮箱进行校验</div>
+		<div class="row mg_t_20 mg_l_80">
+			<label class="inputLabel fontWeight"> 邮箱</label>
+			<div class="col-md-7  col-sm-7 mg_t_5">{{userInfo.email}}</div>
+		</div>
+		<div class="row mg_t_20 mg_l_80">
+			<label class="inputLabel fontWeight"></label>
+			<div class="col-md-7  col-sm-7">
+				<!--  -->
+				<button type="button" class="btn btn-warning"
+					ng-click="upEmailvm.validMethod(userInfo.email)"
+					ng-show="showType=='email'">点击发送验证邮件</button>
+				<!-- 找回登录密码 -->
+				<button type="button" class="btn btn-warning"
+					ng-click="upPwdvm.validByEmail(userInfo.email)"
+					ng-show="showType=='emailByfindPwd'">点击发送验证邮件</button>
+				<!-- 找回支付密码 -->
+				<button type="button" class="btn btn-warning"
+					ng-click="upPayPwdvm.validByEmail(userInfo.email)"
+					ng-show="showType=='emailByfindPayPwd'">点击发送验证邮件</button>
+				<!-- 设置支付密码 -->
+				<button type="button" class="btn btn-warning"
+					ng-click="setPayPwdvm.validByEmail(userInfo.email)"
+					ng-show="showType=='emailBySetPayPwd'">点击发送验证邮件</button>
+
+
+				<a href="#changeType/email" ng-show="showType=='email'">重新选择验证方式</a>
+				<a href="#changeType/findPayPwd"
+					ng-show="showType=='emailByfindPayPwd'">重新选择验证方式</a> 
+				<!-- <a href="#changeType/findPwd" ng-show="showType=='emailByfindPwd'">重新选择验证方式</a> -->
+				<a href="#changeType/setPayPwd"
+					ng-show="showType=='emailBySetPayPwd'">重新选择验证方式</a>
+					
+				<a href="javascript:history.go(-1);"
+					ng-show="showType=='emailByfindPwd'">重新选择验证方式</a>
+			</div>
+		</div>
+
+	</div>
+	<!-- ---------------------------验证手机-------------------------- -->
+	<div class="telContent"
+		ng-if="showType=='tel' || showType=='telByfindPwd'|| showType=='telByfindPayPwd' || showType=='telBySetPayPwd'">
+		<div class="titleTel">
+			<span class="glyphicon glyphicon-info-sign mg_l_5"
+				style="color: #2650CC;"></span> 您正在使用"<span style="color: #eeb178;">验证短信</span>"进行校验
+		</div>
+
+		<div class="row mg_t_20 mg_l_80">
+			<label class="inputLabel fontWeight"> 手机号码</label>
+			<div class="col-md-7  col-sm-7 mg_t_5">{{userInfo.tel}}</div>
+		</div>
+		<div class="row mg_t_20 mg_l_80" >
+			<label class="inputLabel fontWeight  mg_t_5"> 校验码</label>
+			<div class="col-md-3  col-sm-3">
+				<input type="text" name="validCode" ng-model="user.validCode"
+					ng-maxlength="20" style="width: 120px;"
+					class="form-control" required placeholder="6位数字" ng-focus>
+			</div>
+			<div class="errorColor ng-hide" ng-show="showTelSpan">
+					<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;
+						<span ng-bind="showTelMsg"></span>
+			</div>
+		</div>
+		<div class="row mg_t_20 mg_l_80" ng-show="!upTelvm.showCode ">
+			<label class="inputLabel fontWeight"> </label>
+			<div class="col-md-7  col-sm-7 mg_t_5">
+				<button ng-click="upTelvm.getTelCode(userInfo.tel)"
+					ng-show="showType=='tel'">点此免费获取</button>
+				<button ng-click="upPwdvm.getTelCode(userInfo.userName)"
+					ng-show="showType=='telByfindPwd'">点此免费获取</button>
+				<button ng-click="upPayPwdvm.getTelCode(userInfo.tel)"
+					ng-show="showType=='telByfindPayPwd'">点此免费获取</button>
+				<!-- 设置支付密码 验证手机号 -->
+				<button ng-click="setPayPwdvm.getTelCode()"
+					ng-show="showType=='telBySetPayPwd'">点此免费获取</button>
+
+			</div>
+		</div>
+		
+		<div class="row mg_t_20 mg_l_80">
+			<label class="inputLabel fontWeight  mg_t_5"> </label>
+			<div class="col-md-3  col-sm-3">
+				<!-- <button ng-click="upTelvm.getTelCode(userInfo.tel)" ng-show="!upTelvm.showCode">点此免费获取</button> -->
+				<button class="btn reSendBtn" ng-disabled="true"
+					ng-show="upTelvm.showCode">{{countdown}}秒后可重新获取短信</button>
+			</div>
+		</div>
+
+		<div class="row  mg_l_80" ng-show="upTelvm.showCode">
+			<label class="inputLabel fontWeight"></label>
+			<div class="col-md-8  col-sm-8  mg_t_5">
+				校验码已发送到您的手机，30分钟内输入有效，请勿泄露。</div>
+
+		</div>
+		<div class="row mg_t_30 mg_l_80">
+			<label class="inputLabel fontWeight"></label>
+			<div class="col-md-7  col-sm-7">
+				<button type="button" class="btn btn-warning" ng-disabled="true" id="nextBtn"
+					ng-click="upPwdvm.validMethod(userInfo.tel,user.validCode)"
+					ng-show="showType=='telByfindPwd'">下一步</button>
+				<button type="button" class="btn btn-warning" ng-disabled="true" id="upTelNext"
+					ng-click="upTelvm.validMethod(userInfo.tel,user.validCode)"
+					ng-show="showType=='tel'">下一步</button>
+				<button type="button" class="btn btn-warning" ng-disabled="true" id="findPayPwdNext"
+					ng-click="upPayPwdvm.validPayPwdByTel(userInfo.tel,user.validCode)"
+					ng-show="showType=='telByfindPayPwd'">下一步</button>
+				<button type="button" class="btn btn-warning" ng-disabled="true" id="setPayPwdNext"
+					ng-click="setPayPwdvm.validPayPwdByTel(userInfo.tel,user.validCode)"
+					ng-show="showType=='telBySetPayPwd'">下一步</button>
+				<!-- <a href="#changeType/tel" >重新选择验证方式</a> -->
+				<!-- 设置支付密码 -->
+				<!-- <a href="#changeType/findPayPwd"
+					ng-show="showType=='telByfindPayPwd'">重新选择验证方式</a> -->
+				
+				<a href="javascript:history.go(-1);">重新选择验证方式</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 邮件   模态框 -->
+<div class="modal fade" id="myModal2">
+	<div class="modal-dialog" style="left: -27px;">
+		<div class="modal-content"
+			style="margin-top: 232px; width: 650px; height: 320px;">
+			<div class="modal-header" style="height: 45px;">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">验证邮箱</h4>
+			</div>
+			<div class="modal-body"
+				style="padding: 0px; width: 585px; padding-left: 35px;">
+				<div>
+					<p style="margin-left: -14px;">
+						<span class="glyphicon glyphicon-exclamation-sign"
+							style="color: rgb(51, 122, 183);"></span>&nbsp;&nbsp;验证邮件已发送到邮箱。
+						<span class="emailColor"> {{userInfo.email}} </span>
+					</p>
+
+					<p class="mg_l_10">
+						<small>请在24小时内点击邮件中的链接继续注册</small>
+					</p>
+
+					<p class="mg_l_10 mg_t_20">
+						<button class="btn btn-primary openBtn"
+							ng-click="openEmailUrl(userInfo.email)">立即查收</button>
+					</p>
+				</div>
+				<div class="email_content mg_l_10">
+					<p>没有收到邮件？</p>
+					<p>*请先检查是否在垃圾邮件中</p>
+					<p>
+						*如果还未收到 <a class="mg_l_10">
+							<!-- 绑定邮箱 -->
+							<button class="btn btn-primary openBtn" ng-show="showType=='email'"
+								ng-click="upEmailvm.reSendEmail(userInfo.email)" id="reSendEmailBtn">重新发送</button>
+							
+							<!-- 找回登录密码 验证邮箱 -->
+							<button class="btn reSendBtn"
+								ng-show="showType=='emailByfindPwd'" ng-click="upPwdvm.reSendEmail(userInfo.email)" id="reSendEmailBtn">重新发送</button>
+							<!-- 忘记支付密码  验证邮箱 -->
+							<button class="btn reSendBtn" 
+								ng-show="showType=='emailByfindPayPwd'" ng-click="upPayPwdvm.reSendEmail(userInfo.email)" id="reSendEmailBtn">重新发送</button>
+							<!-- 设置支付密码  验证邮箱 -->
+							<button class="btn reSendBtn" 
+								ng-show="showType=='emailBySetPayPwd'" ng-click="setPayPwdvm.reSendEmail(userInfo.email)" id="reSendEmailBtn">重新发送</button>
+							<!-- 
+							<button class="btn reSendBtn" href="#changeType/setPayPwd"
+								ng-show="showType=='emailBySetPayPwd'">重新发送</button> --> <!-- <button class="btn reSendBtn" 
+									ng-click="upEmailvm.reSendEmail(userInfo.email)">重新发送</button> -->
+						</a>
+					</p>
+					<!-- <p>
+							*一直收不到？请试试<a href="" ng-click="changeEmail()">更换邮箱</a>
+						</p> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javaScript">
+	$('.modal').modal({
+		backdrop : "static",
+		show : false
+	})
+</script>

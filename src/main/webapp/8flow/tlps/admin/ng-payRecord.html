@@ -1,0 +1,114 @@
+<link href="css/cardManger.css" rel="stylesheet">
+<style>
+	
+
+</style>
+<div class="cardManger" ng-init="vm.init()">
+	<!-- 流量卡logo -->
+	<div class="logo">
+		<span>流量卡使用查询</span>
+	</div>
+	<!-- /流量卡logo -->
+
+	<!-- tab -->
+	<div class="userTab">
+		<div class="tab tab_hover"
+			ng-class="{true: 'tab_hover'}[vm.tabContent==0]"
+			ng-click="vm.showTab('0')">
+			<div class="title" style="left:16px;">流量卡号</div>
+			<div class="san" ng-show="vm.tabContent==0"></div>
+		</div>
+		<div class="tab" ng-class="{true: 'tab_hover'}[vm.tabContent==1]"
+			ng-click="vm.showTab('1')">
+			<div class="title" style="left:24px;">手机号</div>
+			<div class="san" ng-show="vm.tabContent==1"></div>
+		</div>
+	</div>
+	<!-- /tab -->
+
+	<!-- tab-one -->
+	<div class="tab_content" ng-show="vm.tabContent	==	0">
+		<div>
+			<input class="form-control tabSearch" type="text" ng-model="vm.serchContent" placeholder="根据流量卡号查询"/>
+			<button class="btn btn-primary" ng-click="vm.btnSeach('total')" >查询</button>
+			<div class="divDate">消费时间：</div>
+			<input class="Wdate date form-control tabDate"
+							style="height: 30px;" type="text" id="o_start_time"
+							onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+							placeholder="起始时间" ng-model="om.startTime"/> 
+			
+			<span class="divDate_mid">到</span> 
+			<input class="Wdate date form-control tabDate"
+							style="height: 30px;" type="text" id="o_end_time"
+							onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+							placeholder="结束时间" ng-model="om.endTime"/> 
+		</div>
+
+		<table class="table table-bordered"  ng-show="vm.liulianglist!=undefined">
+			<thead>
+				<tr>
+					<th width="25%">商品名称</th>
+					<th width="25%">卡号</th>
+					<th width="25%">消费时间</th>
+					<th width="25%">消费手机号</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="order in vm.liulianglist">
+					<td>{{order.productName}}</td>
+					<td>{{order.couponNo}}</td>
+					<td>{{order.createText}}</td>
+					<td>{{order.rechargeAccount}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="listPage" ng-show="vm.liulianglist.length > 0">
+			<expander> </expander>
+		</div>
+	</div>
+	<!-- /tab-one -->
+
+	<!-- tab-two -->
+	<div class="tab_content" ng-show="vm.tabContent==1">
+		<div>
+			<input class="form-control tabSearch" type="text" ng-model="tm.serchContent"  placeholder="根据手机号查询"/>
+			<button class="btn btn-primary"  ng-click="vm.btnSeach('detail')">查询</button>
+			<div class="divDate">消费时间：</div>
+			
+		
+			<input class="Wdate date form-control tabDate"
+							style="height: 30px;" type="text" id="t_start_time" ng-model="tm.startTime"
+							onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+							placeholder="起始时间"/> 
+			
+			<span class="divDate_mid">到</span> 
+			<input class="Wdate date form-control tabDate" 
+							style="height: 30px;" type="text" id="t_end_time" ng-model="tm.endTime"
+							onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+							placeholder="结束时间"/> 
+		</div>
+
+		<table class="table table-bordered" ng-show="vm.phonelist != undefined">
+			<thead>
+				<tr>
+					<th width="25%">商品名称</th>
+					<th width="25%">卡号</th>
+					<th width="25%">消费时间</th>
+					<th width="25%">消费手机号</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="order in vm.phonelist">
+					<td>{{order.productName}}</td>
+					<td>{{order.couponNo}}</td>
+					<td>{{order.createText}}</td>
+					<td>{{order.rechargeAccount}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="listPage" ng-show="vm.phonelist.length > 0">
+			<expander> </expander>
+		</div>
+	</div>
+	<!-- /tab-two -->
+</div>

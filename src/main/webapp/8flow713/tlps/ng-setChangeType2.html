@@ -1,0 +1,400 @@
+<!-- <link href="./css/user.css" rel="stylesheet"> -->
+<link href="../css/regUser.css" rel="stylesheet">
+<div ng-init="init()">
+	<div class="logo"
+		ng-if="showType=='email' || showType=='bindEmail' ">绑定邮箱</div>
+	<div class="logo" ng-if="showType=='upBindEmail' ||  showType=='emailBypayPwd'">修改绑定邮箱</div>
+	<div class="logo" ng-if="showType=='tel'">修改绑定手机</div>
+	<div class="logo"
+		ng-if="showType=='bindTel' ||  showType=='telBypayPwd'">绑定手机</div>
+	<div class="logo"
+		ng-if="showType=='emailByfindPwd' || showType=='telByfindPwd' || showType=='payPwdByfindPwd'">找回登录密码</div>
+	<div class="logo"
+		ng-if="showType=='emailByfindPayPwd' || showType=='telByfindPayPwd' ">找回支付密码</div>
+	<div class="logo" ng-if="showType=='emailBySetPayPwd' || showType=='telBySetPayPwd' ">设置支付密码</div>
+	<div style="width: 700px; margin: 0 auto; margin-left: 200px;">
+		<div class="boxDiv">
+			<div class="box">
+				<div class="lingxing_active"></div>
+				<div class="size size_yes">1</div>
+				<div class="box_size">验证身份</div>
+			</div>
+		</div>
+		<!-- ----------------------设置账户----------------------- -->
+		<div class="line_active line_one"></div>
+
+		<div class="boxDiv">
+			<div class="box">
+				<div class="lingxing_active"></div>
+				<div class="size size_yes">2</div>
+				<div class="box_size"
+					ng-if="showType=='email' || showType=='bindEmail' || showType=='emailBypayPwd' ||showType=='upBindEmail' ">绑定邮箱</div>
+				<div class="box_size"
+					ng-if="showType=='tel' || showType=='bindTel' || showType=='telBypayPwd'">绑定手机</div>
+				<div class="box_size"
+					ng-if="showType=='emailByfindPwd' || showType=='telByfindPwd' || showType=='payPwdByfindPwd'">找回密码</div>
+				<div class="box_size"
+					ng-if="showType=='emailByfindPayPwd' || showType=='telByfindPayPwd' ||showType=='telBySetPayPwd'||showType=='emailBySetPayPwd'">设置密码</div>
+			</div>
+		</div>
+		<!-- ----------------------完成----------------------- -->
+		<div class="line line_one"></div>
+		<div class="boxDiv">
+			<div class="box">
+				<div class="lingxing"></div>
+				<div class="size size_yes">3</div>
+				<div class="box_size" ng-if="showType!='email' && showType!='bindEmail' && showType!='bindTel' &&  showType!='telBypayPwd' && showType!='emailBySetPayPwd' && showType!='telBySetPayPwd'">修改成功</div>
+				<div class="box_size" ng-if="showType=='email' || showType=='bindEmail' ||  showType=='bindTel' ||  showType=='telBypayPwd'">绑定成功</div>
+				<div class="box_size" ng-if="showType=='emailBySetPayPwd' || showType=='telBySetPayPwd'">设置成功</div>
+			</div>
+		</div>
+	</div>
+	<!-- ----------------------------------------登录密码------------------------ -->
+	<div class="telContent"
+		ng-if="showType=='emailByfindPwd' || showType=='telByfindPwd' || showType=='payPwdByfindPwd'">
+		<form class="form-horizontal showcase-form " role="form"
+			id="user2_form" name="user2_form" novalidate>
+
+			<div class="form-group mg_t_30" style="margin-left: 80px;">
+				<label class="inputLabel fontWeight" style="width: 140px;">
+					新登录密码:</label>
+				<div class="col-md-4  col-sm-4">
+					<input type="password" name="userPwd" ng-model="user.password"
+						ng-maxlength="20" ng-minlength="6" class="form-control"
+						placeholder="请输入6-20位字符密码" required ng-focus>
+				</div>
+				<div class="errorColor ng-hide mg_t_5" style="float: left;"
+					ng-show="user2_form.$invalid && user2_form.$dirty">
+					<div
+						ng-show="user2_form.userPwd.$dirty && !user2_form.userPwd.$focused && user2_form.userPwd.$error.required">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;登录密码不能为空！
+					</div>
+					<div
+						ng-show="user2_form.userPwd.$dirty && !user2_form.userPwd.$focused && user2_form.userPwd.$error.maxlength">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;密码长度不能大于20个字符！
+					</div>
+					<div
+						ng-show="user2_form.userPwd.$dirty && !user2_form.userPwd.$focused && user2_form.userPwd.$error.minlength">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;密码长度不能小于6个字符！
+					</div>
+				</div>
+
+			</div>
+			<div class="row" style="margin-left: 80px;">
+				<label class="inputLabel fontWeight" style="width: 140px;">
+					再次输入新登录密码:</label>
+				<div class="col-md-4  col-sm-4">
+					<input type="password" name="rePwd" ng-model="rePwd"
+						ng-maxlength="20" ng-minlength="6" class="form-control"
+						placeholder="请再一次输入密码" repeat="userPwd" required ng-focus>
+				</div>
+				<div class="errorColor ng-hide mg_t_5"
+					ng-show="user2_form.rePwd!=user2_form.userPwd">
+					<div
+						ng-show="user2_form.rePwd.$dirty && !user2_form.rePwd.$focused  && user2_form.rePwd.$error.required">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;登录密码不能为空！
+					</div>
+					<div
+						ng-show="user2_form.rePwd.$dirty && !user2_form.rePwd.$focused  && user2_form.rePwd.$error.maxlength">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;登录密码长度不能大于20个字符！
+					</div>
+					<div
+						ng-show="user2_form.rePwd.$dirty && !user2_form.rePwd.$focused  && user2_form.rePwd.$error.minlength">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;登录密码长度不能小于6个字符！
+					</div>
+					<div
+						ng-show="(user2_form.rePwd.$dirty && !user2_form.rePwd.$focused  && user2_form.rePwd.$error.repeat )&& !user2_form.rePwd.$error.minlength">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;两次密码输入不一致！
+					</div>
+
+				</div>
+			</div>
+			<div class="form-group pd_b_30" style="margin-left: 80px;">
+				<label class="inputLabel fontWeight" style="width: 140px;"></label>
+				<div class="col-md-4 col-sm-4 text-left">
+					<a type="button" class="mg_t_30 btn btn-primary"
+						ng-if="showType=='emailByfindPwd'"
+						ng-disabled="user2_form.$invalid"
+						ng-click="upPwdvm.bindSet(rePwd,'pwd')">确定</a> <a type="button"
+						class="mg_t_30 btn btn-primary"
+						ng-if="showType=='telByfindPwd' ||showType=='payPwdByfindPwd' "
+						ng-disabled="user2_form.$invalid"
+						ng-click="upPwdvm.bindSetByTel(userInfo.tel,rePwd,'pwd')">确定</a>
+					<!-- <a type="button" class="mg_t_30 btn btn-primary" ng-if="showType=='payPwdByfindPwd'"
+						ng-disabled="user2_form.$invalid"
+						ng-click="upPwdvm.bindSet(rePwd,'pwd')">确定</a> -->
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- ----------------------------------------支付密码------------------------ -->
+	<div class="telContent"
+		ng-if="showType=='emailByfindPayPwd' || showType=='telByfindPayPwd' ||showType=='telBySetPayPwd' || showType=='emailBySetPayPwd'">
+		<form class="form-horizontal showcase-form " role="form" id="pay_form"
+			name="pay_form" novalidate>
+
+			<div class="form-group mg_t_30" style="margin-left: 80px;">
+				<label class="inputLabel fontWeight" style="width: 140px;">
+					支付密码:</label>
+				<div class="col-md-4  col-sm-4">
+					<input type="password" name="payPwd" ng-model="user.payPwd"
+						ng-maxlength="20" ng-minlength="6" class="form-control"
+						placeholder="请输入6-20位字符密码" required ng-focus>
+				</div>
+				<div class="errorColor ng-hide mg_t_5"
+					ng-show="pay_form.$invalid && pay_form.$dirty" style="float: left;">
+					<div
+						ng-show="pay_form.payPwd.$dirty && !pay_form.payPwd.$focused && pay_form.payPwd.$error.required">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;支付密码不能为空！
+					</div>
+					<div
+						ng-show="pay_form.payPwd.$dirty && !pay_form.payPwd.$focused && pay_form.payPwd.$error.maxlength">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;支付密码长度不能大于20个字符！
+					</div>
+					<div
+						ng-show="pay_form.payPwd.$dirty && !pay_form.payPwd.$focused && pay_form.payPwd.$error.minlength">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;支付密码长度不能小于6个字符！
+					</div>
+				</div>
+			</div>
+			<div class="form-group" style="margin-left: 80px;">
+				<label class="inputLabel fontWeight" style="width: 140px;">
+					再次输入支付密码:</label>
+				<div class="col-md-4  col-sm-4">
+					<input type="password" name="rePayPwd" ng-model="rePayPwd"
+						ng-maxlength="20" ng-minlength="6" class="form-control"
+						placeholder="请再一次输入密码" repeat="payPwd" required ng-focus>
+				</div>
+				<div class="errorColor ng-hide mg_t_5"
+					ng-show="pay_form.rePayPwd!=pay_form.payPwd" style="float: left;">
+					<div
+						ng-show="pay_form.rePayPwd.$dirty && !pay_form.rePayPwd.$focused  && pay_form.rePayPwd.$error.required">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;支付密码不能为空！
+					</div>
+					<div
+						ng-show="pay_form.rePayPwd.$dirty && !pay_form.rePayPwd.$focused  && pay_form.rePayPwd.$error.maxlength">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;支付密码长度不能大于20个字符！
+					</div>
+					<div
+						ng-show="pay_form.rePayPwd.$dirty && !pay_form.rePayPwd.$focused  && pay_form.rePayPwd.$error.minlength">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;支付密码长度不能小于6个字符！
+					</div>
+					<div
+						ng-show="(pay_form.rePayPwd.$dirty && !pay_form.rePayPwd.$focused  && pay_form.rePayPwd.$error.repeat )&& !pay_form.rePayPwd.$error.minlength">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;两次密码输入不一致！
+					</div>
+
+				</div>
+			</div>
+			<div class="form-group pd_b_30" style="margin-left: 80px;">
+				<label class="inputLabel fontWeight" style="width: 140px;"></label>
+				<div class="col-md-4 col-sm-4 text-left">
+					<a type="button" class="mg_t_30 btn btn-primary" ng-if="showType=='emailByfindPayPwd'"
+						ng-disabled="pay_form.$invalid"
+						ng-click="upPayPwdvm.bindSet(rePayPwd,'payPwd')">确定</a>
+					<a type="button" class="mg_t_30 btn btn-primary" ng-if="showType=='emailBySetPayPwd'"
+						ng-disabled="pay_form.$invalid"
+						ng-click="setPayPwdvm.bindSetByEmail(rePayPwd,'payPwd')">确定</a>
+					<a type="button" class="mg_t_30 btn btn-primary" ng-if="showType=='telBySetPayPwd' || showType=='telByfindPayPwd'"
+						ng-disabled="pay_form.$invalid"
+						ng-click="setPayPwdvm.bindSetByTel(rePayPwd,'payPwd')">确定</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- ----------------------------------------邮箱------------------------ -->
+
+	<div class="typeContent"
+		ng-if="showType=='email' || showType=='bindEmail' || showType=='emailBypayPwd' || showType=='upBindEmail'">
+		<form class="form-horizontal" role="form" id="msform"
+			name="email_form" novalidate>
+			<div class="row mg_t_30">
+				<label class="inputLabel fontWeight"> 邮箱</label>
+				<div class="col-md-7  col-sm-7">
+					<input type="email" name="userEmail" ng-model="user.userEmail"
+						id="userEmail" class="form-control" required placeholder="请输入绑定邮箱"
+						ng-pattern="/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/"
+						ng-focus ng-blur="checkOnlyName('email',user.userEmail)">
+				</div>
+			</div>
+			<div class="row">
+				<label class="inputLabel fontWeight"> </label>
+				<div class="col-md-8  col-sm-8 text-left">
+					<div class="errorColor ng-hide "
+						ng-show="email_form.$invalid && email_form.$dirty">
+						<div
+							ng-show="email_form.userEmail.$dirty && !email_form.userEmail.$focused  && email_form.userEmail.$error.required ">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;
+							邮箱地址不能为空！
+						</div>
+						<div
+							ng-show="email_form.userEmail.$dirty && !email_form.userEmail.$focused && email_form.userEmail.$error.pattern">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;
+							邮箱地址格式不正确！
+						</div>
+					</div>
+					<div class="errorColor ng-hide" ng-show="ExistUserName">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;
+						该邮箱已被注册！
+					</div>
+				</div>
+			</div>
+			<div class="row mg_t_30">
+				<label class="inputLabel fontWeight"></label>
+				<div class="col-md-8  col-sm-8 text-left">
+					<button type="button" class="btn btn-primary"
+						ng-disabled="email_form.$invalid"
+						ng-click="upEmailvm.bindSet(user.userEmail,'email')">下一步</button>
+				</div>
+			</div>
+
+		</form>
+
+
+	</div>
+	<!-- ----------------------------------------手机------------------------ -->
+	<div class="telContent"
+		ng-if="showType=='tel' ||  showType=='bindTel' || showType=='telBypayPwd'">
+		<div class="titleTel">
+			<span class="glyphicon glyphicon-info-sign mg_l_5"
+				style="color: #2650CC;"></span> 您正在使用"<span style="color: #eeb178;">验证短信</span>"进行校验
+		</div>
+		<form class="form-horizontal mg_t_30" role="form" name="user_form"
+			novalidate id="telForm">
+
+			<div class="form-group mg_t_30">
+				<label class="inputLabel fontWeight"> 国籍/地区</label>
+				<div class="col-md-3 col-sm-3">
+					<select class="form-control" disabled="disabled">
+						<option value="">中国大陆</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="inputLabel fontWeight"> 手机号</label>
+				<div class="col-md-1 col-sm-1">
+					<input type="text" class="form-control" placeholder="+86"
+						style="width: 60px;" readonly="readonly" />
+				</div>
+				<div class="col-md-6 col-sm-6">
+					<input type="text" name="perTel" ng-model="per.tel"
+						class="form-control" placeholder="请输入所在国家/地区的手机号码"
+						ng-pattern="/^0{0,1}(13[0-9]|15[3-9]|15[0-2]|18[0-9]|177)[0-9]{8}$/"
+						maxlength=11 required ng-focus
+						ng-blur="checkOnlyName('tel',per.tel)">
+				</div>
+			</div>
+			<div class="row">
+				<label class="inputLabel fontWeight"></label>
+				<div class="errorColor ng-hide"
+					ng-show="user_form.$invalid && user_form.$dirty">
+					<div 
+						ng-show="user_form.perTel.$dirty && !user_form.perTel.$focused  && user_form.perTel.$error.required ">
+						<span class="glyphicon glyphicon-exclamation-sign mg_l_30"></span>&nbsp;&nbsp;手机号不能为空！
+					</div>
+					<div 
+						ng-show="user_form.perTel.$dirty && !user_form.perTel.$focused && user_form.perTel.$error.pattern">
+						<span class="glyphicon glyphicon-exclamation-sign mg_l_30" ></span>&nbsp;&nbsp;手机号格式不正确！
+					</div>
+				</div>
+				<div class="errorColor ng-hide " ng-show="ExistUserName">
+					<span class="glyphicon glyphicon-exclamation-sign mg_l_30"></span>&nbsp;&nbsp;该手机号已被注册！
+				</div>
+			</div>
+			<div class="row">
+				<label class="inputLabel fontWeight"> 校验码</label>
+				<div class="col-md-3  col-sm-3 mg_t_5 mg_l_15">
+					<input type="text" name="validCode" ng-model="per.validCode"
+						style="width: 110px;" class="form-control" placeholder="6位数字"
+						ng-focus required>
+				</div>
+				<div class="errorColor ng-hide mg_t_10" ng-show="showCodeSpan">
+					<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;
+						<span ng-bind="showCodeMsg"></span>
+				</div>
+			</div>
+			<div class="row" ng-show="!upTelvm.showCode">
+				<label class="inputLabel fontWeight"></label>
+				<div class="col-md-7  col-sm-7 mg_t_5 mg_l_15">
+					<button class="reSetBtn" ng-click="upTelvm.getNewTelCode(per.tel)"
+						id="getCodeBtn" ng-disabled="user_form.$invalid">点此免费获取</button>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="inputLabel fontWeight"></label>
+				<div class="col-md-3  col-sm-3 mg_t_5">
+					<!-- <button ng-click="upTelvm.getNewTelCode(per.tel)" ng-show="!upTelvm.showCode">点此免费获取</button> -->
+					<button class="btn reSendBtn" ng-disabled="true"
+						ng-show="upTelvm.showCode">{{countdown}}秒后可重新获取短信</button>
+				</div>
+			</div>
+			<div class="row" ng-show="upTelvm.showCode">
+				<label class="inputLabel fontWeight"></label>
+				<div class="col-md-8  col-sm-8 mg_t_5 mg_l_15">
+					校验码已发送到您的手机，30分钟内输入有效，请勿泄露。</div>
+			</div>
+			<div class="row pd_b_30">
+				<label class="inputLabel fontWeight"></label>
+				<div class="col-md-4 col-sm-4 text-left mg_l_15">
+					<a type="button" class="mg_t_30 btn btn-primary"
+						ng-disabled="user_form.$invalid"
+						ng-click="upTelvm.bindSet(per.tel,per.validCode,'tel')">确定</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- 邮件   模态框 -->
+<div class="modal fade" id="myModal2">
+	<div class="modal-dialog" style="left: -27px;">
+		<div class="modal-content"
+			style="margin-top: 232px; width: 650px; height: 320px;">
+			<div class="modal-header" style="height: 45px;">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">验证邮箱</h4>
+			</div>
+			<div class="modal-body"
+				style="padding: 0px; width: 585px; padding-left: 35px;">
+				<div>
+					<p style="margin-left: -14px;">
+						<span class="glyphicon glyphicon-exclamation-sign"
+							style="color: rgb(51, 122, 183);"></span>&nbsp;&nbsp;验证邮件已发送到邮箱。
+						<span class="emailColor" ng-bind="bindEmail"> {{bindEmail}}
+						</span>
+					</p>
+
+					<p class="mg_l_10">
+						<small>请在24小时内点击邮件中的链接继续注册</small>
+					</p>
+
+					<p class="mg_l_10 mg_t_20">
+						<button class="btn btn-primary openBtn"
+							ng-click="openEmailUrl(bindEmail)">立即查收</button>
+					</p>
+				</div>
+				<div class="email_content mg_l_10">
+					<p>没有收到邮件？</p>
+					<p>*请先检查是否在垃圾邮件中</p>
+					<p>
+						*如果还未收到<a class="mg_l_10"><button class="btn btn-primary openBtn"
+								ng-if="showType=='bindEmail' || showType=='upBindEmail' ||showType=='emailBypayPwd' "
+								ng-click="setEmailvm.reSendEmail(bindEmail)">重新发送</button></a>
+					</p>
+					<!-- <p>
+							*一直收不到？请试试<a href="" ng-click="changeEmail()">更换邮箱</a>
+						</p> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javaScript">
+	$('.modal').modal({
+		backdrop : "static",
+		show : false
+	})
+</script>

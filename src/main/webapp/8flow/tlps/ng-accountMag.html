@@ -1,0 +1,90 @@
+<link href="css/cardManger.css" rel="stylesheet">
+<link href="../8flow/css/account.css" rel="stylesheet">
+<style type="text/css">
+	.table>tbody>tr>td{
+	text-align: left;
+}
+</style>
+<div class="content" ng-init="init()">
+	<div class="top">
+		<div class="leftTop">
+			<img src="./img/index/user.png" alt="..." class="img-circle" width="85px" height="85px;">
+			<span class="userPic"><img src="./img/index/level.png"></span>
+		</div>
+
+		<div class="rightTop">
+			<!-- <div class="topDiv"><span class="msgSpan">1条新提醒</span></div> -->
+			<div>
+				<span>{{userInfo.userName}}</span><span class="mg_l_10" 
+				ng-if="(userInfo.userType== 1) ? userType='个人用户' : userType='企业用户';"
+				>{{userType}}</span>
+			</div>
+			<div class="hrLine">
+				<img src="./img/line.png">
+			</div>
+			<div class="mg_t_20 bottomTop">
+				<span>账户余额:</span>
+				<span >{{userInfo.balance/100 |currency:''}}</span>
+				<span class="splitLine mg_l_20"></span>
+				<!-- <span class="mg_l_20" onclick="window.location='./upgrade.html'"><a href="">充值</a></span> -->
+				<span class="mg_l_20"><a href="#accountSet" style="text-decoration:underline;">账户设置</a></span>
+				<span class="splitLine mg_l_20"></span>
+				<!-- <span class="mg_l_20">安全等级：中</span>
+				<span class="splitLine mg_l_20"></span> -->
+				<span class="mg_l_20">上次登录时间：{{userInfo.lastLoginDate  |
+							date:'yyyy-MM-dd hh:mm:ss'}}</span>
+			</div>
+		</div>
+
+	</div>
+	
+	<div class="tab_content">
+			<div>
+				<input class="form-control tabSearch" type="text"
+					ng-model="searchContent" placeholder="输入流水单号/订单号" maxlength=50/>
+				<button class="btn btn-primary" ng-click="btnSeach()">查询</button>
+				<div class="divDate">查询时间：</div>
+				<input class="Wdate date form-control tabDate" style="height: 30px;"
+					type="text" id="o_start_time"
+					onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+					placeholder="起始时间" ng-model="startTime" /> <span
+					class="divDate_mid">到</span> <input
+					class="Wdate date form-control tabDate" style="height: 30px;"
+					type="text" id="o_end_time"
+					onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+					placeholder="结束时间" ng-model="endTime" />
+			</div>
+
+			<table class="table table-bordered" ng-show="orderList.length > 0">
+				<thead>
+					<tr>
+						<th width="30%">流水号</th>
+						<th width="6%">类型</th>
+						<th width="15%">时间</th>
+						<th width="40%">内容</th>
+						<th width="9%">金额</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="flow in orderList">
+						<td>{{flow.flowNo}}</td>
+						<td style="text-align: center;">{{flow.payOrRefund}}</td>
+						<td style="text-align: center;">{{flow.createDate |
+							date:'yyyy-MM-dd hh:mm:ss'}}</td>
+						<td>{{flow.usageInfo}}</td>
+						<td>{{flow.amount/100 | currency:'￥'}}</td>
+						
+					</tr>
+				</tbody>
+			</table>
+			<div id="listPage" ng-show="orderList.length > 0">
+				<!-- <expander> </expander> -->
+				<tm-pagination conf="paginationConf"> </tm-pagination>
+			</div>
+			<div ng-show="orderList==undefined || orderList.length == 0" style="margin-top: 70px;">
+				<div class="alert alert-info alert-dismissible" role="alert">
+					<strong>当前无订单!</strong>
+				</div>
+			</div>
+		</div>
+</div>

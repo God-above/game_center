@@ -1,0 +1,155 @@
+<div ng-init=batchInit()>
+	<div class="panel panel-default" ng-class="{hidden: vm.hidden}">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 批次订单查询 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vm.collapsed = !vm.collapsed"></span>
+				</span>
+			</h4>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<!-- 第一行 -->
+				<form class="form-horizontal mt_20" role="form">
+					<div class="form-group">
+						<div class="col-md-8">
+							<div class="input-group">
+								<input type="text" placeholder="批次编号/批次名称/商品编号/商品名称"
+									class="form-control" ng-model="batchInfo" maxlength="40">
+								<span class="input-group-btn">
+									<button class="btn btn-success" type="button"
+										ng-click="batchBtn()">快速查询</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- /第一行 -->
+				<!-- 第二行 -->
+				<form class="form-inline margin-20-top">
+					<div class="form-group hidden-sm hidden-xs">
+						<label for="exampleInputName2">批次状态:</label>
+
+					</div>
+					<div class="form-group margin-20-left">
+						<select class="form-control" ng-model="batchStatu"
+							ng-options="Statu.code as Statu.name for Statu in batchStatus">
+							<option value="">全部</option>
+						</select>
+					</div>
+					<div class="form-group margin-40-left hidden-sm hidden-xs">
+						<label for="exampleInputName2">有效金额:</label>
+
+					</div>
+					<div class="form-group margin-20-left">
+						<input type="text" class="form-control" ng-model="minPrice"
+							placeholder="最低金额"> <label for="exampleInputName2"
+							class="margin-10-left hidden-sm hidden-xs">至</label> <input
+							type="text" class="form-control margin-10-left"
+							ng-model="maxPrice" placeholder="最高金额">
+					</div>
+				</form>
+				<!-- /第二行 -->
+				<!-- 第三行 -->
+				<form class="form-inline margin-20-top">
+					<div class="form-group hidden-sm hidden-xs">
+						<label for="exampleInputName2">创建时间:</label>
+
+					</div>
+
+					<div class="form-group margin-20-left">
+						<input class="Wdate date input-group form-control"
+							style="height: 30px;" type="text" id="start_time"
+							onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+							placeholder="起始时间"> <label for="exampleInputName2"
+							class="margin-10-left hidden-sm hidden-xs">至</label> <input
+							class="margin-10-left Wdate date input-group form-control"
+							style="height: 30px;" type="text" id="end_time"
+							onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+							placeholder="结束时间">
+					</div>
+				</form>
+				<!-- /第三行 -->
+
+			</div>
+		</div>
+	</div>
+	<span class="btn btn-primary" ng-click="vm.hidden = false"
+		ng-if="vm.hidden">重新显示</span>
+
+
+	<!-- 查询-->
+	<div class="panel panel-default" ng-show="batchList.length>0">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 批次订单列表 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vmList.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vmList.collapsed = !vmList.collapsed"></span>
+				</span>
+			</h4>
+
+		</div>
+		<div class="panel-collapse collapse"
+			ng-class="{in: !vmList.collapsed}">
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-hover" style="text-align: center">
+						<thead>
+							<tr>
+								<th>批次号</th>
+								<th>批次名称</th>
+								<th>订购时间</th>
+								<th>批次状态</th>
+								<th>订购金额</th>
+								<!-- <th>充值商品</th> -->
+								<th>订购数量</th>
+								<th>发货成功</th>
+								<th>发货中</th>
+								<th>发货失败</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="batch in batchList">
+								<td>{{batch.number}}</td>
+								<td>{{batch.name}}</td>
+								<td>{{batch.createDate | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+								<td>{{getParesStatu(batch.status)}}</td>
+								<td>{{batch.totalPrice/100 |currency :""}}</td>
+								<!-- <td>{{batch.productName}}</td> -->
+								<td>{{batch.validAccountTotal}}</td>
+								<td>{{batch.chargeSucceedTotal}}</td>
+								<td>{{batch.chargingTotal}}</td>
+								<td>{{batch.chargeFailedTotal}}</td>
+
+								<td><a
+									ng-show="batch.status!=1 && batch.status!=2"
+									type="button" class="btn btn-success btn-xs"> <span
+										class="glyphicon glyphicon-search" aria-hidden="true"
+										data-toggle="tooltip" data-placement="bottom" title="订单明细查看"
+										ng-click="goOrderDetail(batch)"></span>
+								</a> <span ng-show="batch.status==1 || batch.status==2"><button
+											class="btn btn-xs btn-success" ng-click="batchPay(batch)">充值</button>/
+										<button class="btn btn-xs btn-success"
+											ng-click="batchNoPay(batch)">取消</button> </span>
+								<!--  <span
+									ng-show="batch.status!=1&&batch.status!=2">---</span> --></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="listPage">
+					<expander> </expander>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- /查询-->
+</div>
+<script>
+	//启动提示
+</script>

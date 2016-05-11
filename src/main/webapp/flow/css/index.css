@@ -1,0 +1,342 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+	padding-top: 50px;
+	font-family: "Microsoft YaHei" ! important;
+}
+
+/*
+ * Global add-ons
+ */
+.sub-header {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+	border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+	display: none;
+}
+
+@media ( min-width : 768px) {
+	.sidebar {
+		position: fixed;
+		top: 51px;
+		bottom: 0;
+		left: 0;
+		z-index: 1000;
+		display: block;
+		overflow-x: hidden;
+		overflow-y: auto;
+		/* Scrollable contents if viewport is shorter than content. */
+		background-color: #f5f5f5;
+		border-right: 1px solid #eee;
+	}
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+	margin-right: 21px; /* 20px padding + 1px border */
+	margin-left: 20px;
+	padding-right: 0px;
+}
+
+.nav-sidebar>li {
+	
+}
+
+.nav-sidebar>li>a {
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.nav>li>a:hover,.nav>li>a:focus {
+	text-decoration: none;
+	background-color: #ffffff;
+}
+
+.nav-sidebar>.active>a,.nav-sidebar>.active>a:hover,.nav-sidebar>.active>a:focus
+	{
+	color: #000000;
+	font-weight: bold;
+	background-color: #ffffff;
+	border: 0px;
+}
+
+/*
+ * Main content
+ */
+.main {
+	padding: 20px;
+}
+
+@media ( min-width : 768px) {
+	.main {
+		padding-right: 40px;
+		padding-left: 40px;
+	}
+}
+
+.main .page-header {
+	margin-top: 0;
+}
+
+/*
+ * Placeholder dashboard ideas
+ */
+.placeholders {
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.placeholders h4 {
+	margin-bottom: 0;
+}
+
+.placeholder {
+	margin-bottom: 20px;
+}
+
+.placeholder img {
+	display: inline-block;
+	border-radius: 50%;
+}
+
+.form_position {
+	padding-top: 20px;
+}
+
+fieldset {
+	margin: 15px;
+}
+
+fieldset .error {
+	color: #F00000
+}
+
+/*ȫ���������ֲ�*/
+.loadingPage_bg1 {
+	background: none repeat scroll 0 0 #000;
+	height: 100%;
+	left: 0; /*:rgba(0,0,0,0.5);*/
+	opacity: 0.7;
+	filter: alpha(opacity =       70);
+	width: 200%;
+	position: absolute;
+	top: 0px;
+	z-index: 110;
+}
+
+#loadingPage {
+	display: block;
+	font-weight: bold;
+	font-size: 12px;
+	color: #595959;
+	height: 48px;
+	left: 50%;
+	line-height: 47px;
+	margin-left: -74px;
+	margin-top: -14px;
+	padding: 0px 10px 10px 50px;
+	position: absolute;
+	text-align: left center;
+	top: 50%;
+	width: 248px;
+	z-index: 111;
+	background: url(../img/loading.gif) no-repeat scroll 12px center #FFFFFF;
+	border: 2px solid #86A5AD;
+}
+
+/*重写面包屑背景颜色*/
+.breadcrumb {
+	background-color: #dff0d8;
+}
+
+.step {
+	margin-left: 50px;
+	margin-bottom: 20px;
+	font-size: 16px;
+	color: #fff;
+	letter-spacing: 0.5em;
+}
+
+.step a {
+	width: 16%;
+	height: 36px;
+	background: #dff0d8;
+	text-align: center;
+	display: inline-block;
+	line-height: 35px;
+	position: relative;
+	margin-right: 20px;
+	text-decoration: none;
+}
+
+.step a s {
+	width: 0px;
+	height: 0px;
+	border: 18px solid #dff0d8;
+	border-left-color: transparent;
+	_border-left-color: snow;
+	_filter: chroma(color =     snow);
+	font-size: 0;
+	height: 35px;
+	line-height: 0;
+	position: absolute;
+	left: -30px;
+	top: 0px;
+}
+
+.step a b {
+	width: 0px;
+	height: 0px;
+	border: 18px solid #fff;
+	border-left-color: #dff0d8;
+	font-size: 0;
+	line-height: 0;
+	position: absolute;
+	top: 0px;
+	right: -25px;
+}
+
+.step .first {
+	border-left-color: #E5D8D8
+}
+
+.step .first-on {
+	background: #E5D8D8;
+	border-left-color: #E5D8D8
+}
+
+.step .first-b-on {
+	background: #E5D8D8;
+	border-left-color: #E5D8D8
+}
+
+.step .first-b-on b {
+	background: #E5D8D8;
+	border-left-color: #E5D8D8
+}
+
+.step .first-b-on s {
+	width: 0px;
+	height: 0px;
+	border: 18px solid #E5D8D8;
+	border-left-color: transparent;
+	_border-left-color: snow;
+	_filter: chroma(color =     snow);
+	font-size: 0;
+	height: 35px;
+	line-height: 0;
+	position: absolute;
+	left: -30px;
+	top: 0px;
+}
+
+.step .last {
+	border-color: #dff0d8;
+	right: -16px;
+}
+
+.step .last-on {
+	border-color: #E5D8D8;
+	right: -15px;
+}
+
+.step .on {
+	background: #E5D8D8;
+}
+
+.step .bon {
+	background: #dff0d8;
+}
+
+.step .on s {
+	border: 18px solid #E5D8D8;
+	border-left-color: transparent;
+	_border-left-color: snow;
+	_filter: chroma(color =     snow);
+}
+
+.step .on b {
+	border-left-color: #E5D8D8;
+}
+
+.menu {
+	padding-left: 10px;
+	padding-top: 20px;
+}
+
+.menu li span {
+	top: 6px;
+	left: 5px;
+	position: relative
+}
+
+nav .container-fluid {
+	border-bottom: 3px solid #000000;
+}
+
+.iconButton {
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 20px;
+	top: 5px;
+	overflow: hidden
+}
+
+.iconButton:hover {
+	cursor: pointer;
+	-webkit-animation-name: 'wobble'; /*动画属性名，也就是我们前面keyframes定义的动画名*/
+	-webkit-animation-duration: 10s; /*动画持续时间*/
+	-webkit-animation-timing-function: ease-in-out;
+	/*动画频率，和transition-timing-function是一样的*/
+	-webkit-animation-delay: 2s; /*动画延迟时间*/
+	-webkit-animation-iteration-count: 10; /*定义循环资料，infinite为无限次*/
+	-webkit-animation-direction: alternate; /*定义动画方式*/
+}
+
+.navBtn {
+	margin-bottom: 0px;
+	margin-top: 10px;
+	margin-right: 0px;
+}
+
+.navbar-header img {
+	padding-top: 5px;
+}
+
+.ctype-1-1 {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	background-image: url(../img/icon-set-01.png);
+	background-position: -50px 0px;
+	background-repeat: no-repeat;
+	vertical-align: text-top;
+}
+
+.ctype-0-1 {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	background-image: url(../img/icon-set-01.png);
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	vertical-align: text-top;
+}

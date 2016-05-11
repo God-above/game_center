@@ -1,0 +1,167 @@
+<div ng-init="initRep()">
+	<div class="panel panel-default">
+		<div class="panel-heading">用户权限</div>
+		<div class="panel-body size_font">
+			<!-- <a href="#userAdd">
+				<button type="button" class="btn btn-primary">
+					<span class="glyphicon glyphicon-plus"></span>新增用户
+				</button>
+			</a> -->
+			<form class="form-horizontal">
+				<div class="form-group mt_15">
+						<div class="col-md-9" >
+							<div class="input-group">
+								<input type="text" placeholder="输入用户编号/用户名称/账号名进行查询"
+									class="form-control"  ng-model="searchText" maxlength="40">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" type="button"
+										ng-click="searchbtn(1,'reg')">查询</button>
+								</span>
+							</div>
+						</div>
+				</div>
+			</form>
+			 <form class="form-inline mt_15">
+            <label for="inputPassword">用户类型:</label>
+				<select class="select" ng-model="userType" >
+								<option value="">全部</option>
+								<option value="1">个人用户</option>
+								<option value="2">公司客户</option>
+								<!-- <option value="3">管理员</option> -->
+				</select>
+			<label for="inputPassword">创建时间:</label>
+			<input class="Wdate date input-group form-control"
+									style="height: 34px;" type="text" 
+									id="start_time"
+									onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+									placeholder="创建开始时间" ng-model="start_time">
+			<label class="line">—</label>
+			<input class="Wdate date input-group form-control"
+									style="height: 34px;" type="text" 
+									id="end_time"
+									onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+									placeholder="创建结束时间" ng-model="end_time">
+            </form>
+            <form class="form-inline mt_15">
+				<label for="inputPassword">用户状态:</label>
+				<select class="select" ng-model="status">
+								<option value="">全部</option>
+								<option value="1">正常</option>
+								<option value="0">禁用</option>
+				</select>
+				<input ng-model="disableReason" class="form-control"
+								placeholder="输入禁用原因" ng-show="status==0" />
+           		<label for="inputPassword">用户余额:</label>
+				<input type="text" class="form-control" placeholder="最低金额"
+										ng-model="minPrice" />
+				<label class="line">—</label>
+				<input type="text" class="form-control" placeholder="最高金额"
+									ng-model="maxPrice" />	
+            </form>
+            
+             <!-- <form class="form-inline mt_15">
+            <button class="btn btn-primary" ng-click="userListbtn(1)">查询</button>				
+			<button class="btn  btn-primary" ng-click="reSet()">重置</button>
+            </form> -->
+			
+		</div>
+	</div>
+	<div class="panel panel-default" ng-show="userList.length>0">
+		<div class="panel-heading">权限列表</div>
+		<div class="panel-body">
+			<div>
+				<div class="panel-table">
+					<table class="table panel-table-line ">
+						<thead>
+							<tr>
+								<th>用户编号</th>
+								<th>用户名称</th>
+								<th>创建时间</th>
+								<th>邮箱</th>
+								<th>账号名</th>
+								<th>用户类型</th>
+								<th>状态</th>
+								<th>禁用原因</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="user in userList" ng-class="{true: 'danger', false: ''}[user.status==0]">
+								<td>{{{true:user.userCode,false:'---'}[user.userCode!=undefined
+									&& user.userCode!=null&& user.userCode!='']}}</td>
+								<td>{{{true:user.userName,false:'---'}[user.userName!=undefined
+									&& user.userName!=null && user.userName!='']}}
+								<td>{{{true:user.createDate,false:'---'}[user.createDate!=undefined
+									&& user.createDate!=null && user.createDate!=""]|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+
+								<td>{{{true:user.email,false:'--'}[user.email!=undefined
+									&& user.email!=null]}}</td>
+
+								<td>{{{true:user.nickName,false:'---'}[user.nickName!=undefined
+									&& user.nickName!=null]}}</td>
+								<td>
+									<span ng-if="user.userType==1">个人用户</span>
+									<span ng-if="user.userType==2">公司客户</span>
+									<span ng-if="user.userType==3">管理员</span>
+								</td>
+
+								<td ng-show="user.status==1&&user.status!=null">正常</td>
+								<td ng-show="user.status==0"><span style="color: red;">禁用</span></td>
+								<td ng-show="user.status!=0&&user.status!=1">---</td>
+								<td>{{{true:user.disableReason,false:'---'}[user.disableReason!=undefined && user.status==0]}}</td>
+								<td><!-- <a href="#userEdit/{{user.userCode}}"><button type="button"
+											class="btn btn-xs btn-warning">编辑</button></a> -->
+
+									<!-- <button type="button"
+										class="btn btn-xs {{{true:'btn-danger',false:'btn-success'}[user.status==1]}}"
+										ng-click="updateStatus('userReason',user)">
+										{{{true:'禁用',false:''}[user.status== 1]}}
+										{{{true:'启用',false:''}[user.status== 0]}}</button> -->
+									<a href="#addRecharge/{{user.userCode}}"><button class="btn btn-xs btn-primary">充值</button></a>
+									<!-- <button class="btn btn-xs btn-primary" ng-click="showRechcord(user.userCode)">充值记录</button> -->
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="listPage">
+				    <tm-pagination conf="paginationConf"> </tm-pagination>
+					<!-- <expander>
+					
+					</expander> -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="newmyModal" ng-show="newshowpupupDiv"
+	style="display: none;">
+	<div class="modal-dialog" style="width: 450px; margin-top: 200px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title" id="myLargeModalLabel">禁用原因</h4>
+			</div>
+			<div class="modal-body" style="background: #eff0f4;">
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-md-10">
+						<input type="text" class="form-control" ng-model="disUserReason"
+							id="disUserReason" placeholder="请输入禁用原因" />
+					</div>
+				</div>
+
+				<div class="row" style="margin-top: 50px; margin-left: 60%;">
+					<div class="col-md-offset-4">
+						<button type="submit" class="btn btn-success"
+							ng-click="updateUserStatus();">确认</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

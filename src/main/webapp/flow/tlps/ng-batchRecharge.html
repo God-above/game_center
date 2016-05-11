@@ -1,0 +1,176 @@
+<div ng-init="init()">
+	<div class="panel panel-default" id="createBatch">
+		<div class="panel-heading">
+		<span class="glyphicon glyphicon-th-list"></span> 创建批次订单 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vm.collapsed = !vm.collapsed"></span>
+		</span>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+		<div class="panel-body">
+			<form class="form-horizontal form_position" name="form">
+
+				<div class="step">
+					<a class="first-b-on"><s class="first-on"></s>选择商品<b></b></a> <a><s></s>创建订单<b></b></a>
+					<a><s></s>确认订单<b></b></a>
+					<a><s></s>确认支付<b></b></a>
+					<a><s></s>支付结果<b class="last"></b></a>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">商品名称:</label>
+					<div class="col-md-3">
+						<select class="form-control" ng-model="productNo" ng-change="changeProductNo(productNo)"
+							ng-options="product.productNo as product.productName for product in products">
+							<option value="">请选择</option>
+
+						</select>
+
+
+					</div>
+				</div>
+				<div class="form-group" ng-repeat="nf in nfArray">
+					<label class="col-md-2 control-label">上传文件:</label>
+					<div class="col-md-3">
+						<input class="form-control" type="file" name="phoneNum"
+							ng-hide="true"
+							onchange="angular.element(this).scope().selectFile(this)" />
+						<button class="btn btn-primary btn-success"
+							ng-click="clickFile($index)">上传手机号</button>
+
+						<!-- <button class="btn btn-primary btn-success" ng-click="removeFile($index)">移除一个</button> -->
+					</div>
+					<div class="col-md-1">
+						<small ng-show="isUpload_success">上传成功!</small>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<button class="btn btn-primary btn-success col-md-offset-10 "
+						id="firstBtn" disabled="disabled" ng-click="openSecond()">下一步</button>
+
+				</div>
+				<!-- 
+			  <div class="form-group">
+			    <div class="col-md-3 col-md-offset-2">
+			       <button class="btn btn-primary" ng-click="confirmBatch()">移除一个</button>
+			      <input type="submit" class="btn btn-primary" value="确认充值">
+			    </div>
+			  </div>
+			  -->
+			</form>
+		</div>
+		</div>
+	</div>
+
+
+
+	<div class="panel panel-default" id="batchInfo">
+		<div class="panel-heading">
+		<span class="glyphicon glyphicon-th-list"></span> 上传文件明细 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vm.collapsed = !vm.collapsed"></span>
+		</span>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+		<div class="panel-body">
+		  <div class="step">
+		  
+
+					<a class="first"><s class="bon"></s>选择商品<b></b></a> <a class="on"><s></s>创建订单<b></b></a>
+					<a><s></s>确认订单<b></b></a>
+					<a><s></s>确认支付<b></b></a>
+					<a><s></s>支付结果<b class="last"></b></a>
+
+				</div>
+		
+			<div class="col-md-2">
+				<label class="col-md-8">批次名称:</label>
+			</div>
+			<div class="col-md-2">
+				<input class="col-md-8 form-control" type="text"
+					ng-model="batchName" ng-change="getBatchName()" />
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th width="8%">号码总数</th>
+						<th width="8%">可用号码总数</th>
+						<th width="8%">无效号码总数</th>
+						<th width="8%">移动号段</th>
+						<th width="8%">联通号段</th>
+						<th width="6%">电信号段</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td width="8%" id="total"></td>
+						<td width="8%" id="validTotal"></td>
+						<td width="8%" id="invalidTotal"></td>
+						<td width="8%" id="validCMCCNumbers"></td>
+						<td width="8%" id="validCUCCNumbers"></td>
+						<td width="8%" id="validCTCCNumbers"></td>
+
+					</tr>
+			</table>
+			<div class="col-md-12">
+				<button class="btn btn-primary btn-success col-md-offset-10 "
+					disabled="disabled" id="secBtn" ng-click="conOrderList()">下一步</button>
+				<!-- <button class="btn btn-primary btn-success" ng-click="removeFile($index)">移除一个</button> -->
+			</div>
+		</div>
+	</div>
+
+	</div>
+
+	<div class="panel panel-default" id="batchDetail">
+		<div class="panel-heading">
+		<span class="glyphicon glyphicon-th-list"></span> 订单确认 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vm.collapsed = !vm.collapsed"></span>
+		</span>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+		<div class="panel-body">
+				<div class="step">
+		 
+					<a class="first"><s class="bon"></s>选择商品<b></b></a> <a ><s></s>创建订单<b></b></a>
+					<a class="on"><s></s>确认订单<b></b></a>
+					<a><s></s>确认支付<b></b></a>
+					<a><s></s>支付结果<b class="last"></b></a>
+
+				</div>
+		
+			<table class="table">
+				<thead>
+					<tr>
+						<th width="8%">批次订单编号</th>
+						<th width="8%">批次名称</th>
+						<th width="8%">充值号码总数</th>
+						<th width="8%">充值消费金额</th>
+						<th width="8%">购买商品</th>
+						<th width="6%">下单时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td width="8%">{{batchOrder.number}}</td>
+						<td width="8%">{{batchOrder.name}}</td>
+						<td width="8%">{{batchOrder.validAccountTotal}}</td>
+						<td width="8%">{{batchOrder.totalPrice/100|currency :""}}</td>
+						<td width="8%">{{batchOrder.productName}}</td>
+						<td width="8%">{{batchOrder.createDate| date: 'yyyy-MM-dd
+							HH:mm:ss'}}</td>
+					</tr>
+			</table>
+			<div class="col-md-12">
+				<button class="btn btn-primary btn-success col-md-offset-11"
+					ng-click="conOrderPay()">确认充值</button>
+				<!-- <button class="btn btn-primary btn-success" ng-click="removeFile($index)">移除一个</button> -->
+			</div>
+		</div>
+	</div>
+
+	</div>
+</div>

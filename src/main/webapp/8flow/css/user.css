@@ -1,0 +1,242 @@
+.lingxing {
+	margin-top: 10px;
+	border-color: red;
+	border-style: solid;
+	border-width: 10px;
+	width: 0;
+	height: 0;
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+.userPic{
+	  position: relative;
+  	  top: -38px;
+      left: 30px;
+}
+
+/*----------------------修改用户密码--------------------*/
+.editForm {
+	width: 750px;
+}
+
+.fontColor {
+	color: #337ab7;
+	font-size: 16px;
+}
+
+.hrDiv {
+	border: 1px #cccccc dotted;
+	width: 100%;
+	margin-top: 20px;
+}
+
+/*----------------------账户设置--------------------*/
+.logo {
+	border-bottom: 1px solid #eeeeee;
+	height: 40px;
+	line-height: 40px;
+	text-align: center left;
+	font-size: 16px;
+	color: #272626;
+}
+
+.content {
+	width: 950px;
+	border: 1px solid #e4e4e4;
+	height: 650px;
+	margin-top: 20px;
+}
+
+.leftDiv {
+	width: 168px;
+	height: 100%;
+	background-color: #e7e7e7;
+	float: left;
+}
+
+.topPic {
+	  height: 179px;
+  border-bottom: 1px solid #E0DBDB;
+  /* margin-left: 10px; */
+  width: 156px;
+  text-align: center;
+}
+
+.topPic img {
+	margin-top: 27px;
+	margin-left: 10px;
+}
+
+.bottomDiv {
+	width: 130px;
+	margin-left: 18px;
+	margin-top: 10px
+}
+
+.rightDiv {
+	float: left;
+	padding-left: 35px;
+	width: 742px;
+}
+
+.span1 {
+	width: 10px;
+	height: 24px;
+	background-color: #1B41DC;
+	float: left;
+	margin-top: 5px;
+}
+
+.span2 {
+	margin-left: 10px;
+	padding-top: 5px;
+	float: left;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.span3 {
+	width: 61px;
+	height: 15px;
+	background-color: #EAAB69;
+	float: left;
+	padding-left: 36px;
+	margin-top: 7px;
+	margin-left: 20px;
+}
+
+.span4 {
+	width: 61px;
+	margin-left: 20px;
+	float: left;
+	margin-top: 5px;
+}
+
+.bgDiv {
+	width: 10px;
+	height: 30px;
+	background-color: green;
+	border: 1px solid red;
+}
+
+.rowBg {
+	background-color: #f7f7f7;
+	line-height: 40px;
+	height: 40px;
+	margin-top: 20px;
+	padding-left: 5px;
+	padding-right: 15px;
+	border: 1px solid #e4e4e4;
+}
+/*----------------------------选择身份验证方式-----------------------------*/
+.typeContent {
+	width: 941px;
+	height: 400px;
+	padding-left: 215px;
+  padding-right: 288px;
+	padding-top: 40px;
+	  position: relative;
+  top: 65px;
+}
+
+.fontWeight {
+	font-weight: normal;
+}
+
+.bgDisColor {
+	background-color: #B7B7B7;
+}
+
+.inputLabel {
+	float: left;
+	padding-top: 5px;
+	font-size: 15px;
+	width: 95px;
+	text-align: right;
+}
+
+.resultDiv {
+	text-align: center;
+	padding-bottom: 20px;
+	margin-top: 30px;
+	background-color: #F5F5F5;
+	padding-right: 80px;
+	position: relative;
+  	top: 80px;
+  	  width: 670px;
+  margin-left: 122px;
+	padding-left:100px;
+}
+
+.borderColor {
+	border: 1px solid #006BC0;
+}
+/*----------------------------手机验证*/
+.telContent {
+	width: 680px;
+	border: 2px solid #e7e7e7;
+	margin-left: 135px;
+	height: 420px;
+	position: relative;
+	top: 130px;
+	margin-bottom: 80px;
+}
+
+.titleTel {
+	float: left;
+	position: relative;
+	top: -65px;
+	margin-left: 10px;
+	border-bottom: 1px solid #e7e7e7;
+	width: 660px;
+	padding-bottom: 10px;
+}
+
+#telForm {
+	margin-left: 80px;
+}
+
+.errorColor {
+	color: red;
+}
+.reSetBtn{
+	background-color: #dddddd;
+	color: #bdbdbd;
+}
+.mg_l_10 {
+	margin-left: 10px;
+}
+.mg_l_30 {
+	margin-left: 30px;
+}
+.mg_l_15 {
+	margin-left: 15px;
+}
+.mg_l_80 {
+	margin-left: 80px;
+}
+
+.mg_l_35 {
+	margin-left: 35px;
+}
+
+.mg_t_10 {
+	margin-top: 10px;
+}
+
+.mg_t_30 {
+	margin-top: 30px;
+}
+
+.mg_t_20 {
+	margin-top: 20px;
+}
+
+.mg_t_5 {
+	margin-top: 5px;
+}
+.mg_t_6 {
+	margin-top: 6px;
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<link rel="8liuliang icon" href="./img/index_img/8liuliang.ico">
+<link href="./css/pay.css" rel="stylesheet">
+<title>8流量首页</title>
+</head>
+<body>
+	<div id="main" class="clearfix">
+		  <!-- 导航 -->
+		<div class="top_bar">
+			<div class="top_title">
+				欢迎来到8流量！<a id="user" style="text-decoration:none;"> 请登录/免费注册</a>
+				<a style="float:right;font-size:14px;color:#2797cf;text-decoration:none;margin-right:7px;" href="./index.html">退出</a>
+			</div>
+			<div class="top_dh">
+				<div class="top_content">
+					<img src="./img/new_img/LOGO.png" />
+					<div class="top_nav">
+						<div class="top_nav_button" onclick="javascript:window.location='./index.html'">首页</div>
+						<div class="top_nav_button" onclick="javascript:window.location='./service.html'">产品</div>
+						<div class="top_nav_button" onclick="javascript:window.location='./plan.html'">方案</div>
+						<div class="top_nav_button" onclick="javascript:window.location='./about.html'">关于我们</div>
+						<div class="top_nav_button active">
+						 <img src="./img/new_img/flowgo2.png">
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- 导航 -->
+			<div class="pay_main">
+			   <div style="margin-top:110px;width:900px;margin-left:30px;">
+			   <div style="margin-top:80px;float:left;">
+			   <div style="width:64px;height:64px;border-radius:50px;background:#2797CF;color:#FFFFFF;line-height:64px;text-align:center;">1</div>
+			   <div style="color:#AAAAAA;margin-top:10px;margin-left:5px;">确认订单</div>
+			   </div>
+			   <div style="height:5px;background:#2797CF;width:350px;float:left;margin-top:110px;margin-left:10px;margin-right:10px;"></div>
+			   <div style="margin-top:80px;float:left;">
+			   <div style="width:64px;height:64px;border-radius:50px;background:#2797CF;color:#FFFFFF;line-height:64px;text-align:center;">2</div>
+			   <div style="color:#AAAAAA;margin-top:10px;margin-left:20px;">支付</div>
+			   </div>
+			   <div style="height:5px;background:#eeeeee;width:310px;float:left;margin-top:110px;margin-left:10px;margin-right:10px;"></div>
+			   <div style="margin-top:80px;float:left;">
+			   <div style="width:64px;height:64px;border-radius:50px;background:#eeeeee;color:#FFFFFF;line-height:64px;text-align:center;">3</div>
+			   <div style="color:#000000;margin-top:10px;margin-left:20px;">完成</div>
+			   </div>
+			   </div>
+			   
+			   <div style="margin-top:50px;margin-bottom:50px;font-size:22px;font-weight:400px;float:left;width:100%;">订单信息</div>
+			   <div style="border:1px solid #bbbbbb;height:200px;width:100%;float:left;">
+			      <div style="width:100%;height:40px;border-bottom:1px solid #EEEEEE;background:#F6F6F6">
+			      <div style="width:192px;line-height:40px;text-align:center;font-weight:center;float:left;">流量包</div>
+			       <div style="width:192px;line-height:40px;text-align:center;font-weight:center;float:left;">运营商</div>
+			        <div style="width:192px;line-height:40px;text-align:center;font-weight:center;float:left;">单价</div>
+			         <div style="width:192px;line-height:40px;text-align:center;font-weight:center;float:left;">数量(个)</div>
+			          <div style="width:192px;line-height:40px;text-align:center;font-weight:center;float:left;">消费总额</div>
+			      </div>
+			      <div style="width:100%;height:40px;border-bottom:1px solid #EEEEEE;background:#FFFFFF">
+			      <div style="width:192px;line-height:40px;text-align:center;font-weight:center;float:left;" id="baoxing">xx</div>
+			       <div style="width:192px;line-height:40px;text-align:center;font-weight:center;float:left;" id="carrier">xx</div>
+			        <div style="width:192px;line-height:40px;text-align:center;font-weight:center;float:left;" id="orderprice">XX</div>
+			         <div style="width:192px;line-height:40px;text-align:center;font-weight:center;float:left;" id="count">1</div>
+			          <div style="width:192px;line-height:40px;text-align:center;font-weight:center;float:left;color:rgb(255, 168, 0);font-size:22px;" id="total">10.00</div>
+			      </div>
+			      <div style="width:100%;height:40px;background:#FFFFFF">
+			     
+			        <div style="width:760px;padding:30px;float:left">
+			         <div style="width:100px;font-size:14px;">支付方式：</div>
+			         <div style="width:200px;font-size:14px;padding-left:60px;padding-top:10px;"> <input type="radio" name="identity" value="余额" checked="checked"/>余额 <span style="color:rgb(255, 168, 0);font-size:24px;margin-left:20px;">0.00元</span></div>
+			         </div >
+			         <div style="width:130px;float:left;padding-top:50px;height:60px;"><button style="background:#2797CF;width:100px;height:40px;border:0px;border-radius:5px;color:#FFFFFF;font-size:14px;cursor: pointer;" onclick="pay();">确认支付</button></div>
+			      </div>
+			   </div>
+			    
+			  <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=834400572&site=qq&menu=yes" style="position: fixed;z-index: 10;bottom: 120px;left:40px;"><img border="0" src="./img/buy/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></div>
+		
+	</div>
+		<div class="main_bottom">Copyright © 江苏奇点网络有限公司 版权所有 苏ICP备14050048号-3</div>
+		
+</body>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/comm.js"></script>
+<script type="text/javascript">
+		
+(function ($) {
+    $.getUrlParam = function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    $('#orderprice').html($.getUrlParam('orderprice'));
+    $('#baoxing').html($.getUrlParam('baoxing'));
+    var carrier=$.getUrlParam('carrier');
+    if(carrier=="dx"){
+    	 $('#carrier').html("电信");
+    }
+    if(carrier=="yd"){
+   	 $('#carrier').html("移动");
+   }
+    if(carrier=="lt"){
+   	 $('#carrier').html("联通 ");
+   }
+    if(carrier=="qg"){
+   	 $('#carrier').html("全国");
+   }
+    $('#count').html($.getUrlParam('count'));
+    $('#total').html($.getUrlParam('total'));
+    $('#user').html($.getUrlParam('username'));
+})(jQuery);
+</script>
+</html>

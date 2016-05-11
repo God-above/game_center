@@ -1,0 +1,402 @@
+<!-- 导航 -->
+<div ng-init="init()">
+	<div class="topNav">
+			<!--导航控件  -->
+			<div>
+				<div style="padding-top: 20px; float: left;  margin-left: 75px;">
+					<div class="box">
+						<div class="lingxing_active"></div>
+						<div class="size size_yes">1</div>
+						<div class="box_size_active">创建账户</div>
+					</div>
+				</div>
+				<!-- ----------------------设置账户----------------------- -->
+				<div class="line line_one" ng-show="one"></div>
+				<div class="line_active line_one" ng-show="two"></div>
+				<div class="line_active line_one" ng-show="three"></div>
+				<div style="padding-top: 20px; float: left">
+					<div class="box">
+						<div class="lingxing_active" ng-show="!one"></div>
+						<div class="lingxing" ng-show="one"></div>
+						<div class="size size_yes">2</div>
+						<div class="box_size" ng-show="one">设置账户</div>
+						<div class="box_size_active" ng-show="!one">设置账户</div>
+					</div>
+				</div>
+				<!-- ----------------------完成----------------------- -->
+				<div class="line line_one" ng-show="!three"></div>
+				<div class="line_active line_one" ng-show="three"></div>
+				<div style="padding-top: 20px; float: left">
+					<div class="box">
+						<div class="lingxing_active" ng-show="three"></div>
+						<div class="lingxing" ng-show="!three"></div>
+						<div class="size size_yes">3</div>
+						<div class="box_size" ng-show="!three">&nbsp;&nbsp;&nbsp;成功</div>
+						<div class="box_size" ng-show="three">&nbsp;&nbsp;&nbsp;成功</div>
+					</div>
+				</div>
+			</div>
+			<!--导航控件  -->
+	</div>
+	<div ng-show="pic1">
+		<ul class="tab_choose nav nav-tabs" style="border: 0px" id="myTab">
+			<li class="tab-choose-item1 active"><a data-toggle="tab"
+				href="#panel-487915" ng-click="showTab(0)">个人账户</a></li>
+			<li class="tab-choose-item2"><a data-toggle="tab"
+				href="#panel-860869" ng-click="showTab(1)">企业账户</a></li>
+		</ul>
+	</div>
+	<!--------------------------- 第一部分  个人注册start -->
+	<div class="tab-content box-shadow">
+		<div class="tab-pane active" id="panel-487915">
+			<div id="content">
+				<div ng-show="pic1">
+					<form class="form-horizontal" role="form" id="msform"
+						name="user_form" novalidate>
+						<div class="form-group">
+							<label for="inputPassword3"
+								class="col-md-offset-1 col-md-2 col-sm-4 control-label">
+								国籍/地区</label>
+							<div class="col-md-3 col-sm-3">
+								<select class="form-control" disabled="disabled">
+									<option value="">中国大陆</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3"
+								class="col-md-offset-1 col-md-2 col-sm-4 control-label">
+								手机号</label>
+							<div class="col-md-1 col-sm-1">
+								<input type="text" class="form-control" placeholder="+86"
+									style="width: 60px;" readonly="readonly" />
+							</div>
+							<div class="col-md-4 col-sm-4">
+								<input type="text" name="perTel" ng-model="per.tel"
+									class="form-control" placeholder="请输入您的手机号将作为账户名"
+									 ng-focus ng-blur="checkUserName(per.tel,'tel')">
+							</div>
+							<div class="validate_style" ng-show="tel_showMsg">
+								<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;<span ng-bind="tel_showMsg"></span>
+							</div>
+							
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3"
+								class="col-md-offset-1 col-md-2 col-sm-4  control-label">
+								验证码</label>
+							<div class="col-md-3  col-sm-3">
+								<input type="text" class="form-control" name="perValidateCode"
+									 ng-model="perValidateCode" maxlength=4 
+									placeholder="验证码" ng-focus  ng-blur="codeBlur(perValidateCode)"/>
+
+							</div>
+							<div class=" col-md-2 col-sm-2">
+								<img src="../validateCode" width=100px height=32px
+									onclick='this.src = "../validateCode?rand=" + Date.parse(new Date())'
+									title="更新验证码" />
+							</div>
+							<div class="validate_style" ng-show="code_showMsg">
+								<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;<span ng-bind="code_showMsg"></span>
+							</div>
+							
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3"
+								class="col-md-offset-1 col-md-2 col-sm-4 control-label">
+							</label>
+							<div class="col-md-4  col-sm-4">
+								<div class="checkbox" style="text-align: left;">
+									<label for="inputPassword3" class="control-label"> <input
+										type="checkbox" name="myTestRadio" ng-model="perSerAgr"
+										required="required" value="{{perSerAgr}}" ng-checked="true" />同意
+										<a style="text-decoration: none;" data-toggle="modal"
+										data-target="#myModal3">《8流量服务协议》</a>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group pd_b_30">
+							<label for="inputPassword3"
+								class="col-md-offset-1 col-md-2 col-sm-4 control-label">
+							</label>
+							<div class="col-md-4 col-sm-4 text-left">
+								<a type="button" class="mg_t_30 btn btn-primary"
+									ng-disabled="user_form.$invalid"
+									ng-click="perUserVm.perOpenSecond(per.tel,perValidateCode)">下一步</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!--------------------------- 第一部分  个人注册end -->
+		<!--------------------------- 第二部分  企业注册start -->
+		<div class="tab-pane" id="panel-860869">
+			<div ng-show="step1">
+				<form class="form-horizontal" role="form" id="msform"
+					name="user_form4" novalidate>
+					<div class="form-group">
+						<label for="inputPassword3"
+							class="col-md-offset-1 col-md-2 col-sm-4 control-label">
+							电子邮箱:</label>
+
+						<div class="col-md-5 col-sm-5">
+							<input type="text" name="email" ng-model="user.email"
+								class="form-control" placeholder="请输入您的邮箱" ng-blur="checkUserName(user.email,'email')"
+								ng-focus>
+						</div>
+						<div class="validate_style" ng-show="email_showMsg">
+								<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;<span ng-bind="email_showMsg"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3"
+							class="col-md-offset-1 col-md-2 col-sm-4 control-label">
+							验证码:</label>
+						<div class="col-md-3  col-sm-3">
+							<input type="text" class="form-control" name="validateCode" 
+								 ng-model="validateCode" maxlength=4 placeholder="验证码"
+								ng-focus ng-blur="codeBlur(validateCode)"/>
+
+						</div>
+						<div class=" col-md-2 col-xs-2">
+							<img src="../validateCode" width=100px height=32px
+								onclick='this.src = "../validateCode?rand=" + Date.parse(new Date())'
+								title="更新验证码" />
+						</div>
+						<div class="validate_style" ng-show="code_showMsg">
+								<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;<span ng-bind="code_showMsg"></span>
+						</div>
+						
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3"
+							class="col-md-offset-1 col-md-2 col-sm-4 control-label">
+						</label>
+						<div class="col-md-4  col-sm-4">
+							<div class="checkbox" style="text-align: left;">
+								<label for="inputPassword3" class="control-label"> <input
+									type="checkbox" name="myTestRadio" ng-model="serAgr"
+									required="required" value="{{serAgr}}" ng-checked="true" />同意
+									<a style="text-decoration: none;" data-toggle="modal"
+									data-target="#myModal3">《8流量服务协议》</a>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group pd_b_30">
+						<label for="inputPassword3"
+							class="col-md-offset-1 col-md-2 col-sm-4 control-label">
+						</label>
+						<div class="col-md-4 col-sm-4 text-left">
+							<a type="button" class="mg_t_30 btn btn-primary"
+								ng-disabled="user_form4.$invalid"
+								ng-click="userVm.openSecond(user.email,validateCode)">下一步</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+	<!--------------------------------------  个人注册 发送短信到手机 start-->
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog" style="left:-27px;">
+			<div class="modal-content"
+				style="margin-top: 232px; width: 650px; height: 320px;">
+				<div class="modal-header" style="height: 45px;">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" style="font-weight: bold;">填写校验码</h4>
+				</div>
+				<div class="modal-body" style="background-color: #FBF9F9">
+					<p class="mg_l_10">
+						<span class="glyphicon glyphicon-exclamation-sign"
+							style="color: #337AB7;"></span>&nbsp;&nbsp;校验码短信已发送到你的手机上，有效时间为30分钟，请及时查收。
+					</p>
+					<div class="row mg_t_20 mg_l_20">
+						<label class="input-label">手机号</label>
+						<div class="input_text">{{per.tel}}</div>
+					</div>
+					<div class="row mg_t_20 mg_l_20">
+						<label for="inputPassword3" class="input-label"
+							style="margin-top: 8px;">校验码</label>
+						<div class="col-md-3 col-sm-3" style="margin-left: -15px;">
+							<input type="text" name="validateCode" class="form-control"
+								style="width: 120px; height: 35px;" required
+								ng-model="validateCode" maxlength=6 placeholder="验证码"
+								ng-focus ng-blur="checkTelCode(validateCode)"/>
+						</div>
+						<div class="mg_t_5 validate_style" ng-show="showTelCode">
+						<span class="glyphicon glyphicon-exclamation-sign "></span>&nbsp;&nbsp;
+						<span ng-bind="errorMsg"></span></div>
+					</div>
+					<div class="row mg_t_20 mg_l_20">
+						<label for="inputPassword3" class="input-btn"></label>
+						<div>
+							<button class="btn reSendBtn" ng-show="!timeDown" ng-click="perUserVm.reSendMsg(per.tel)">免费获取校验码</button>
+							<button class="btn reSendBtn" ng-disabled="true" ng-show="timeDown">{{countdown}}秒后可重新获取短信</button>
+						</div>
+						
+					</div>
+					<div class="row mg_t_20 mg_l_20">
+						<label for="inputPassword3" class="input-btn"></label>
+						<button type="button" class="btn btn-primary" style="width: 80px;"
+							ng-click="perUserVm.setValiCode(per.tel,validateCode)">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--  个人注册 发送短信到手机 end-->
+
+	<!--------------------------------------  企业注册 发送邮件 start-->
+	<div class="modal fade" id="myModal2">
+		<div class="modal-dialog" style="left:-27px;">
+			<div class="modal-content"
+				style="margin-top: 232px; width: 650px; height: 320px;">
+				<div class="modal-header" style="height: 45px;">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">验证邮箱</h4>
+				</div>
+				<div class="modal-body"
+					style="padding: 0px; width: 585px; padding-left: 35px;">
+					<div>
+						<p style="margin-left: -14px;">
+							<span class="glyphicon glyphicon-exclamation-sign" style="color:rgb(51, 122, 183);"></span>&nbsp;&nbsp;验证邮件已发送到邮箱。
+							<span class="emailColor"> {{user.email}}
+							</span>
+						</p>
+	
+						<p class="mg_l_10">
+							<small>请在24小时内点击邮件中的链接继续注册</small>
+						</p>
+	
+						<p class="mg_l_10 mg_t_20">
+							<button class="btn btn-primary openBtn"
+								ng-click="openEmailUrl(user.email)" > 立即查收</button>
+						</p>
+					</div>
+					<div class="email_content mg_l_10">
+						<p>没有收到邮件？</p>
+						<p>*请先检查是否在垃圾邮件中</p>
+						<p>
+							*如果还未收到<a class="mg_l_10"><button class="btn btn-primary openBtn" 
+									ng-click="reSendEmail(user.email)">重新发送</button></a>
+						</p>
+						<p>
+							*一直收不到？请试试<a href="" ng-click="changeEmail()">更换邮箱</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--  企业注册 发送邮件 end-->
+	<!-- 模态框    8流量服务协议 start-->
+	<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" style="height: 715px; width: 650px;">
+				<div class="modal-header" style="height: 60px;border-bottom:0px;">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title text-center" id="myModalLabel" style="color: #337AB7;
+  						font-size: 16px;font-weight: bold;padding-top: 5px;">《8流量服务协议》</h4>
+				</div>
+				<div class="modal-body" style="height: 590px; overflow-y: scroll;border: 1px solid #dfdfdf;margin: 0 20px;background-color: #f6f6f6;">
+					<h4>1、 8流量服务条款的确认和接纳</h4>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;8流量提供的各项基于互联网的服务的所有权和运作权归江苏奇点网络科技有限公司所有。本站提供的服务将完全按照其发布的服务条款和操作规则严格执行。服务使用人（以
+						下称“用户”）在本站发生访问、注册、登陆、购买等网络行为时均默示同意本站全部服务条款，用户必须确认：本协议条款是处理双方权利义务的约定，除非违反国家强制性法律，否则始终有效。使用8流量及其提供的服务，您将受本服务协议和所有有关的政策、条件和准则的约束。如果您不同意本使用条件中的任何一条，您可以不使用8流量提供的服务。</p>
+					<h4>2、服务内容与条款</h4>
+					<h5>2.1商品价格与数量</h5>
+					<p>
+						&nbsp;&nbsp;&nbsp;&nbsp;对于选择8流量供货的商品，8流量有权在其网站上显现的商品及订单的明显错误或缺货的情况下，单方面撤回。<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;8流量拥有商品供货总量和用户订购数量的限制权，您所订购的商品，如果发生缺货，您有权取消定单。<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;注：8流量供货是指使用默认江苏货源，或者在系统中对接了供货商为江苏奇点网络科技有限公司的货源。
+					</p>
+					<h5>2.2价格变化和缺货</h5>
+					<p>
+						&nbsp;&nbsp;&nbsp;&nbsp;如果8流量供货的商品目录和信息里的商品出现有定价错误。我们会采取下列之一措施：<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;(1)
+						如果某一商品的正确定价低于我们的错误定价，我们将按照较低的定价向您销售交付该商品。<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;(2)
+						如果某一商品的正确定价高于我们的错误定价，我们会根据我们的情况决定,是否在交付前联系您寻求您的指示, 或者取消订单并通知您。<br>
+						因为库存会不断变化以及商品出货速度可能出现暴增现象，可能会使您订购的商品或服务出现临时性的缺货的，这可能会导致您购买的商品无法及时发出。如出现此情况，您有权取消该订单，如您已付款，您可以申请退款，8流量将会及时为您退款。
+					</p>
+					<h5>2.3商品目录变更</h5>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;8流量的部分商品目录会随供货商的商品上下架而进行商品目录变更。</p>
+
+					<h5>2.4充值到账及发货</h5>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;8流量会将用户订购的服务（数字商品）充值到或发送到用户指定的帐号或接收方式中（邮箱或手机短信），8流量会以最快的方式完成充值或发货，考虑到充值缴费存在峰谷期、库存数量以及网络障碍问题，8流量对外宣传的到账、收货时间仅为平均时间，不能保证每笔订单都能在平均时间范围内到账或收到货。
+						考虑到互联网环境不稳定性，由于8流量系统维护、更新、调整、繁忙或者用户通过作弊手段非正当获得超过其订购额度的商品或者充值金额，用户有义务返回超出订购量的商品或金额，如无法退回的，用户须支付多得商品的价格费用，8流量可视情况予以一定的奖励。</p>
+
+					<h5>2.5退款服务</h5>
+					<p>
+						&nbsp;&nbsp;&nbsp;&nbsp;8流量所提供的所有充值类商品一旦充值成功均不接受退货、退款；数卡类、票务类商品如因需退货必须满足以下条件之一并按照其规定操作：<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;1、卡密类商品发送正确，卡密可充值的金额与订购商品金额吻合的，一律不接受退货申请；<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;2、如果因为8流量的过失导致充值、发货错误的，用户可以申请退款，款项退到用户的8流量账户里；<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;3、如果因为用户的过失导致无法充值或无法发货的，用户可以申请退款，8流量在核实订单信息后将扣除相关手续费（含银行支付费、交易损失费等）的款项退到用户的8流量账户里。<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;4、由于用户输入不正确的充值帐号或收货资料导致错充到他人账户或者卡密发送到他人邮箱（或手机短信）的，一切损失由用户承担，8流量不承担任何责任。
+					</p>
+
+					<h5>2.6用户管理及信息的存储和限制</h5>
+					<p>
+						&nbsp;&nbsp;&nbsp;&nbsp;本协议依据国家相关法律法规规章制定，用户同意严格遵守以下条款<br>：
+						&nbsp;&nbsp;&nbsp;&nbsp;(1)从中国境内向外传输技术性资料时必须符合中国有关法规。<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;(2)不利用本站从事非法活动。 <br>
+						&nbsp;&nbsp;&nbsp;&nbsp;(3)不干扰或混乱网络服务。<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;(4)遵守所有使用网络服务的网络协议、规定、程序和惯例。<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;用户须承诺不传输任何违法犯罪的、骚扰性的、中伤他人的、辱骂性的、恐吓性的、伤害性的、庸俗的，淫秽的、不文明的等信息资料；不传输损害国家社会公共利益和涉及国家安全的信息资料；不传输教唆他人从事本条所述行为的信息资料。
+						若用户的行为不符合以上提到的服务条款，本站将作出独立判断立即取消用户服务帐号。用户需对自己在网上的行为承担法律责任。用户若在本站上散布和传播反动、色情或其它违反国家法律的信息，本站的系统记录有可能作为用户违反法律的证据。
+						如果用户违背了国家法律法规规定或本协议约定，本站有视具体情形中止或终止对其提供网络服务的权利。
+					</p>
+					<h5>2.7邮件和短信通知服务</h5>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;8流量保留并随时使用通过邮件和短信的形式，如果您在8流量注册、购物或身份验证，表明您已默示同意接受此项服务。如果您不接受此次服务请您勿在本站执行以上网络操作。</p>
+					<h5>2.8用户隐私和安全</h5>
+					<p>
+						&nbsp;&nbsp;&nbsp;&nbsp;尊重用户个人隐私是本站的一项基本政策。除了用户授权或者国家机关要求外，8流量绝对不会公开、编辑或透露其注册资料及保存在本站中的非公开内容，更不会向任何第三方出售、提供用户资料及相关信息。<br>
+						用户一旦注册成功，成为8流量的合法用户，将得到一个密码和用户名，用户需要设置好相关安全设置，如因用户未对账户进行相关安全设置导致账户密码丢失或者其它损失的，8流量不承担任何赔偿责任。您可随时根据指示改变您的密码。用户需谨慎合理的保存、使用用户名和密码。用户若发现任何非法使用用户帐号或存在安全漏洞的情况，请立即通知本站和向公安机关报案。<br>
+						特别提醒：用户受他人委托购买8流量商品时请注意核实委托人的身份，以防上当受骗，用户受到任何人委托在8流量购买商品，给购买者造成的任何损失有购买者独自承担，8流量可以协助被骗用户进行报案维权，但不承担人赔付责任。
+					</p>
+					<h4>3、所有权声明及责任限制</h4>
+					<h5>3.1网络服务内容的所有权</h5>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;本站定义的网络服务内容包括：文字、软件、声音、图片、录象、图表、广告中的全部内容；电子邮件的全部内容；本站为用户提供的其它信息。所有这些内容受版权、商标、标签和其它财产所有权法律的保护。所以，用户只能在本站和广告商授权下才能使用这些内容，而不能擅自复制、再造这些内容、或创造与内容有关的派生商品。本站所有的文章版权归原文作者和本站共同所有，任何人需要转载本站的文章，必须征得原文作者和本站授权。</p>
+					<h5>3.2责任限制</h5>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;如因不可抗力或其它本站无法控制的原因使本站销售系统崩溃或无法正常使用导致网上交易无法完成或丢失有关的信息、记录等本站会尽可能合理地协助处理善后事宜，并尽最大努力使客户免受损失。</p>
+					<h4>4、法律管辖和适用</h4>
+					<p>
+						&nbsp;&nbsp;&nbsp;&nbsp;本协议的订立、执行和解释及争议的解决均应适用中国法律。<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;如发生本站服务条款与中国法律相抵触时，则这些条款将完全按法律规定重新解释，而其它有效条款继续有效。<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;如双方就本协议内容或其执行发生任何争议，双方应尽力友好协商解决；协商不成时，任何一方均可向8流量服务器所在地人民法院提起诉讼。
+					</p>
+
+				</div>
+				<div class="modal-footer" style="text-align: center;">
+					<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+					<button type="button" class="btn btn-primary" data-dismiss="modal">已阅读</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 模态框  8流量服务协议 start-->
+</div>
+
+<script type="text/javaScript">
+	$('#myTab a').click(function(e) {
+		e.preventDefault()
+	})
+	$('.modal').modal({
+		backdrop : "static",
+		show : false
+	})
+	$("[data-toggle='popover']").popover();
+</script>

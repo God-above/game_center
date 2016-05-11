@@ -1,0 +1,119 @@
+#main{
+	font-family: "Microsoft YaHei" ! important;
+}
+body{
+	font-family: "Microsoft YaHei" ! important;
+}
+
+.login_banner{
+	width: 960px;
+	margin: 0 auto;
+	height:400px;
+	margin-top:150px;
+}
+.mar18 {
+	margin-top: 10px
+}
+.error{
+ color:#000000;
+}
+
+.mar10{
+ margin-top:10px;
+}
+.box{
+	height: auto;
+	padding: 20px;
+	position: relative;	
+}
+.box_bottom{
+	position:relative;
+    width:100%;
+    font-size:16px;
+    top:30px;
+    height: 20px;
+}
+.box_bottom a{
+	text-decoration:none;
+    cursor: pointer;
+}
+
+.box .font_style{
+	font-size: 14px;
+}
+
+a {text-decoration:none;}   
+a:link {text-decoration:none;} //Î´·ÃÎÊ£ºÀ¶É«¡¢ÎÞÏÂ»®Ïß   
+a:active:{text-decoration:none;} //¼¤»î£ººìÉ«   
+a:visited {text-decoration:none;} //ÒÑ·ÃÎÊ£º×ÏÉ«¡¢ÎÞÏÂ»®Ïß   
+a:hover {text-decoration:underline;} //Êó±êÒÆ½ü£ººìÉ«¡¢ÏÂ»®Ïß   
+
+.title{
+	font-size: 22px; color: #6d6e71;
+}
+
+.title_dl{
+	font-size: 22px; color: #6d6e71;
+}
+.title .title_liuliang{
+font-size: 22px; color: #FF0000; color: #82BEDF
+}
+.title .login_title_img{
+width: 27px; height: 16px;
+position: relative;
+top: -4px;
+}
+
+.login_dd_max{
+	width: 960px;
+	margin: 0 auto;
+	height:380px;
+}
+
+.login_banner  .login_left{
+	float:left;
+}
+.login_banner  .login_left img{
+	width:450px;height:236px;margin-top:85px;margin-left:50px;
+}
+
+.login_banner  .login_right{
+float:left;height:400px;margin-left:121px;
+}
+.login_banner  .login_right .box_main{
+width:300px;height:330px;margin-top:30px;border-radius:5px;background:#F5F5F5
+}
+.login_banner  .login_right .box_bottom .left{
+color:#6d6d6e;text-decoration:none;
+}
+
+.login_banner  .login_right .box_bottom .right{
+ margin-left:40px;text-decoration:none;
+ float: right;
+}
+
+.validate_style{
+	width: 73px;
+	float: right;
+	text-align: right;
+	border: 0px solid red;
+	position: relative;
+	right: 27px;
+	top: 1px;
+}
+
+
+.login_dd{
+	width: 100%;
+	height:400px;
+	background:#F5F5F5
+}
+
+.login_dd .img_buy{
+	margin-top:40px;
+}
+
+.login_dd .img_dd{
+	width:820px;height:109px;margin-left:70px;margin-top:40px;
+}
+

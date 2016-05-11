@@ -1,0 +1,69 @@
+
+body{
+	background: #F5F5F5; font-family: Microsoft YaHei
+	
+}
+.color-b {
+	color: #FFFFFF
+}
+
+.navbar-background {
+	margin-top: 50px;
+	margin-bottom: 0px;
+	background: #F5F5F5;
+}
+
+.navbar-img {
+	background: url(../img/topL.jpg);
+	height: 40px;
+	width: 250px;
+	padding-top: 10px;
+}
+
+
+/*form styles*/
+#msform {
+    width: 50%;
+    margin: 50px auto;
+    text-align: center;
+    position: relative;
+}
+#msform h3{
+}
+#msform div{
+	text-align: center;	
+}
+.main {
+	background: #FDFDFD;
+	border-radius: 0px;
+	border: 0px;
+	height: 405px;
+}
+
+.main .img {
+	background: url(img/leftB.png);
+	width: 595px;
+	height: 404px;
+}
+
+
+
+.ng-hide {
+	/* this is just another form of hiding an element */
+	display: none !important;
+}
+
+/*错误提示文字颜色*/
+.errorColor{
+	color: red;
+}
+
+.mg_t_30{
+	margin-top: 30px;
+}
+
+.mg_t_35{
+	margin-top: 35px;
+}
+
+

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="testApp2">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8流量demo</title>
+
+<link href="css/bootstrap/bootstrap.css" rel="stylesheet">
+<link href="css/registerUser.css" rel="stylesheet">
+
+</head>
+<body ng-controller="testControllers" ng-init="init()">
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand hidden-sm color-b">登录  注册</a>
+			</div>
+		</div>
+	</div>
+	<nav class="navbar navbar-default navbar-background">
+		<div class="container">
+			<div class="col-md-3">
+				<div class="navbar-img"></div>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">首页</a></li>
+				<li><a href="#">服务</a></li>
+				<li><a href="#">方案</a></li>
+				<li><a href="#">优势</a></li>
+				<li><a href="#">关于我们</a></li>
+				<li class="active"><a href="#">流量GO</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container-fluid main" ng-view>
+		<form class="form-horizontal" role="form" id="msform" name="user_form"
+			novalidate>
+			<h3 class="text-center">注册</h3>
+			<fieldset class="mg_t_30">
+				<label class="col-md-offset-1 col-md-3 col-sm-3 control-label">
+					电子邮箱</label>
+
+				<div class="col-md-5 col-sm-4">
+					<input type="text" name="email" ng-model="user.email"
+						class="form-control" placeholder="邮箱"
+						ng-pattern="/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/"
+						required>
+				</div>
+				<div class="ng-hide"
+					ng-show="user_form.$invalid && user_form.$dirty">
+					<div
+						ng-show="user_form.email.$dirty  && user_form.email.$error.required">
+						<img src="img/5.png"> 邮箱地址不能为空！
+					</div>
+					<div
+						ng-show="user_form.email.$dirty  && user_form.email.$error.pattern">
+						<img src="img/5.png"> 邮箱地址格式不正确！
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="mg_t_30">
+				<label class="col-md-offset-1 col-md-3  col-sm-3 control-label">
+					登录密码</label>
+
+				<div class="col-md-5  col-sm-5">
+					<input type="password" name="userPwd" ng-model="user.password"
+						ng-maxlength="20" ng-minlength="6" class="form-control"
+						placeholder="6-20个字符" required>
+				</div>
+				<div class="ng-hide"
+					ng-show="user_form.$invalid && user_form.$dirty">
+					<div
+						ng-show="user_form.userPwd.$dirty && user_form.userPwd.$error.required">
+						<img src="img/5.png">登录密码不能为空！
+					</div>
+					<div
+						ng-show="user_form.userPwd.$dirty && user_form.userPwd.$error.maxlength">
+						<img src="img/5.png">登录密码长度不能大于20个字符！
+					</div>
+					<div
+						ng-show="user_form.userPwd.$dirty && user_form.userPwd.$error.minlength">
+						<img src="img/5.png">登录密码长度不能小于6个字符！
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="mg_t_30">
+				<label class="col-md-offset-1 col-md-3  col-sm-3 control-label">
+					确认密码</label>
+				<div class="col-md-5  col-sm-5">
+					<input type="password" name="rePwd" ng-model="rePwd"
+						ng-maxlength="20" ng-minlength="6" class="form-control"
+						placeholder="请再一次输入密码" repeat="userPwd" required>
+				</div>
+				<div class="col-md-2 col-sm-2 ng-hide"
+					ng-show="user_form.rePwd!=user_form.userPwd">
+					<div
+						ng-show="user_form.rePwd.$dirty && user_form.rePwd.$error.required">
+						<img src="img/5.png">登录密码不能为空！
+					</div>
+					<div
+						ng-show="user_form.rePwd.$dirty && user_form.rePwd.$error.maxlength">
+						<img src="img/5.png">登录密码长度不能大于20个字符！
+					</div>
+					<div
+						ng-show="user_form.rePwd.$dirty && user_form.rePwd.$error.minlength">
+						<img src="img/5.png">登录密码长度不能小于6个字符！
+					</div>
+					<div
+						ng-show="user_form.rePwd.$dirty && user_form.rePwd.$error.repeat">
+						<img src="img/5.png">两次密码输入不一致！
+					</div>
+
+				</div>
+			</fieldset>
+			<fieldset class="mg_t_30">
+				<label class="col-md-offset-1 col-md-3  col-sm-3 control-label">
+					验证码</label>
+				<div class="col-md-3  col-sm-3">
+					<input type="text" class="form-control" name="validateCode"
+						required ng-model="validateCode" maxlength=4 placeholder="验证码" />
+
+				</div>
+				<div class=" col-md-2 col-xs-2">
+					<img src="../validateCode" width=100px height=32px
+						onclick='this.src = "../validateCode?rand=" + Date.parse(new Date())'
+						title="更新验证码" />
+				</div>
+				<div class="ng-hide"
+					ng-show="user_form.$invalid && user_form.$dirty">
+					<div
+						ng-show="user_form.validateCode.$dirty && user_form.validateCode.$error.required">
+						<img src="img/5.png">验证码不能为空！
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="mg_t_30">
+				<label class="col-md-offset-4 col-md-3  col-sm-3 control-label">
+					<input type="checkbox" name="myTestRadio" ng-model="serAgr"
+					required="required" />我已阅读并同意<a onclick="window.open('serverDoc.html');">8流量服务协议</a>
+				</label>
+			</fieldset>
+			<fieldset class="mg_t_30">
+				<div class="col-md-offset-4 col-md-3  col-sm-4">
+					<button class="btn btn-lg btn-warning " type="submit"
+						ng-disabled="user_form.$invalid" ng-click="regUser()">同意协议并注册</button>
+				</div>
+			</fieldset>
+			<hr>
+			<div class="row ">
+				<div class="text-right">
+					<a href="">已有账号，点此登录</a>
+				</div>
+			</div>
+		</form>
+
+	</div>
+	<div class="row main"></div>
+</body>
+<script src="js/angular/lib/jquery.js"></script>
+<script src="js/angular/lib/jquery.easing.min.js" type="text/javascript"></script>
+<script src="js/util/regUtil.js"></script>
+<script src="js/angular/lib/angular.min.js"></script>
+<script src="js/util/angular.easypiechart.js"></script>
+<script src="js/bootstrap/bootstrap.js"></script>
+<script src="js/common/ivan.js"></script>
+<script src="js/angular/angularCtrl/flow-registerCtrl.js"></script>
+
+</html>

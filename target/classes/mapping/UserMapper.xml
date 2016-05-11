@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.singulax.flow.web.dao.UserMapper">
+	<resultMap id="baseUserList" type="com.singulax.flow.common.model.User">
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_code,user_name,nick_name, password, user_type, company_name,
+		company_address, contacts,
+		tel, email, status, create_date, update_date,
+		pay_password,remark,disable_reason, last_login_failed_date,
+		last_login_date, security_level,
+		wx_open_id,wx_photo_url,sex,area,wx_state
+	</sql>
+	<sql id="Base_Column_List_NoId">
+		user_code,user_name,nick_name, password, user_type, company_name, company_address, contacts,
+		tel, email, status, create_date, pay_password,remark, disable_reason,
+		last_login_failed_date, last_login_date, security_level,
+		wx_open_id,wx_photo_url,sex,area,wx_state
+	</sql>
+	<select id="getUserByUserCode" resultType="com.singulax.flow.common.model.User"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_user where status = 1 and user_code = #{userCode} limit 0,1
+	</select>
+
+	<select id="getUserByEmail" resultType="com.singulax.flow.common.model.User"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_user where status = 1 and email = #{email} limit 0,1
+	</select>
+
+	<select id="getUserInfo" resultType="com.singulax.flow.common.model.User"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_user where (tel = #{info} or email = #{info} or user_name =
+		#{info} ) limit 0,1
+	</select>
+
+	<select id="getUserExist" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select COUNT(*)
+		from tb_user where (tel = #{info} or email = #{info} or user_name =
+		#{info} )
+	</select>
+
+	<select id="userPage" resultType="com.singulax.flow.common.model.User"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from tb_user where 1 = 1
+		<if test="userInfo!=null and userInfo!=''">
+			and (
+			user_code like concat('%',#{userInfo},'%') or
+			tel like concat('%',#{userInfo},'%') or
+			email like concat('%',#{userInfo},'%') or
+			user_name like concat('%',#{userInfo},'%')
+			)
+		</if>
+		<if test="userCode!=null and userCode!=''">
+			and user_code = #{userCode}
+		</if>
+
+		<if test="userType!=null ">
+			<choose>
+				<when test="userType == 3">
+					and user_type = #{userType}
+				</when>
+				<when test="userType == 0">
+					and user_type in (1,2)
+				</when>
+				<otherwise>
+					and user_type = #{userType}
+				</otherwise>
+			</choose>
+		</if>
+		<if test="status!=null">
+			and status = #{status}
+		</if>
+		<if test="securityLevel!=null">
+			and security_level = #{securityLevel}
+		</if>
+		<if test="beginTime != null">
+            <![CDATA[
+            	and create_date >= #{beginTime}
+        	]]>
+		</if>
+		<if test="endTime != null ">
+            <![CDATA[
+            	and create_date <= #{endTime}
+        	]]>
+		</if>
+		<choose>
+			<when test="sortType!=null and sortType!='' ">
+				order by ${sortType} desc
+			</when>
+			<otherwise>
+				order by id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<sql id="userListParamsSql">
+		where 1 = 1
+		<if test="startCreateDate != null">
+            <![CDATA[ and create_date >= #{startCreateDate} ]]>
+		</if>
+
+		<if test="endCreateDate != null">
+            <![CDATA[ and create_date <= #{endCreateDate} ]]>
+		</if>
+
+		<if test="nickName != null">
+            <![CDATA[ and nick_name = #{nickName} ]]>
+		</if>
+	</sql>
+	
+	<select id="getUserListCountByParams" resultType="Integer" parameterType="map">
+		select count(id) from tb_user
+		<include refid="userListParamsSql" />
+	</select>
+	
+	<select id="getUserListByParams" resultType="com.singulax.flow.common.model.User" parameterType="map">
+		select * from tb_user
+		<include refid="userListParamsSql" />
+		limit #{index}, #{pageSize}
+	</select>
+
+	<select id="getUserByTel" resultType="com.singulax.flow.common.model.User">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM tb_user WHERE tel = #{tel}
+	</select>
+
+	<select id="getUserByOpenId" resultType="com.singulax.flow.common.model.User">
+		SELECT * FROM tb_user
+		WHERE wx_open_id = #{wxOpenId}
+	</select>
+	
+	<select id="getUserListAttention" resultType="com.singulax.flow.common.model.User">
+		select * from tb_user where wx_state=#{wxState}
+	</select>
+
+	<insert id="saveUser" parameterType="com.singulax.flow.common.model.User"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO `tb_user` (
+		<include refid="Base_Column_List_NoId" />
+		)
+		VALUES (#{userCode}, #{userName}, #{nickName}, #{password}, #{userType},
+		#{companyName}, #{companyAddress}, #{contacts},
+		#{tel}, #{email}, 1, NOW(), #{payPassword}, #{remark}, #{disableReason},
+		#{lastLoginFailedDate}, #{lastLoginDate}, #{securityLevel},
+		#{wxOpenId},#{wxPhotoUrl},#{sex},#{area},#{wxState}
+		);
+	</insert>
+
+	<update id="emptyTel">
+		UPDATE tb_user SET tel = null WHERE user_code =
+		#{userCode}
+	</update>
+
+	<update id="emptyEmail">
+		UPDATE tb_user SET email = null WHERE user_code =
+		#{userCode}
+	</update>
+
+	<update id="updateUser" parameterType="com.singulax.flow.common.model.User">
+		update tb_user set
+		<if test="userName!=null and userName!=''">
+			user_name = #{userName},
+		</if>
+		<if test="nickName!=null and nickName!=''">
+			nick_name = #{nickName},
+		</if>
+		<if test="password!=null and password!=''">
+			password = #{password},
+		</if>
+		<if test="userType!=null ">
+			user_type = #{userType},
+		</if>
+		<if test="companyName!=null and companyName!=''">
+			company_name = #{companyName},
+		</if>
+		<if test="companyAddress!=null and companyAddress!=''">
+			company_address = #{companyAddress},
+		</if>
+		<if test="contacts!=null and contacts!=''">
+			contacts = #{contacts},
+		</if>
+		<if test="tel!=null and tel!=''">
+			tel = #{tel},
+		</if>
+		<if test="email!=null and email!=''">
+			email = #{email},
+		</if>
+		<if test="status!=null">
+			status = #{status},
+		</if>
+		<if test="payPassword!=null and payPassword!=''">
+			pay_password = #{payPassword},
+		</if>
+		<if test="remark!=null and remark!=''">
+			remark = #{remark},
+		</if>
+		<if test="disableReason!=null and disableReason!=''">
+			disable_reason = #{disableReason},
+		</if>
+		<if test="lastLoginFailedDate!=null">
+			last_login_failed_date = #{lastLoginFailedDate},
+		</if>
+		<if test="lastLoginDate!=null">
+			last_login_date = #{lastLoginDate},
+		</if>
+		<if test="securityLevel!=null">
+			security_level = #{securityLevel},
+		</if>
+
+		update_date = NOW()
+		where user_code = #{userCode}
+	</update>
+
+	<update id="updateUserStatus" parameterType="java.util.Map">
+		update tb_user set
+		status = #{status},
+		<choose>
+			<when test="status == 0 ">
+				disable_reason = #{disableReason},
+			</when>
+			<otherwise>
+				disable_reason = '',
+			</otherwise>
+		</choose>
+		update_date = NOW()
+		where user_code = #{userCode}
+	</update>
+
+	<update id="clearLastLoginFailedDate">
+		UPDATE tb_user
+		SET last_login_failed_date = NULL
+		WHERE
+		user_code = #{userCode}
+	</update>
+
+	<update id="updateLastLoginDate">
+		UPDATE tb_user
+		SET last_login_date = #{lastLoginDate}
+		WHERE user_code = #{userCode}
+	</update>
+
+	<update id="updateUserState">
+		update tb_user set wx_state=#{newState} where (id=#{user.id} and
+		wx_state=#{user.wxState})
+	</update>
+	
+	<update id="updateTelByUserCode">
+		update tb_user set tel=#{tel} where (user_code = #{userCode})
+	</update>
+</mapper>

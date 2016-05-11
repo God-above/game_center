@@ -1,0 +1,148 @@
+<link href="./css/user.css" rel="stylesheet">
+
+<div ng-init="init()">
+	<div class="logo">账户设置</div>
+</div>
+
+<div class="content">
+	<div class="leftDiv">
+		<div class="topPic">
+			<div style="height: 120px;">
+				<img src="./img/index/user.png" alt="..." class="img-circle"
+					width="85px" height="85px;"> <span class="userPic"><img
+					src="./img/index/level.png"></span>
+			</div>
+			<div class="mg_t_10">
+				<span>{{userInfo.userName}}</span> <span
+					ng-if="userInfo.userType==1">个人用户</span> <span
+					ng-if="userInfo.userType==2">企业用户</span>
+			</div>
+		</div>
+
+		<div class="bottomDiv">
+			<span>客服电话：</span> <span>4000960960(个人)</span> <span>4000980980(企业)</span>
+			<span>按当地市话标准计算</span>
+		</div>
+	</div>
+	<div class="rightDiv">
+		<!-- <div class="row mg_t_10">
+			<div class="span1"></div>
+			<div class="span2">安全等级</div>
+			<div class="span3"></div>
+			<div class="span4">中</div>
+		</div> -->
+		<!-- --------------------登录密码  start------------------ -->
+		<div class="rowBg row">
+			<div class="col-md-4 col-sm-4 col-xs-2">
+				登录密码： <span
+					ng-show="userInfo.password!=undefined && userInfo.password!=null && userInfo.password!=''">
+					已设置 </span> <span
+					ng-show="userInfo.password==undefined ||userInfo.password==null || userInfo.password==''">
+					未设置 </span>
+			</div>
+			<div class="text-right">
+				<span
+					ng-show="userInfo.password!=undefined && userInfo.password!=null && userInfo.password!=''">
+					<a href="#editUser">
+						{{{true:'修改密码'}[userInfo.password!=undefined &&
+						userInfo.password!=null && userInfo.password!='']}} </a>
+				</span> <span
+					ng-show="userInfo.password==undefined ||userInfo.password==null || userInfo.password==''">
+					<a> {{{true:'设置'}[userInfo.password==undefined ||
+						userInfo.password==null || userInfo.password=='']}} </a>
+				</span>
+			</div>
+
+		</div>
+		<!-- --------------------绑定手机 start------------------ -->
+		<div class="rowBg row">
+			<div class="col-md-7 col-sm-7 col-xs-7">
+				绑定手机：<span
+					ng-show="userInfo.tel!=undefined && userInfo.tel!=null && userInfo.tel!=''">
+					已设置 </span> <span
+					ng-show="userInfo.tel==undefined ||userInfo.tel==null || userInfo.tel==''">
+					未设置 &nbsp;&nbsp;&nbsp;&nbsp;<span
+					class="glyphicon glyphicon-exclamation-sign errorColor"></span>
+					&nbsp;&nbsp; <span class="errorColor">请设置！</span>
+				</span>
+
+			</div>
+			<div class="text-right">
+				<span
+					ng-show="userInfo.tel!=undefined && userInfo.tel!=null && userInfo.tel!=''">
+					<a href="#changeType/tel">
+						{{{true:'修改'}[userInfo.tel!=undefined && userInfo.tel!=null &&
+						userInfo.tel!='']}}</a>
+				</span> <span
+					ng-show="userInfo.tel==undefined ||userInfo.tel==null || userInfo.tel==''">
+					<a href="#setChangeType/bindTel">
+						{{{true:'绑定手机号'}[userInfo.tel==undefined || userInfo.tel==null ||
+						userInfo.tel=='']}}</a>
+				</span>
+			</div>
+
+		</div>
+		<!-- --------------------绑定邮箱 start------------------ -->
+		<div class="rowBg row">
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				绑定邮箱：<span
+					ng-show="userInfo.email!=undefined && userInfo.email!=null && userInfo.email!=''">
+					{{userInfo.email }} </span> <span
+					ng-show="userInfo.email==undefined ||userInfo.email==null || userInfo.email==''">
+					未绑定 &nbsp;&nbsp;&nbsp;&nbsp;<span
+					class="glyphicon glyphicon-exclamation-sign errorColor"></span>
+					&nbsp;&nbsp; <span class="errorColor">请设置！</span></span>
+			</div>
+			<div class="text-right">
+				<span
+					ng-show="userInfo.email!=undefined && userInfo.email!=null && userInfo.email!=''">
+					<a href="#changeType/email">
+						{{{true:'修改'}[userInfo.email!=undefined && userInfo.email!=null &&
+						userInfo.email!='']}} </a>
+				</span> <span
+					ng-show="userInfo.email==undefined ||userInfo.email==null || userInfo.email==''">
+					<a href="#setChangeType/bindEmail">
+						{{{true:'绑定邮箱'}[userInfo.email==undefined || userInfo.email==null
+						|| userInfo.email=='']}} </a>
+				</span>
+			</div>
+		</div>
+		<!-- --------------------支付密码 start------------------ -->
+		<div class="rowBg row">
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				支付密码：<span ng-show="userInfo.payPassword=='true'"> 已设置 </span> <span
+					ng-show="userInfo.payPassword=='false'"> 未设置 &nbsp;&nbsp;&nbsp;&nbsp;<span
+					class="glyphicon glyphicon-exclamation-sign errorColor"></span>
+					&nbsp;&nbsp; <span class="errorColor">请设置！</span></span>
+			</div>
+			<div class="text-right">
+				<span ng-show="userInfo.payPassword=='true'"> <a href="#editPayPwd">
+						修改支付密码</a>
+				</span> <span ng-show="userInfo.payPassword=='false'"> <a
+					href="#changeType/setPayPwd"> 设置支付密码</a>
+				</span>
+			</div>
+		</div>
+		<!-- --------------------短信校验服务 start------------------ -->
+		<!-- <div class="rowBg row">
+			<div class="col-md-7 col-sm-7 col-xs-7">
+				短信校验服务：批量购买账户支付时会验证绑定手机号
+			</div>
+			<div class="text-right">
+				<span
+					ng-show="userInfo.tel!=undefined && userInfo.tel!=null && userInfo.tel!=''">
+					<a href=""> {{{true:'关闭'}[userInfo.tel!=undefined &&
+						userInfo.tel!=null && userInfo.tel!='']}}</a>
+				</span> <span
+					ng-show="userInfo.tel==undefined ||userInfo.tel==null || userInfo.tel==''">
+					<a href=""> {{{true:'开启'}[userInfo.tel==undefined ||
+						userInfo.tel==null || userInfo.tel=='']}}</a>
+				</span>
+			</div>
+		</div> -->
+		<!-- --------------------短信校验服务 end------------------ -->
+
+	</div>
+</div>
+
+

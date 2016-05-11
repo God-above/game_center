@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="loginApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8流量管理平台</title>
+<!-- Bootstrap core CSS -->
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/platformLogin.css" rel="stylesheet">
+<link href="./css/loginStyle.css" rel="stylesheet">
+</head>
+<body ng-controller="loginCtrl" class="login-page">
+	<img src="./img/admin2.png" />
+	<div class="login-form">
+
+		<div class="login-content">
+			<!-- Title -->
+			<!-- Login Form -->
+			<div ng-moder="error"></div>
+			<form>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">
+							<i class="glyphicon glyphicon-user" style="color: #ffffff"></i>
+						</div>
+						<input type="text" class="form-control" name="username"  ng-model="userName"
+							id="username"  maxlength=20 placeholder="登录账号" style="border: 0px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">
+							<i class="glyphicon glyphicon-asterisk" style="color: #ffffff"></i>
+						</div>
+						<input type="password" class="form-control" name="password"
+							id="password"  maxlength=20 placeholder="登录密码" style="border: 0px;" ng-model="userPwds"/>
+					</div>
+				</div>
+				<div class="row form-group" style="padding-left: 15px;">
+					<div class="input-group col-md-6 col-xs-6" style="padding-left: 0;float: left;">
+						<div class="input-group-addon">
+							<i class="glyphicon glyphicon-picture" style="color: #ffffff"></i>
+						</div>
+						<input type="text" class="form-control" name="password" ng-model="validateCode"
+							id="password"  maxlength=4 ng-model="validateCode" placeholder="验证码" style="border: 0px;" />
+					</div>
+					<div class=" col-md-5 col-xs-5">
+						<img src="../validateCode" id="loginValidate" width="140" height='48' style="margin: 0px;float:left;border-radius:3px"
+							onclick='this.src = "../validateCode?rand=" + Date.parse(new Date())'
+							title="更新验证码">
+					</div>
+				</div>
+				<div class="form-group" style="margin-top: 10px;" ng-click="login()">
+					<button type="submit" class="btn btn-primary btn-block btn-login">
+						<i class="glyphicon glyphicon-log-in"></i> 登 录
+					</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+	<div id="footer"
+		class="font-xg">苏ICP备14050048号-3@江苏奇点时代网络有限公司</div>
+
+	<div ng-show="DIALOG_TOAST" class="toastTiger ng-hide">
+		{{DIALOG_TOAST_TITLE}}</div>
+		
+	<script src="./js/lib/jquery.js"></script>
+	<script src="./js/lib/bootstrap.min.js"></script>
+	<script src="./js/lib/angular.min.js"></script>
+	<script src="./js/lib/angular-cookies.min.js"></script>
+	<script src="./js/lib/angular-route.min.js"></script>
+	<script src="./js/util/ivan.js"></script>
+	<script src="./js/common/CommonPerson.js"></script>
+	<script src="./js/util/base64.js"></script>
+	<script src="./js/common/login.js"></script>
+</body>
+</html>

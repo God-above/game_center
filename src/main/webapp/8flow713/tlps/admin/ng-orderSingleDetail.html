@@ -1,0 +1,164 @@
+<link href="css/cardManger.css" rel="stylesheet">
+<style>
+
+.line {
+	background: #A0C945;
+	width: 155px;
+	height: 3px;
+	margin-top: 50px;
+	float:left;
+}
+
+.box {
+	width:60px;
+	height:60px;
+	position: absolute;
+}
+
+.size {
+ 	position:relative;
+ 	z-index:5;
+ 	left:25px;
+ 	bottom:10px;
+}
+
+.size_yes{
+  color:#FFFFFF;
+  font-size:14px;
+  font-weight:bold;
+}
+.lingxing {
+    top:15px;
+    left:15px;
+	border-color: #A0C945;
+	border-style: solid;
+	border-width: 15px;
+	width: 0;
+	height: 0;
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	position: relative
+}
+.line_one{
+ margin-left:60px;
+}
+
+.box_size{
+margin-top:5px;
+ margin-left:4px;
+}
+</style>
+<div style="margin: 0 10px;width:940px;" ng-init='vm.init()'>
+	<!-- 流量卡logo -->
+	<div class="logo">
+		<span>订单详情</span>
+	</div>
+
+	<!-- /流量卡logo -->
+	
+	<!-- 导航控件 -->
+	<div style="width:700px;margin:0 auto;display:none;">
+	<div style="padding-top: 20px;float:left">
+		<div class="box">
+			<div class="lingxing">
+			</div>
+			<div class="size size_yes">1</div>
+			<div class="box_size">创建订单</div>
+		</div>
+
+	</div>
+	<div class="line line_one"></div>
+	<div style="padding-top: 20px;float:left">
+		<div class="box">
+			<div class="lingxing">
+			</div>
+			<div class="size size_yes">2</div>
+			<div class="box_size">支付订单</div>
+		</div>
+
+	</div> 
+	<div class="line line_one"></div>
+	<div style="padding-top: 20px;float:left">
+		<div class="box">
+			<div class="lingxing">
+			</div>
+			<div class="size size_yes">3</div>
+			<div class="box_size">充值失败</div>
+		</div>
+
+	</div> 
+	<div class="line line_one"></div>
+	<div style="padding-top: 20px;float:left">
+		<div class="box">
+			<div class="lingxing">
+			</div>
+			<div class="size size_yes">4</div>
+			<div class="box_size">退款成功</div>
+		</div>
+
+	</div> 
+	</div>
+	<!-- 导航控件 -->
+	
+	<div style="margin-top:30px;float:left;width:100%;">
+		<ul style="list-style:none;width:100%;height:auto;padding:0px;">
+		<li style="width:100%;height:auto;padding:0px;margin:0px;">
+			<div style="background:#f7f7f7;height:40px;line-height:40px;text-align:left;">
+			<span style="margin-left:15px;">订单编号：{{vm.orderInfo.orderNo}}</span>
+			<span style="margin-left:15px;">时间：{{vm.orderInfo.createDate | date : 'yyyy-MM-dd HH:mm:ss'}}</span>
+			<span style="margin-right:15px;float:right;">实付金额 ：{{vm.orderInfo.totalPrice/100  | currency : '￥'}}</span>
+			
+			</div>
+			<table class="table table-bordered" style="padding:0px;margin:0px;">
+			<thead>
+				<tr>
+					<th>商品</th>
+					<th>充值号码</th>
+					<th>订购金额</th>
+					<th>订购状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{vm.orderInfo.productName}}</td>
+					<td>{{vm.orderInfo.rechargeAccount}}</td>
+					<td>{{vm.orderInfo.totalPrice/100  | currency : '￥'}}</td>
+					<td>{{vm.rechangeOrder(vm.orderInfo.status)}}</td>
+					<td>
+					<span ng-if="vm.orderInfo.status == 10">
+						<a href="#confirmPay/0/{{vm.orderInfo.orderNo}}">立即付款</a>/<a ng-click="vm.canelOrder(vm.orderInfo)">取消</a>
+						</span>
+					<a href="#confirmPay/0/{{vm.orderInfo.orderNo}}" ng-if="vm.orderInfo.status == 12">继续付款</a>
+						<a ng-if="vm.orderInfo.status != 10 && vm.orderInfo.status != 12">---</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+			
+		</li>
+		
+		</ul>
+		
+	
+	
+	</div>
+	
+	
+	<div style="float:left;width:100%; margin-top:60px;height:auto; background:#F6F6F6;padding:10px;" ng-show="vm.refundInfo.length	> 0 || vm.paymentInfo.length > 0">
+	<div ng-repeat="payOrder in vm.paymentInfo" ng-show="vm.paymentInfo!=undefined">
+	<div style="font-size:14px;font-weight:bold;">支付详情：</div>
+	<div style="font-size:12px;margin-top:10px;">流水号：<span>{{payOrder.paymentNo}}</span></div>
+	<div style="font-size:12px;margin-top:10px;">支付时间：<span>{{payOrder.createDate | date : 'yyyy-MM-dd HH:mm:ss'}}</span></div>
+	<div style="font-size:12px;margin-top:10px;">支付结果：<span>{{vm.rechangepayMent(payOrder.status)}}</span></div>
+	</div>
+	<div ng-repeat="refundOrder in vm.refundInfo" ng-show="vm.refundInfo!=undefined">
+	<div style="font-size:14px;font-weight:bold;margin-top:30px;">退款详情：</div>
+	<div style="font-size:12px;margin-top:10px;">退款方式：<span>{{vm.rechangeFlowType(refundOrder.type)}}</span></div>
+	<div style="font-size:12px;margin-top:10px;">流水号：<span>{{refundOrder.flowNo}}</span></div>
+	<div style="font-size:12px;margin-top:10px;">退款结果：<span>{{vm.rechangerefund(refundOrder.status)}}</span></div>
+	</div>
+	</div>
+</div>

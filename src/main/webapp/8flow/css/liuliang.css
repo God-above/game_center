@@ -1,0 +1,171 @@
+.logo {
+  border-bottom: 1px solid #eeeeee;
+  height: 40px;
+  line-height: 40px;
+  text-align: center left;
+  font-size: 16px;
+  color: #9D9D9D;
+}
+.content {
+	font-family: "Microsoft YaHei";
+}
+
+.btnCls {
+	width: 100px;
+	margin-right: 10px;
+}
+
+
+/* input[type="file" i]::-webkit-file-upload-button,button {
+	padding: 1px 6px;
+	padding: 10px;
+	background-color: #fff;
+	border: 1px solid #A29696;
+	border-radius: 5px;
+	width: 100px;
+} */
+
+.fileClass {
+	padding: 10px;
+	background-color: #fff;
+	border: 1px solid #A29696;
+	border-radius: 5px;
+	width: 100px;
+}
+.hrDiv {
+	border: 1px #cccccc dotted;
+	width: 100%;
+	margin-top: 20px;
+	margin-left: 10%;
+}
+.mg_t_120 {
+	margin-top: 120px;
+}
+
+.mg_t_7 {
+	margin-top: 7px;
+}
+
+.mg_l_10 {
+	margin-left: 10px;
+}
+.mg_l_15 {
+	margin-left: 15px;
+}
+.mg_l {
+	margin-left: 0px;
+}
+.brColor {
+	border-right: 1px solid #CCC6C6;
+}
+.theadColor{
+	background-color: #f7f7f7;
+	/* border-bottom: 3px solid #E2E1E1; */
+}
+
+.priceColor {
+	color: #0681F7;
+	font-weight: bold;
+}
+
+.priceSize {
+	font-weight: bold;
+	margin-right: 20px;
+	font-size: 15px;
+}
+
+.timeStyle {
+	padding-left: 0px;
+}
+.bd_Color{
+	border: 1px solid #ddd;
+}
+.mg_t_20 {
+	margin-top: 20px;
+}
+
+.mg_t_10 {
+	margin-top: 10px;
+}
+.mg_t_100 {
+	margin-top: 100px;
+}
+
+.pd_l_50 {
+	padding-left: 50px;
+}
+
+.pd_r_15 {
+	padding-right: 15px;
+}
+
+th,td {
+	text-align: center;
+	height: 40px;
+	width: 25%;
+}
+.errorColor{
+	color: red;	
+}
+/*==========================================确认支付css*/
+.orderDiv{
+	background-color: #f7f7f7;
+	padding-top:10px;
+	min-height: 200px;
+	padding-left: 22px;
+}
+.priceDiv{
+	  color: #006bc0;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 16px;
+}
+.typeDiv{
+	font-weight: bold;
+	margin-top: 45px;
+	 font-size: 15px;
+	
+}
+.payTitle{
+	position: absolute;
+	top:-50px;
+}
+.payPic{
+	position: relative;
+	float: left;
+}
+.payDiv{
+	  margin: 20px;
+}
+.paySelect{
+	  position: relative;
+  left: -20px;
+  top: 20px;
+}
+.couponDiv{
+	  background-color: #F7F7F7;
+	  padding: 10px 15px;
+ 	  margin: 0 -15px;
+}
+.rowBg {
+  /* background-color: #B7B7B7; */
+  line-height: 60px;
+  height: 60px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 1px solid #EFEFEF;
+}
+.rowBg2{
+	line-height: 150px;
+  height: 150px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 1px solid #EFEFEF;
+}
+.bgDisColor{
+	background-color: #B7B7B7;
+}
+.borderColor{
+	border: 1px solid blue;
+}
+/*---------------------------支付结果-----------------------------*/

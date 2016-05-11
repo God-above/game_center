@@ -1,0 +1,60 @@
+<style type="text/css">
+	.mg_l_30{
+		margin-left: 30px;
+	}
+</style>
+<div ng-init="cdvm.couponDetailInit()">
+
+	<div class="panel panel-default" ng-class="{hidden: cdvm.couponDetail.hidden}">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 优惠券详情 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="cdvm.couponDetail.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="cdvm.couponDetail.collapsed = !cdvm.couponDetail.collapsed"></span>
+				</span>
+			</h4>
+		</div>
+		<div class="panel-collapse collapse"
+			ng-class="{in: !cdvm.couponDetail.collapsed}">
+			<div class="panel-body">
+				<div class="mt_15 mg_l_30">
+					<label>订单编号:&nbsp;&nbsp;&nbsp;&nbsp;{{cdvm.couponDetail.batchCode}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>优惠券编号:&nbsp;&nbsp;&nbsp;&nbsp;{{cdvm.couponDetail.couponCode}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>优惠券名称:&nbsp;&nbsp;&nbsp;&nbsp;{{cdvm.couponDetail.name}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>优惠券价值:&nbsp;&nbsp;&nbsp;&nbsp;{{cdvm.couponDetail.value/100 | currency :''}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>渠道编号:&nbsp;&nbsp;&nbsp;&nbsp;{{cdvm.couponDetail.channelCode}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>优惠券详情:&nbsp;&nbsp;&nbsp;&nbsp;{{cdvm.couponDetail.detail}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>是否时间限制:&nbsp;&nbsp;&nbsp;&nbsp;{{{true:'限制',false:'无'}[cdvm.couponDetail.hasDateLimit==true]}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>是否是否停用:&nbsp;&nbsp;&nbsp;&nbsp;{{{true:'使用',false:'停用'}[cdvm.couponDetail.isAlive==true]}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>用户编号:&nbsp;&nbsp;&nbsp;&nbsp;{{cdvm.couponDetail.userId}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>流量卡状态:&nbsp;&nbsp;&nbsp;&nbsp;{{cdvm.couponDetail.stateText}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>创建时间:&nbsp;&nbsp;&nbsp;&nbsp;{{cdvm.couponDetail.createDate | date:'yyyy-MM-dd hh:mm:ss'}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<a href="#coupon"><button class="btn btn-primary">返回</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

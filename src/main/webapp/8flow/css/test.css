@@ -1,0 +1,92 @@
+html{
+	height: 100%;
+}
+
+body {
+	background: #fff;
+	margin:0px;
+	padding:0px;
+	font-family: "Microsoft YaHei";
+}
+
+#divLine1{
+	position: relative;
+  top: -72px;
+  left: 267px;
+  width: 135px;
+  height: 3px;
+  background-color: #9A9595;
+  border-radius: 2px;
+}
+#divLine2{
+	  position: relative;
+	  top: -76px;
+      left: 450px;
+      width: 135px;
+	  height: 3px;
+	  background-color: #9A9595;
+	  border-radius: 2px;
+	
+}
+#divLine3{
+	position: relative;
+	  top: -72px;
+	  left: 267px;
+	  width: 135px;
+	  height: 3px;
+	  background-color: #47B747;
+	  border-radius: 2px;
+}
+#divLine4{
+	  position: relative;
+	  top: -76px;
+      left: 450px;
+      width: 135px;
+	  height: 3px;
+	  background-color: #47B747;
+	  border-radius: 2px;
+	
+}
+
+#progressbar{
+	  margin: 30px auto;
+	overflow: hidden;
+	counter-reset: step;/* 对部分和子部分进行编号（比如 "Section 1"、"1.1"、"1.2"）的方法： */
+	  margin-left: 110px;
+}
+
+#progressbar li{
+	list-style-type: none;
+	color: #C3C3C3;
+	width: 33.33%;
+	float:left;
+	position: relative;
+	font-size: 14px;
+	padding-left: 65px;
+	
+}
+#progressbar li:before {
+	  content: counter(step);
+  counter-increment: step;
+  width: 32px;
+  height: 30px;
+  line-height: 30px;
+  display: block;
+  font-size: 10px;
+  color: #333;
+  background: #D8D6D6;
+  border-radius: 3px;
+  margin: 0 auto 5px auto;
+  border-width: 20px;
+  padding-left: 10px;
+  margin-left: 12px;
+	
+}
+#progressbar li.active:before, #progressbar li.active:after {
+  background: #47B747;
+  color: white;
+}
+#progressbar li.active{
+	color:#47B747;
+	font-size: 14px;
+}

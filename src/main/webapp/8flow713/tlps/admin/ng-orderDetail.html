@@ -1,0 +1,250 @@
+<link href="css/cardManger.css" rel="stylesheet">
+<style>
+.line {
+	background: #A0C945;
+	width: 155px;
+	height: 3px;
+	margin-top: 50px;
+	float: left;
+}
+
+.box {
+	width: 60px;
+	height: 60px;
+	position: absolute;
+}
+
+.size {
+	position: relative;
+	z-index: 5;
+	left: 25px;
+	bottom: 10px;
+}
+
+.size_yes {
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.lingxing {
+	top: 15px;
+	left: 15px;
+	border-color: #A0C945;
+	border-style: solid;
+	border-width: 15px;
+	width: 0;
+	height: 0;
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	position: relative
+}
+
+.line_one {
+	margin-left: 60px;
+}
+
+.box_size {
+	margin-top: 5px;
+	margin-left: 4px;
+}
+
+.table-bordered td {
+	border-left: 1px solid #eeeeee ! important;
+	border-top: 0px ! important;
+}
+
+.table_hover {
+	display: none;
+}
+</style>
+<div style="margin: 0 10px; width: 940px;" ng-init="vm.init()">
+	<!-- 流量卡logo -->
+	<div class="logo">
+		<span>订单详情</span>
+	</div>
+
+	<!-- /流量卡logo -->
+
+	<!-- 导航控件 -->
+	<div style="width: 700px; margin: 0 auto;display:none;">
+		<div style="padding-top: 20px; float: left">
+			<div class="box">
+				<div class="lingxing"></div>
+				<div class="size size_yes">1</div>
+				<div class="box_size">创建账户</div>
+			</div>
+
+		</div>
+		<div class="line line_one"></div>
+		<div style="padding-top: 20px; float: left">
+			<div class="box">
+				<div class="lingxing"></div>
+				<div class="size size_yes">2</div>
+				<div class="box_size">确认订单</div>
+			</div>
+
+		</div>
+		<div class="line line_one"></div>
+		<div style="padding-top: 20px; float: left">
+			<div class="box">
+				<div class="lingxing"></div>
+				<div class="size size_yes">3</div>
+				<div class="box_size">充值失败</div>
+			</div>
+
+		</div>
+		<div class="line line_one"></div>
+		<div style="padding-top: 20px; float: left">
+			<div class="box">
+				<div class="lingxing"></div>
+				<div class="size size_yes">4</div>
+				<div class="box_size">充值成功</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- 导航控件 -->
+
+	<div style="margin-top: 30px; float: left; width: 100%;margin-bottom: 50px;">
+		<ul
+			style="list-style: none; width: 100%; height: auto; margin-top: 20px; margin: 0px; padding: 0px;"
+			class="tab_ul">
+			<li
+				style="width: 100%; height: auto; padding: 0px; margin: 0px; margin-bottom: 20px;"
+				ng-repeat="batch in vm.batchOrder" class="tab_li">
+				<div
+					style="background: #f7f7f7; text-align: left center; height: 30px; line-height: 30px;">
+					<span style="margin-left: 15px;">订单编号：{{batch.orderId}}</span> <span
+						style="margin-left: 15px;">时间：{{batch.time}}</span> <span
+						style="margin-right: 15px; float: right;">实付金额
+						：{{batch.totalPrice/100 | currency : '￥'}} 元</span>
+
+				</div>
+				<table class="table table-bordered"
+					style="padding: 0px; margin: 0px;">
+					<thead>
+						<tr>
+							<th>商品</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>订购金额</th>
+							<th>订购状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="childOrder in batch.orderOneList">
+							<td>{{childOrder.productName}}</td>
+							<td>{{childOrder.price/100 | currency : '￥'}}</td>
+							<td>{{childOrder.proCount}}</td>
+							<td>{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderOneList.length}}"
+								ng-class="{true: 'table_hover'}[$index!=0]">{{childOrder.statusText}}</td>
+							<td rowspan="{{batch.orderOneList.length}}"
+								ng-class="{true: 'table_hover'}[$index!=0]">
+								
+								<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											&nbsp;&nbsp;<a href="#confirmPay/1/{{batch.orderId}}" ng-show="childOrder.status == 10">立即付款</a>&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 30" ng-disabled="true">查看卡密</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderOneList)">重新生成</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderOneList)">退款</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 10" ng-click="closeOrder(batch,batch.orderOneList)">取消</a></td>	
+							</td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderTwoList">
+							<td>{{childOrder.productName}}</td>
+							<td>{{childOrder.price/100 | currency : '￥'}}</td>
+							<td>{{childOrder.proCount}}</td>
+							<td>{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderTwoList.length}}"
+								ng-class="{true: 'table_hover'}[$index!=0]">{{childOrder.statusText}}</td>
+							<td rowspan="{{batch.orderTwoList.length}}"
+								ng-class="{true: 'table_hover'}[$index!=0]">
+									<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											&nbsp;&nbsp;<a href="#confirmPay/1/{{batch.orderId}}" ng-show="childOrder.status == 10">立即付款</a>&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 30" ng-disabled="true">查看卡密</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderTwoList)">重新生成</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderTwoList)">退款</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 10" ng-click="closeOrder(batch,batch.orderTwoList)">取消</a>
+									
+								</td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderThreeList">
+							<td>{{childOrder.productName}}</td>
+							<td>{{childOrder.price/100 | currency : '￥'}}</td>
+							<td>{{childOrder.proCount}}</td>
+							<td>{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderThreeList.length}}"
+								ng-class="{true: 'table_hover'}[$index!=0]">{{childOrder.statusText}}</td>
+							<td rowspan="{{batch.orderThreeList.length}}"
+								ng-class="{true: 'table_hover'}[$index!=0]">
+								<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											&nbsp;&nbsp;<a href="#confirmPay/1/{{batch.orderId}}" ng-show="childOrder.status == 10">立即付款</a>&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 30" ng-disabled="true">查看卡密</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderThreeList)">重新生成</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderThreeList)">退款</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 10" ng-click="closeOrder(batch,batch.orderThreeList)">取消</a>	
+							</td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderFourList">
+							<td>{{childOrder.productName}}</td>
+							<td>{{childOrder.price/100 | currency : '￥'}}</td>
+							<td>{{childOrder.proCount}}</td>
+							<td>{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderFourList.length}}"
+								ng-class="{true: 'table_hover'}[$index!=0]">{{childOrder.statusText}}</td>
+							<td rowspan="{{batch.orderFourList.length}}"
+								ng-class="{true: 'table_hover'}[$index!=0]">
+									<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											&nbsp;&nbsp;<a href="#confirmPay/1/{{batch.orderId}}" ng-show="childOrder.status == 10">立即付款</a>&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 30" ng-disabled="true">查看卡密</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderFourList)">重新生成</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderFourList)">退款</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 10" ng-click="closeOrder(batch,batch.orderFourList)">取消</a>
+								</td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderFiveList">
+							<td>{{childOrder.productName}}</td>
+							<td>{{childOrder.price/100 | currency : '￥'}}</td>
+							<td>{{childOrder.proCount}}</td>
+							<td>{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderFiveList.length}}"
+								ng-class="{true: 'table_hover'}[$index!=0]">{{childOrder.statusText}}</td>
+							<td rowspan="{{batch.orderFiveList.length}}"
+								ng-class="{true: 'table_hover'}[$index!=0]">
+									<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											&nbsp;&nbsp;<a href="#confirmPay/1/{{batch.orderId}}" ng-show="childOrder.status == 10">立即付款</a>&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 30" ng-disabled="true">查看卡密</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderFiveList)">重新生成</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderFiveList)">退款</a>
+											&nbsp;&nbsp;<a href="javascript:void(0)" ng-show="childOrder.status == 10" ng-click="closeOrder(batch,batch.orderFiveList)">取消</a>
+								</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</li>
+
+		</ul>
+
+
+
+	</div>
+
+
+	<div
+		style="float: left; width: 100%; margin-top: 60px; height: auto; background: #F6F6F6; padding: 10px;"
+		ng-show="vm.paymentInfo != undefined">
+		<div ng-repeat="payOrder in vm.paymentInfo">
+			<div style="font-size: 14px; font-weight: bold;">支付详情：</div>
+			<div style="font-size: 12px; margin-top: 10px;">
+				流水号：<span>{{payOrder.paymentNo}}</span>
+			</div>
+			<div style="font-size: 12px; margin-top: 10px;">
+				支付时间：<span>{{payOrder.createDate | date : 'yyyy-MM-dd
+					HH:mm:ss'}}</span>
+			</div>
+			<div style="font-size: 12px; margin-top: 10px;">
+				支付结果：<span>{{vm.rechangepayMent(payOrder.status)}}</span>
+			</div>
+		</div>
+	</div>
+</div>

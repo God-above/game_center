@@ -1,0 +1,400 @@
+<div ng-init="RechargeInit()">
+
+	<div class="panel panel-default" ng-show="singleMain">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 确认订单 <span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<form class="form-horizontal form_position" name="form" novalidate>
+					<div class="step">
+						<a class="first"><s class="bon"></s>创建订单<b></b></a> <a class="on"><s></s>确认订单<b></b></a>
+						<a><s></s>确认支付<b></b></a> <a><s></s>支付结果<b class="last"></b></a>
+						<!-- <a class="on"><s></s>确认支付<b
+							class="last-on"></b></a> -->
+					</div>
+					<div class="row">
+						<h4 class="col-md-offset-1">
+							<label>商品信息</label>
+						</h4>
+					</div>
+					<hr>
+					<div class="form-group" ng-show="orderType=='single'">
+						<label class="col-md-2 control-label">充值号码</label>
+						<div class="col-md-3 errorColor mg_t_5">
+							<strong class="h3">{{orderInfo.rechargeAccount}}</strong>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">应收金额</label>
+						<div class="col-md-4 col-sm-4 mg_t_5">
+							<div>{{orderInfo.totalPrice/100 | currency:''}} 元</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">商品名称</label>
+						<div class="col-md-3 mg_t_5">
+							<div>{{orderInfo.productName}}</div>
+						</div>
+
+					</div>
+
+					<div class="form-group" ng-show="orderType=='single'">
+						<label class="col-md-2 control-label">订单编号</label>
+						<div class="col-md-3 mg_t_5">{{orderInfo.orderNo}}</div>
+					</div>
+					<hr>
+
+					<div class="form-group">
+						<!-- open(orderInfo.productName,orderInfo.totalPrice) -->
+						<div class="col-md-offset-7 col-sm-4">
+							<button type="submit"
+								ng-click="openPay(orderInfo.orderNo,orderInfo.productName,orderInfo.totalPrice)"
+								class="btn btn-success" data-toggle="modal"
+								ng-disabled="{{{true:'true'}[orderInfo.status!=undefined]}}"
+								id="btnConfirm">确认购买</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="panel panel-default" ng-show="batchPayMain">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 确认支付 <span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+		</div>
+
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<form class="form-horizontal form_position" name="form" novalidate>
+					<div class="step">
+
+						<a class="first"><s class="bon"></s>选择商品<b></b></a> <a><s></s>创建订单<b></b></a>
+						<a><s></s>确认订单<b></b></a> <a class="on"><s></s>确认支付<b></b></a> <a><s></s>支付结果<b
+							class="last"></b></a>
+
+					</div>
+					<div class="row">
+						<h4 class="col-md-offset-1">
+							<label>商品信息</label>
+						</h4>
+					</div>
+					<hr>
+					<div class="form-group">
+						<label class="col-md-2 control-label">批次编号：</label>
+						<div class="col-md-3  mg_t_5">{{batchInfo.number}}</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">批次名称：</label>
+						<div class="col-md-3  mg_t_5">{{batchInfo.name}}</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">支付金额：</label>
+						<div class="col-md-3  mg_t_5">
+							{{batchInfo.totalPrice/100|currency :""}}</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label">商品信息：</label>
+						<div class="col-md-3  mg_t_5">{{batchInfo.productName}}</div>
+					</div>
+					<hr>
+
+					<div class="form-group">
+						<div class="col-md-offset-7 col-sm-4">
+							<!-- open(batchInfo.productName,batchInfo.totalPrice) -->
+							<button type="submit"
+								ng-click="openPay(batchInfo.number,batchInfo.productName,batchInfo.totalPrice)"
+								class="btn btn-success">确认购买</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default" ng-show="payTypeMain">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 确认支付 <span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+		</div>
+
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<form class="form-horizontal form_position" name="form" novalidate>
+					<div class="step">
+
+						<a class="first"><s class="bon"></s>选择商品<b></b></a> <a><s></s>创建订单<b></b></a>
+						<a><s></s>确认订单<b></b></a> <a class="on"><s></s>确认支付<b></b></a> <a><s></s>支付结果<b
+							class="last"></b></a>
+
+					</div>
+					<div class="row">
+						<h4 class="col-md-offset-1">
+							<label>商品信息</label>
+						</h4>
+					</div>
+					<hr>
+					<div class="form-group">
+						<label class="col-md-2 control-label">商品金额：</label>
+						<div class="col-md-3  mg_t_5">{{payPrice/100|currency :""}}</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label">商品信息：</label>
+						<div class="col-md-3  mg_t_5">{{payProName}}</div>
+					</div>
+					<hr>
+					<div class="row">
+						<h4 class="col-md-offset-1">
+							<label>支付方式</label>
+						</h4>
+					</div>
+					<hr>
+					
+					<div ng-show="hisOrderList.length>0">
+						<div class="row" >
+							<label class="col-md-2 control-label"><span>支付类型:</span></label>
+						    <div class="col-md-3" >
+							</div>
+						</div>
+						<div class="row" ng-repeat="hisOrder in hisOrderList">
+							<label class="col-md-2 control-label"></label>
+						    <div class="col-md-3" ><!-- ng-click="hisPayType(hisOrder.paymentAssetType,hisOrder.paymentNo)"  -->
+								  <label >
+								     <input type="checkbox"   checked="true" disabled="disabled"
+								     	 > {{parsePayType(hisOrder.paymentAssetType)}}
+								  </label>(金额：{{hisOrder.amount/100|currency:""}})  （{{parseStatus(hisOrder.status)}}）
+							</div>
+						</div>
+					</div>
+					<div ng-show="hisOrderList==undefined || hisOrderList==null || hisOrderList=='' || hisOrderList.length<0" >
+						<div class="form-group">
+							<label class="col-md-2 control-label">支付类型：</label>
+							<div class="col-md-3">
+								<label> <input type="checkbox" id="inlineCheckbox2" checked="checked"
+									value="2" ng-model="payType2" ng-change="changePayType()"
+									ng-disabled="{{{true:'true',false:'false'}[price==undefined||price==0]}}">
+									余额:
+								</label> {{price/100|currency :""}}
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label"></label>
+							<div class="col-md-3">
+								<label> <input type="checkbox" id="inlineCheckbox10"
+									value="3" ng-model="payType10" ng-change="changePayType()">
+									支付宝
+								</label><span ng-if="payPrice>price">
+									{{(payPrice-price)/100 |currency :""}}
+								</span>
+							</div>
+						</div>
+						<!-- <div class="form-group">
+						<label class="col-md-2 control-label"></label>
+						<div class="col-md-3">
+							  <label>
+							     <input type="checkbox" id="inlineCheckbox1" value="1" ng-model="payType1" ng-change="changePayType()"> 银行卡
+							  </label>
+						</div>
+					</div> -->
+					</div>
+					<hr>
+					<div class="form-group">
+						<div class="col-md-offset-5 col-sm-7">
+							<label class="col-md-5 control-label">应付金额：{{payPrice/100|currency
+								:""}}</label>
+							<button type="submit" ng-click="open(payProName,payPrice)" ng-show="hisOrderList==undefined || hisOrderList==null || hisOrderList=='' || hisOrderList.length<0"
+								class="btn btn-success" id="btnConfirm">确认支付</button>
+							<button type="submit" ng-click="continuePayPwd()" ng-show="hisOrderList.length>0"
+								class="btn btn-success" id="btnConfirm">继续支付</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default" ng-show="paySuccess">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 支付结果 <span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<form class="form-horizontal form_position" name="form" novalidate>
+					<div class="step">
+
+						<a class="first"><s class="bon"></s>选择商品<b></b></a> <a><s></s>创建订单<b></b></a>
+						<a><s></s>确认订单<b></b></a> <a><s></s>确认支付<b></b></a> <a class="on"><s></s>确认支付<b
+							class="last-on"></b></a>
+
+					</div>
+
+					<div class="form-group">
+						<h2 class="col-md-2 col-md-offset-4 errorColor control-label">支付成功</h2>
+					</div>
+					<!-- <div class="form-group">
+						<label class="col-md-2 col-md-offset-2 control-label">批次编号：</label>
+						<div class="col-md-3 errorColor mg_t_5">
+							<strong class="h3">{{payOrder}}</strong>
+						</div>
+					</div> -->
+					<div class="form-group">
+						<div class="col-md-offset-6 col-sm-4">
+							<button type="submit" class="btn btn-success" ng-click="reBack()">返回
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Modal  验证支付密码 start -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>-->
+					<h4 class="modal-title">请输入支付密码</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row" ng-show="showAlert">
+						<div class="alert alert-warning alert-dismissible fade in"
+							role="alert">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+							<strong>提示：</strong> 密码错了，还可输入{{inputCount}}次！
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-md-5">
+							<input type="password" name="userPwd" ng-model="payPwd"
+								class="form-control" placeholder="请输入支付密码" required>
+						</div>
+						<div class="col-md-5 mg_t_5">
+							<a ng-click="findPayPwd()">忘记支付密码?</a>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+						ng-click="okPay(payPwd)">确定</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						ng-click="cancelPay()">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Modal  验证支付密码 end -->
+	<!-- ------------------------------------------------------------------------------------------ -->
+	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>-->
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<h3 class="errorColor text-center">您还未设置支付密码，无法进行支付操作！</h3>
+					</div>
+				</div>
+
+				<div class="modal-footer" style="text-align: center;">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<a href="#userSet"><button type="button"
+							class="btn btn-primary" style="margin-left: 25%;">设置支付密码</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ------------------------------------------------------------------------------------------ -->
+	<!-- ------------第三方支付提示信息 start------ -->
+	<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" style="background-color: #2e6da4;">
+					<h4 class="modal-title" style="color: #fff;">网上支付提示</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<h3 class="text-center">支付完成前，请不要关闭支付验证窗口。</h3>
+						<h3 class="text-center">支付完成后，请根据您支付的情况点击下面按钮。</h3>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="text-center">
+						<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="payQusBtn()">支付遇到问题</button>
+						<button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="payResultBtn()">完成支付</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ------------第三方支付提示信息 end------ -->
+	
+	<!-- model 设置支付密码  模态框 -->
+	<div class="modal fade" id="myModalPwd" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">标题</h4> -->
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-offset-1">
+							<h3>
+								验证邮件已发送到邮箱 <span class="errorColor">{{userInfo.email}}</span>
+							</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1">
+							<h5>请在24小时内点击邮箱中的链接设置支付密码</h5>
+						</div>
+					</div>
+					<div class="row mg_t_20">
+						<div class="col-md-offset-1 col-md-3">
+							<button class="btn btn-primary" ng-click="openEmailUrl(userInfo.email)">立即查收邮件</button>
+						</div>
+						<a  data-toggle="tooltip" data-placement="bottom"
+							title="Tooltip on bottom" ng-click="rePwdEmail()">没有收到邮件？</a>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					<!-- <button type="button" class="btn btn-primary" data-dismiss="modal">完成</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

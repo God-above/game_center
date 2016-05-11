@@ -1,0 +1,125 @@
+/*
+		记录订单的各种订单样式
+*/
+
+.content {
+	font-family: "Microsoft YaHei";
+}
+
+.top{
+	width: 940px;
+	height:100px;
+	background-image: url("../img/background.jpg");
+	background-repeat-x: repeat;
+}
+.leftTop{
+	margin-left: 23px;
+	padding-top: 9px;
+	width: 100px;
+	float: left;
+	position: absolute;
+}
+.userPic{
+	position: relative;
+	top: -22px;
+  	left: 44px;
+	z-index: 90;
+}
+.rightTop{
+	   margin-top: 0px;
+	  color: #fff;
+	  font-size: 16px;
+	  margin-left: 30px;
+	  position: relative;
+	  left: 120px;
+	  padding-top: 20px;
+}
+.topDiv{
+	padding-right: 162px;
+	position: relative;
+	  padding-top: 4px;
+}
+.msgSpan{
+	background-color: #006BC0;;
+  height: 35px;
+  width: 70px;
+  position: relative;
+  left: 564px;
+  padding: 4px 4px;
+    padding-top: 4px;
+    border-radius:5px;
+}
+.bottomTop{
+	font-size: 14px;
+}
+.hrLine{
+	height:3px;
+	width: 650px;
+}
+.splitLine{
+	border:1px solid #fff;
+	height:20px;
+	background-color: #fff;
+}
+
+div >span>a{
+	color: #fff;
+	font-size: 14px;
+}
+div >span>a:hover, a:focus {
+	color: #Fff;
+	text-decoration: none;
+}
+
+.inputLabel{
+	  width: 75px;
+  padding-top: 2px;
+  font-size: 16px;
+    float: left;
+      font-weight: normal;
+}
+.tab_content {
+  float: left;
+  margin-top: 20px;
+   padding-right: 20px;
+}
+.mg_t_120 {
+	margin-top: 120px;
+}
+
+.mg_t_7 {
+	margin-top: 7px;
+}
+
+.mg_l_10 {
+	margin-left: 10px;
+}
+.mg_l_20 {
+	margin-left: 20px;
+}
+
+
+.mg_t_20 {
+	margin-top: 20px;
+}
+
+.mg_t_10 {
+	margin-top: 10px;
+}
+.mg_t_100 {
+	margin-top: 100px;
+}
+
+.pd_l_50 {
+	padding-left: 50px;
+}
+
+.pd_r_15 {
+	padding-right: 15px;
+}
+
+/* th,td {
+	text-align: center;
+	height: 40px;
+	width: 25%;
+} */

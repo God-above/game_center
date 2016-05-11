@@ -1,0 +1,109 @@
+<div ng-init="initUpdateEmail()">
+	<div class="panel panel-default" id="changePayType">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span> 绑定邮箱 <span
+				class="pull-right"> <span class="glyphicon"
+				ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+				ng-click="vm.collapsed = !vm.collapsed"></span>
+			</span>
+		</div>
+		<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">触发模态框</button> -->
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body">
+				<form class="form-horizontal form_position" name="form" novalidate>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label"> 邮箱地址 </label>
+						<div class="col-md-3">
+							<input type="email" name="userEmail" ng-model="email"
+								class="form-control" placeholder="请输入正确的邮箱"
+								ng-pattern="/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/"
+								required ng-focus />
+						</div>
+						<div class="col-md-2 col-sm-2 ng-hide"
+							ng-show="form.$invalid && form.$dirty">
+							<div class="errorColor"
+								ng-show="form.userEmail.$dirty &&!form.userEmail.$focused  && form.userEmail.$error.required">
+								邮箱地址不能为空！</div>
+							<div class="errorColor"
+								ng-show="form.userEmail.$dirty &&!form.userEmail.$focused && form.userEmail.$error.pattern">
+								邮箱地址格式不正确！</div>
+						</div>
+					</div>
+					<div class="row mg_t_30">
+						<label class="col-md-2  col-sm-3 control-label">
+							登录密码</label>
+
+						<div class="col-md-3  col-sm-4">
+							<input type="password" name="userPwd" ng-model="userPwd"
+								ng-maxlength="20" ng-minlength="6" class="form-control"
+								placeholder="请输入6-20位字符密码" required ng-focus>
+						</div>
+						<div class="errorColor ng-hide"
+							ng-show="form.$invalid && form.$dirty">
+							<div class="errorColor"
+								ng-show="form.userPwd.$dirty &&!form.userPwd.$focused && form.userPwd.$error.required">
+								登录密码不能为空！
+							</div>
+							<div class="errorColor"
+								ng-show="form.userPwd.$dirty &&!form.userPwd.$focused && form.userPwd.$error.maxlength">
+								登录密码长度不能大于20个字符！
+							</div>
+							<div class="errorColor"
+								ng-show="form.userPwd.$dirty &&!form.userPwd.$focused && form.userPwd.$error.minlength">
+								登录密码长度不能小于6个字符！
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-md-12">
+						<!-- disabled="disabled"  -->
+						<button class="btn btn-primary btn-success col-md-offset-10 "
+							id="firstBtn"  ng-click="bindEmail()"
+							ng-disabled="form.$invalid" >确认</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- model  模态框 -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">标题</h4> -->
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-offset-1">
+							<h3>
+								验证邮件已发送到邮箱 <span class="errorColor">{{email}}</span>
+							</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1">
+							<h5>请在24小时内点击邮箱中的链接继续注册</h5>
+						</div>
+					</div>
+					<div class="row mg_t_20">
+						<div class="col-md-offset-1 col-md-3">
+							<button class="btn btn-primary" ng-click="openEmailUrl(email)">立即查收邮件</button>
+						</div>
+						<a  data-toggle="tooltip" data-placement="bottom"
+							title="Tooltip on bottom" ng-click="reSendEmail()">没有收到邮件？</a>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					<!-- <button type="button" class="btn btn-primary" data-dismiss="modal">完成</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

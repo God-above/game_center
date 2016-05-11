@@ -1,0 +1,464 @@
+<link href="css/userCenter.css" rel="stylesheet">
+<style>
+.proNameCls{
+	width: 278px;
+}
+.errorColor{
+	 height: 35px;
+ 	 border: 1px solid #ff8f8f;
+    line-height: 35px;
+    padding-left: 10px;
+    background-color: #fff3f3;
+    width: 315px;
+}
+.table th,td{
+width:180px;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #006BC0;
+  border-color: #2e6da4;
+}
+</style>
+<div class="userCenter" ng-init="vm.getUser();">
+	<!-- begin top_content -->
+	<div class="top_content">
+		<div class="left">
+			<!-- /begin userInfo -->
+			<div class="userInfo">
+				<div class="userLeft">
+					<div class="userTop">
+						<div class="po">
+							<span class="userHead"></span>
+							<div class="userLevel">
+							</div>
+
+						</div>
+					</div>
+					<div class="userContent">
+						<div class="userName">
+							<span>{{vm.userInfo.userName}}</span><span class="ml_10"
+								ng-if="(vm.userInfo.userType== 1) ? vm.userType='个人用户' : vm.userType='企业用户';">{{vm.userType}}</span>
+						</div>
+						<div>
+							所有订单享受优惠{{vm.userInfo.userLevel_point}}折 <span
+								class="ml_10 color cr" onclick="window.location='./upgrade.html'">查看</span>
+						</div>
+					</div>
+
+				</div>
+				<div class="line"></div>
+				<div class="userBind">
+					<div>
+						手机号: <span
+							ng-if="(vm.userInfo.tel == undefined) ? vm.userPhone='' : vm.userPhone=vm.userInfo.tel;">{{vm.userPhone}}</span><span
+							class="ml_10 color cr"
+							ng-if="(vm.userInfo.tel == undefined) ? vm.phoneState='请绑定' : vm.phoneState='更换';"
+							ng-click="vm.goTel(vm.userInfo.tel)">{{vm.phoneState}}</span>
+					</div>
+					<div>
+						邮箱: <span
+							ng-if="(vm.userInfo.email == undefined) ? vm.userEmail='' : vm.userEmail=vm.userInfo.email;">{{vm.userEmail}}</span><span
+							class="ml_10 color cr"
+							ng-if="(vm.userInfo.email == undefined) ? vm.userEmailState='请绑定' : vm.userEmailState='更换邮箱';"
+							ng-click="vm.goMail(vm.userInfo.email)">{{vm.userEmailState}}</span>
+					</div>
+					<div class="mt_20">
+						上次登录时间: <span>{{vm.userInfo.lastLoginDate |
+							date:'yyyy-MM-dd HH:mm:ss'}}</span>
+					</div>
+				</div>
+			</div>
+			<!-- /end userInfo -->
+			<!-- /begin userManger -->
+			<div class="userManger">
+				<div>
+					<span class="ml_13">余额 ：{{vm.userInfo.balance/100 | currency :
+						'￥'}}元</span> <span class="ml_25 colorBtn"
+						ng-click="vm.skip('accountMag',0)">管理</span>
+				</div>
+				<span class="line"></span>
+				<div>
+					<span>流量卡</span><span class="ml_10 colorBtn"
+						ng-click="vm.skip('cardManger',0)">管理</span><span
+						class="ml_10 colorBtn" ng-click="vm.skip('buyCard',0)">订购</span><span
+						class="ml_10 colorBtn" ng-click="vm.skip('sumeHistory',0)">兑换记录</span>
+				</div>
+				<span class="line"></span>
+				<div>
+					<span>代金劵：0张</span> <span class="ml_25 colorBtn" onclick="window.location='./upgrade.html'">查看</span>
+				</div>
+
+			</div>
+			<!-- /end userManger-->
+		</div>
+		<!-- /begin menu-->
+		<div class="right">
+			<div class="userMenu">
+				<div class="ml_18" onclick="showMsg() ">
+					<img src="./img/phone.png" class="phone"/>
+					<p>手机流量充值</p>
+				</div>
+				<div class="ml_15"  onclick="window.location='./upgrade.html'">
+					<img src="./img/haod.png" class="upgrade"/>
+					<p>手机号段筛选</p>
+				</div>
+				<div class="ml_18" ng-click="vm.skip('payRecord',0)">
+					<img src="./img/serach.png" class="serach" />
+					<p>流量卡使用查询</p>
+				</div>
+				<div class="ml_15" ng-click="vm.skip('cardExchange',0)">
+					<img src="./img/exchange.png" class="exchange" />
+					<p>兑换流量卡</p>
+				</div>
+			</div>
+
+		</div>
+		<!-- /end menu-->
+	</div>
+	<!-- /end top_content-->
+
+	<!-- begin 文字 -->
+	<div class="userMonthOrder">
+		<span class="lf">近7日内订单</span> <span class="rf"
+			ng-click="vm.skip('order',0)">更多</span>
+	</div>
+	<!-- /end  文字-->
+
+
+	<!-- begin  tab-->
+	<div class="userTab">
+		<div class="tab tab_hover"
+			ng-class="{true: 'tab_hover'}[vm.tabContent==0]"
+			ng-click="vm.showTab(0)">
+			<div class="title" style="left: 10px;">流量卡购买</div>
+			<div class="san" ng-show="vm.tabContent==0"></div>
+		</div>
+		<div class="tab" ng-class="{true: 'tab_hover'}[vm.tabContent==1]"
+			ng-click="vm.showTab('1')">
+			<div class="title" style="left: 18px;">流量直充</div>
+			<div class="san" ng-show="vm.tabContent==1"></div>
+		</div>
+		<div class="tab" ng-class="{true: 'tab_hover'}[vm.tabContent==2]"
+			ng-click="vm.showTab('2')" style="display:none;">
+			<div class="title" style="left: 10px;">流量卡退卡</div>
+			<div class="san" ng-show="vm.tabContent==2"></div>
+		</div>
+	</div>
+	<!-- /end  tab-->
+
+	<!-- begin  tab-content-one-->
+	<div class="tabContent" ng-show="vm.tabContent==0">
+		<div class="tabMain">
+			<div class="tabState" ng-click="vm.cardState(1)">待付款</div>
+			<div class="tabState" ng-click="vm.cardState(2)">付款中</div>
+			<div class="tabState" ng-click="vm.cardState(3)">已付款</div>
+			<div class="tabState" ng-click="vm.cardState(6)">已取消</div>
+		</div>
+		<div class="tabA">
+		  <ul class="tab_ul">
+			<li ng-repeat="batch in vm.batchOrder" class="tab_li">
+				<div class="batch_top">
+					<span>订单编号：{{batch.orderId}}</span>
+					 <span>时间：{{batch.time}}</span> 
+					 <span class="detail" ng-click="vm.gofor(batch.orderId,1)">详情</span>
+					 <span class="price">实付金额 ：{{batch.totalPrice/100 | currency : '￥'}} 元</span>
+
+				</div>
+				<table class="table table-bordered batchOrder">
+					<thead>
+						<tr>
+							<th>商品</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>订购金额</th>
+							<th>订购状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="childOrder in batch.orderOneList">
+							<td class="noneBorder proNameCls">{{childOrder.productName}}</td>
+							<td class="noneBorder">{{childOrder.price/100 | currency : '￥'}}</td>
+							<td class="noneBorder">{{childOrder.proCount}}</td>
+							<td class="noneBorder">{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderOneList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								{{{true : childOrder.statusText,false:batch.statusText}[batch.status == 3]}}
+								<br>{{{true : '48小时自动取消',false:''}[batch.status == 1]}}
+							</td>
+							<td rowspan="{{batch.orderOneList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											<a href="#confirmPay/1/{{batch.orderId}}" ng-show="batch.status == 1 || batch.status == 2">立即付款</a><span ng-show="batch.status == 1 || batch.status == 2">/</span><span ng-show="childOrder.status == 30" style="color: gray">查看卡密</span>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderOneList)">重新生成</a>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderOneList)">退款</a>
+											<a href="javascript:void(0)" ng-show="batch.status == 1 || batch.status == 2" ng-click="closeOrder(batch,batch.orderOneList)">取消</a>
+							</td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderTwoList">
+							<td class="noneBorder proNameCls">{{childOrder.productName}}</td>
+							<td class="noneBorder">{{childOrder.price/100 | currency : '￥'}}</td>
+							<td class="noneBorder">{{childOrder.proCount}}</td>
+							<td class="noneBorder">{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderTwoList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								{{{true : childOrder.statusText,false:batch.statusText}[batch.status == 3]}}
+								<br>{{{true : '48小时自动取消',false:''}[batch.status == 1]}}
+							</td>
+							<td rowspan="{{batch.orderTwoList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											<a href="#confirmPay/1/{{batch.orderId}}" ng-show="batch.status == 1 || batch.status == 2">立即付款</a><span ng-show="batch.status == 1 || batch.status == 2">/</span><span ng-show="childOrder.status == 30" style="color: gray">查看卡密</span>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderTwoList)">重新生成</a>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderTwoList)">退款</a>
+											<a href="javascript:void(0)" ng-show="batch.status == 1 || batch.status == 2" ng-click="closeOrder(batch,batch.orderTwoList)">取消</a>
+							</td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderThreeList">
+							<td class="noneBorder proNameCls">{{childOrder.productName}}</td>
+							<td class="noneBorder">{{childOrder.price/100 | currency : '￥'}}</td>
+							<td class="noneBorder">{{childOrder.proCount}}</td>
+							<td class="noneBorder">{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderThreeList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								{{{true : childOrder.statusText,false:batch.statusText}[batch.status == 3]}}
+								<br>{{{true : '48小时自动取消',false:''}[batch.status == 1]}}
+							</td>
+							<td rowspan="{{batch.orderThreeList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											<a href="#confirmPay/1/{{batch.orderId}}" ng-show="batch.status == 1 || batch.status == 2">立即付款</a><span ng-show="batch.status == 1 || batch.status == 2">/</span><span ng-show="childOrder.status == 30" style="color: gray">查看卡密</span>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderThreeList)">重新生成</a>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderThreeList)">退款</a>
+											<a href="javascript:void(0)" ng-show="batch.status == 1 || batch.status == 2" ng-click="closeOrder(batch,batch.orderThreeList)">取消</a>
+							</td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderFourList">
+							<td class="noneBorder proNameCls">{{childOrder.productName}}</td>
+							<td class="noneBorder">{{childOrder.price/100 | currency : '￥'}}</td>
+							<td class="noneBorder">{{childOrder.proCount}}</td>
+							<td class="noneBorder">{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderFourList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								{{{true : childOrder.statusText,false:batch.statusText}[batch.status == 3]}}
+								<br>{{{true : '48小时自动取消',false:''}[batch.status == 1]}}
+							</td>
+							<td rowspan="{{batch.orderFourList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											<a href="#confirmPay/1/{{batch.orderId}}" ng-show="batch.status == 1 || batch.status == 2">立即付款</a><span ng-show="batch.status == 1 || batch.status == 2">/</span><span ng-show="childOrder.status == 30" style="color: gray">查看卡密</span>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderFourList)">重新生成</a>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderFourList)">退款</a>
+											<a href="javascript:void(0)" ng-show="batch.status == 1 || batch.status == 2" ng-click="closeOrder(batch,batch.orderFourList)">取消</a>
+							</td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderFiveList">
+							<td class="noneBorder proNameCls">{{childOrder.productName}}</td>
+							<td class="noneBorder">{{childOrder.price/100 | currency : '￥'}}</td>
+							<td class="noneBorder">{{childOrder.proCount}}</td>
+							<td class="noneBorder">{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderFiveList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								{{{true : childOrder.statusText,false:batch.statusText}[batch.status == 3]}}
+								<br>{{{true : '48小时自动取消',false:''}[batch.status == 1]}}
+							</td>
+							<td rowspan="{{batch.orderFiveList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											<a href="#confirmPay/1/{{batch.orderId}}" ng-show="batch.status == 1 || batch.status == 2">立即付款</a><span ng-show="batch.status == 1 || batch.status == 2">/</span><span ng-show="childOrder.status == 30" style="color: gray">查看卡密</span>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderFiveList)">重新生成</a>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderFiveList)">退款</a>
+											<a href="javascript:void(0)" ng-show="batch.status == 1 || batch.status == 2" ng-click="closeOrder(batch,batch.orderFiveList)">取消</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+			</li>
+			<li class="li_none" ng-show="vm.batchOrder.length == 0">
+					<div class="alert alert-info alert-dismissible" role="alert">
+
+						<strong>当前无订单!</strong>
+					</div>
+			</li>
+		</ul>
+		</div>
+		<div id="listPage" ng-show="vm.batchOrder.length > 0">
+			<!-- <expander></expander> -->
+			<tm-pagination conf="paginationConf"> </tm-pagination>
+		</div>
+	</div>
+	<!-- /end  tab-content-one-->
+	<!-- /begin  tab-content-two-->
+	<div class="tabContent" ng-show="vm.tabContent==1">
+		<div class="tabMain">
+			<div class="tabState" ng-click="vm.state(50)">已完成</div>
+			<div class="tabState" ng-click="vm.state(10)">待付款</div>
+			<div class="tabState" ng-click="vm.state(42)">退款中</div>
+			<div class="tabState" ng-click="vm.state(41)">退款成功</div>
+		</div>
+		<div class="tabB">
+			<ul>
+				<li
+					ng-repeat="order in singleOrder">
+					<div class="mainTitle">
+						<span>{{order.createDate | date:'yyyy-MM-dd HH:mm:ss'}}</span> <span>订单号:
+							{{order.orderNo}}</span>
+						<div class="detail" ng-click="vm.gofor(order.orderNo,0)">详情</div>	
+					</div>
+			<div class="mainContent" style="height:80px;border:0px;">
+				<table class="table table-bordered single">
+					<thead>
+						<tr>
+							<th>商品名称</th>
+							<th>状态</th>
+							<th>充值账号</th>
+							<th>金额</th>
+							<th>退款金额</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{{order.productName}}</td>
+							<td>{{order.statusStr}}</td>
+							<td>{{order.rechargeAccount}}</td>
+							<td>{{order.totalPrice/100| currency : '￥'}}</td>
+							<td><span ng-if="order.status == 10">
+						<a href="#confirmPay/0/{{order.orderNo}}" ng-if="order.status == 10">立即付款</a>/<a ng-click="vm.canelOrder(order)">取消</a>
+						</span>
+						<span ng-if="order.status == 12">
+						<a href="#confirmPay/0/{{order.orderNo}}">继续付款</a>
+						</span>
+						<a ng-if="order.status != 10 && order.status != 12">---</a></td>
+							
+						</tr>
+					</tbody>
+				</table>
+						
+					</div>
+				</li>
+				<li 
+					ng-show="singleOrder==undefined || singleOrder.length == 0" style="height:50px;">
+					<div class="alert alert-info alert-dismissible" role="alert">
+						
+						<strong>当前无订单!</strong>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div id="listPage" ng-show="singleOrder.length > 0">
+			<!-- <expander></expander> -->
+			<tm-pagination conf="paginationConf"> </tm-pagination>
+		</div>
+	</div>
+	<!-- /end  tab-content-two-->
+	<!-- /begin  tab-content-three-->
+	<div class="tabContent" ng-show="vm.tabContent==2">
+		<div class="tabMain">
+			<div class="tabState">已完成</div>
+			<div class="tabState">待付款</div>
+			<div class="tabState">退款中</div>
+			<div class="tabState">退款成功</div>
+		</div>
+		<div style="width: 100%; height: auto; float: left;">
+			<ul>
+				<li style="height: 80px; width: 100%; border: 1px solid #E7E7E7;">
+					<div class="mainTitle">
+						<span>2015年5月28日 14:22:22</span> <span>订单号:12345784151244</span>
+					</div>
+					<div class="mainContent">
+						<div>移动100M全国流量卡</div>
+						<div>700张</div>
+						<div>6650.00元</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /end  tab-content-three-->
+
+</div>
+<!-- begin  H-dialog-->
+<div id="H-dialog">
+	<div class="rdious"></div>
+	<a class="close" onclick="popupClose(this)" ng-click="popupClose(this)"><div class="btn">
+			<i class="glyphicon glyphicon-remove"></i>
+		</div></a>
+	<div class="msgContent" >
+		<div class="errorColor" ng-show="showTelSpan">
+			<span class="glyphicon glyphicon-exclamation-sign" ng-show="showTelSpan"></span>&nbsp;&nbsp;
+			<span ng-show="showTelSpan" ng-bind="showTelMsg" ></span>
+		</div>
+		<div class="msgPhone">
+			<div class="name">手机号码</div>
+			<div class="form-group  has-feedback"
+				style="width: 300px; margin-left: 20px;">
+
+				<input type="text" class="form-control" ng-model="phoneNum" id="phoneNum"
+					maxlength=11 aria-describedby="inputSuccess5Status"
+					style="width: 240px;" ng-keyup="vm.yPhone(phoneNum)" 
+					ng-blur="vm.yPhone(phoneNum)"> <span
+					class="glyphicon glyphicon-user form-control-feedback"
+					aria-hidden="true" ></span>
+			</div>
+		</div>
+		<div class="msgPhoneType">
+			<div class="name">充值类型</div>
+			<div class="hezi hezi1">全国</div>
+		</div>
+		<div class="face_value">
+			<label>选择面值</label>
+			<div ng-show="vm.productList.length > 0">
+				<ul>
+					<li ng-repeat="pro in vm.productList"
+						ng-click="vm.getValue(pro,$index)"
+						ng-class='{selected: $index==selectedRow}'
+						onselectstart="return false">{{pro.productName}}</li>
+				</ul>
+			</div>
+
+			<div class="none" ng-show="vm.productList==undefined">
+				<span>请输入手机号码</span>
+			</div>
+		</div>
+
+		<div class="price">
+			<div class="name">充值价格</div>
+			<div class="priceContent">{{vm.totalPrice | currency : '￥'}}元</div>
+		</div>
+		<div class="Commit" style="margin-left: 75px;">
+			<button class="primaryBtn" ng-click="vm.phonePay()">去结算</button>
+
+		</div>
+
+	</div>
+</div>
+<!-- /end  H-dialog-->
+<script type="text/javascript">
+	//锁定背景屏幕
+	function lockScreen() {
+		var clientH = document.body.offsetHeight; //body高度
+		var clientW = document.body.offsetWidth; //body宽度
+		var docH = document.body.scrollHeight; //浏览器高度
+		var docW = document.body.scrollWidth; //浏览器宽度
+		var bgW = clientW > docW ? clientW : docW; //取有效宽
+		var bgH = clientH > docH ? clientH : docH; //取有效高
+		var blackBg = document.createElement("div");
+		blackBg.id = "blackBg";
+		blackBg.style.position = "absolute";
+		blackBg.style.zIndex = "99999";
+		blackBg.style.top = "0";
+		blackBg.style.left = "0";
+		blackBg.style.width = "100%";
+		blackBg.style.height = "100%";
+		blackBg.style.opacity = "0.4";
+		blackBg.style.backgroundColor = "#333";
+		document.body.appendChild(blackBg);
+	}
+	//关闭按钮事件
+	function popupClose(el) {
+		var phoneNum = document.getElementById("phoneNum");
+		phoneNum.value="";
+		var blackBg = document.getElementById("blackBg");
+		blackBg && document.body.removeChild(blackBg);
+		el.parentNode.style.display = "none";
+		
+		
+	}
+
+	function showMsg() {
+		$('#H-dialog').show();
+		lockScreen();
+	}
+</script>

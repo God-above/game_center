@@ -1,0 +1,68 @@
+<link href="css/cardManger.css" rel="stylesheet">
+
+<!-- 兑换记录明细 -->
+<div ng-init="init()">
+		<!-- 流量卡logo -->
+		<div class="logo">
+			<span>流量卡兑换明细</span>
+		</div>
+	<!-- /流量卡logo -->
+		<div class="tab_content">
+			<div>
+				<input class="form-control tabSearch" type="text"
+					ng-model="couponCode" placeholder="卡号" />
+				<button class="btn btn-primary" ng-click="btnSeach()">查询</button>
+				<!-- <div class="divDate">兑换时间：</div>
+				<input class="Wdate date form-control tabDate" style="height: 30px;"
+					type="text" id="o_start_time"
+					onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+					placeholder="起始时间" ng-model="om.startTime" /> <span
+					class="divDate_mid">到</span> <input
+					class="Wdate date form-control tabDate" style="height: 30px;"
+					type="text" id="o_end_time"
+					onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+					placeholder="结束时间" ng-model="om.endTime" /> -->
+			</div>
+
+			<table class="table table-bordered" ng-show="histroyDetailList.length > 0">
+				<thead>
+					<tr>
+						<th>记录编号</th>
+						<th>订单编号</th>
+						<th>批次编号</th>
+						<th>商品名称</th>
+						<th>充值账号</th>
+						<th>流量卡号</th>
+						<th>状态</th>
+						<th>api返回状态码</th>
+						<th>api返回消息</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="historyDetail in histroyDetailList">
+						<td>{{historyDetail.recordNo}}</td>
+						<td>{{historyDetail.orderNo}}</td><!--  | date : 'yyyy-MM-dd HH:mm:ss' -->
+						<td>{{historyDetail.couponBatchNo}}</td>
+						<td>{{historyDetail.productName}}</td>
+						<td>{{historyDetail.rechargeAccount}}</td>
+						<td>{{historyDetail.couponNo}}</td>
+						<td>{{historyDetail.statusText}}</td>
+						<td>{{historyDetail.returnCode}}</td>
+						<td>{{historyDetail.returnMsg}}</td>
+						<td>
+							<a ng-href="javascript:void(0)" ng-click="updateStatus(historyDetail,$index)" ng-show="historyDetail.status == 3"><span><u>修改状态</u></span></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="listPage" ng-show="histroyDetailList.length > 0">
+			<expander></expander>
+		</div>
+		<div ng-show="histroyDetailList.length == 0" style="float: left; width: 100%; margin-top: 30px;">
+			<div class="alert alert-info alert-dismissible" role="alert">
+				<strong>暂无兑换记录!</strong>
+			</div>
+		</div>
+</div>

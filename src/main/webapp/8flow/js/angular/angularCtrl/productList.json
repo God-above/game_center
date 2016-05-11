@@ -1,0 +1,74 @@
+{"resultCode":0,"resultComment":"处理成功","resultSet":[
+
+	{
+		"productId" : 1,
+		"productName" : "10M",
+		"allName" : "移动10M",
+		"price" : "1000",
+		"productNo" : "CAP_201506011SRB62"
+	},
+
+	{
+		"productId" : 2,
+		"productName" : "35M",
+		"allName" : "移动5M",
+		"price" : "700"
+	},
+
+	{
+		"productId" : 3,
+		"productName" : "62M",
+		"allName" : "移动2M",
+		"price" : "500"
+	},
+
+	{
+		"productId" : 2,
+		"productName" : "335M",
+		"allName" : "移动5M",
+		"price" : "700"
+	},
+
+	{
+		"productId" : 2,
+		"productName" : "235M",
+		"allName" : "移动5M",
+		"price" : "700"
+	},
+
+	{
+		"productId" : 2,
+		"productName" : "125M",
+		"allName" : "移动5M",
+		"price" : "700"
+	},
+
+	{
+		"productId" : 2,
+		"productName" : "5M",
+		"allName" : "移动5M",
+		"price" : "700"
+	},
+
+	{
+		"productId" : 2,
+		"productName" : "335M",
+		"allName" : "移动5M",
+		"price" : "700"
+	},
+
+	{
+		"productId" : 2,
+		"productName" : "115M",
+		"allName" : "移动5M",
+		"price" : "700"
+	},
+
+	{
+		"productId" : 2,
+		"productName" : "225M",
+		"allName" : "移动5M",
+		"price" : "700"
+	}
+
+	]}

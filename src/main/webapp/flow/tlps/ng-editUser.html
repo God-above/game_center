@@ -1,0 +1,84 @@
+<div ng-init="userInit()">
+	<!-- 面板-->
+	<div class="panel panel-default" ng-class="{hidden: vm.hidden}">
+		<div class="panel-heading">
+		<span class="glyphicon glyphicon-th-list"></span> 用户密码修改<span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vm.collapsed = !vm.collapsed"></span>
+				</span>
+		
+		</div>
+	<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">	
+	<div class="panel-body">
+	<div class="col-md-5 col-md-push-2">
+		<form name="form_valid" class="form-horizontal" novalidate>
+			<fieldset>
+				<label class="col-sm-4 control-label">旧密码：</label>
+				<div class="col-md-8 col-sm-8">
+					<input type="password" name="oldPassword" ng-model="userPassword"
+						class="form-control" ng-blur="check_userName_only()" required
+						ng-minlength=5 ng-maxlength=20 placeholder="旧密码" ng-focus>
+					<div class="error"
+						ng-show="form_valid.oldPassword.$dirty && form_valid.oldPassword.$invalid">
+						<small class="error"
+							ng-show="!form_valid.oldPassword.$focused && form_valid.oldPassword.$error.minlength || form_valid.oldPassword.$error.maxlength">▲密码长度必须在5~20个字符内！
+						</small>
+					</div>
+					<div class="error"
+						ng-show="!form_valid.oldPassword.$focused && form_valid.oldPassword.$dirty && unique">
+						<small class="error"> 用户名已存在！ </small>
+					</div>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label class="col-sm-4 control-label">新密码：</label>
+				<div class="col-md-8 col-sm-8">
+					<input type="password" name="newPassword" class="form-control"
+						ng-model="newPassword" required ng-minlength=5 ng-maxlength=20
+						placeholder="新密码" ng-focus>
+					<div class="error"
+						ng-show="!form_valid.newPassword.$focused && form_valid.newPassword.$dirty && form_valid.newPassword.$invalid">
+						<small class="error"
+							ng-show="!form_valid.newPassword.$focused && form_valid.newPassword.$error.minlength || form_valid.newPassword.$error.maxlength">▲密码长度必须在5~20个字符内！
+						</small>
+					</div>
+					<div class="error"
+						ng-show="form_valid.newPassword.$dirty && unique">
+						<small class="error"> 用户名已存在！ </small>
+					</div>
+
+				</div>
+			</fieldset>
+
+
+			<fieldset>
+				<label class="col-sm-4 control-label">确认密码：</label>
+				<div class="col-md-8 col-sm-8">
+					<input type="password" name="newRePassword" class="form-control"
+						ng-model="newRePassword" required ng-minlength=5 ng-maxlength=20
+						placeholder="确认新密码" ng-focus>
+					<div class="error"
+						ng-show="!form_valid.newRePassword.$focused && form_valid.newRePassword.$dirty && form_valid.newRePassword.$invalid">
+						<small class="error"
+							ng-show="!form_valid.newRePassword.$focused && form_valid.newRePassword.$error.minlength || form_valid.newRePassword.$error.maxlength">▲密码长度必须在5~20个字符内！
+						</small>
+					</div>
+				
+				</div>
+			</fieldset>
+
+			<a type="submit"
+				class="ma_20 col-md-2 col-md-push-9 col-sm-2 col-xs-10  col-xs-push-1 col-sm-push-9 btn btn-info "
+				ng-disabled="form_valid.$invalid || unique" ng-click="eidtUser()">提交</a>
+		</form>
+
+
+	</div>
+	</div>
+	</div>
+	<!-- 面板 -->
+	
+</div>
+</div>

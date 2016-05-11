@@ -1,0 +1,249 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<link href="./css/newCss/index.css" rel="stylesheet">
+<link href="./css/newCss/login.css" rel="stylesheet">
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<title>8流量登录页</title>
+<style type="text/css">
+.code {
+	background-color: #EEEEEE;
+	font-family: Arial;
+	font-style: italic;
+	color: #aaaaaa;
+	line-height:33px;
+	text-align:center;
+	border:0px;
+	letter-spacing: 3px;
+	font-weight: bolder;
+}
+
+.unchanged {
+	border: 0;
+}
+</style>
+</head>
+<body>
+	<div id="main">
+		<!-- 导航 -->
+		<div class="top_bar">
+			<div class="top_title">
+				欢迎来到8流量！<a> 请登录/免费注册</a>
+			</div>
+			<div class="top_dh">
+
+				<div class="top_content">
+					<img src="./img/new_img/LOGO.png" />
+					<div class="top_nav">
+						<div class="top_nav_button"
+							onclick="javascript:window.location='./index.html'">首页</div>
+						<div class="top_nav_button"
+							onclick="javascript:window.location='./service.html'">产品</div>
+						<div class="top_nav_button"
+							onclick="javascript:window.location='./plan.html'">方案</div>
+						<div class="top_nav_button"
+							onclick="javascript:window.location='./about.html'">关于我们</div>
+						<div class="top_nav_button active">
+							<img src="./img/new_img/flowgo2.png">
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- 导航 -->
+		<div class="login_banner">
+			<div class="login_left">
+				<img src="./img/new_img/loginBanner.png" />
+			</div>
+			<div class="login_right">
+				<div class="box_main">
+					<div class="box">
+						<div class="title">
+							<span class="title_dl">登录</span><span class="title_liuliang">&nbsp;流量</span><img
+								src="./img/new_img/GO.png" class="login_title_img" />
+						</div>
+						<form name="form_valid" class="form-horizontal mar18" novalidate
+							ng-submit="form_submit()">
+							<fieldset>
+
+								<input type="text" name="email"
+									class="form-control" id="username" placeholder="请输入登录账号">
+
+							</fieldset>
+
+							<fieldset class="mar18">
+								<input name="password" class="form-control" type="password"
+									 placeholder="密码" id="password">
+
+							</fieldset>
+
+
+							<fieldset class="mar18">
+								<div class="row">
+									<div class="input-control col-md-6 col-xs-6">
+										<input type="text" class="input_style form-control"
+											style="width: 160px;" name="validateCode"
+											 maxlength=4 placeholder="验证码" id="yzm" />
+									</div>
+									<div class="validate_style">
+										<input type="text" onclick="createCode()" readonly="readonly"
+											id="checkCode" class="unchanged"
+											style="width: 80px; height: 33px;" />
+
+									</div>
+								</div>
+
+							</fieldset>
+							
+							<button type="button"
+								class="mar10 col-md-12 col-sm-12  col-xs-12 btn btn-info" onclick="loginIn()">登录</button>
+
+						</form>
+
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<div class="login_dd">
+			<div class="login_dd_max">
+				<img src="./img/new_img/buy.jpg" class="img_buy" /> <img
+					src="./img/new_img/login_dd.png" class="img_dd" />
+			</div>
+
+		</div>
+		 <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=834400572&site=qq&menu=yes" style="position: fixed;z-index: 10;bottom: 120px;left:40px;"><img border="0" src="./img/buy/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></div>
+		
+		<!--  底部 -->
+		<div class="main_bootom">Copyright @江苏奇点网络有限公司 版权所有
+			苏ICP备14050048号-3</div>
+		<!-- 结束 -->
+	</div>
+</body>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/comm.js"></script>
+<script type="text/javascript">
+	$(document.body).css({
+		"overflow-x" : "hidden"
+	});
+</script>
+<script type="text/javascript">
+
+var orderprice;
+var baoxing;
+var carrier;
+var total;
+var count;
+(function ($) {
+    $.getUrlParam = function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    orderprice = $.getUrlParam('orderprice');
+    baoxing = $.getUrlParam('baoxing');
+    carrier = $.getUrlParam('carrier');
+    total = $.getUrlParam('total');
+    count=$.getUrlParam('count');
+    
+    //判断浏览器是否支持placeholder属性
+    supportPlaceholder='placeholder'in document.createElement('input'),
+   
+    placeholder=function(input){
+   
+      var text = input.attr('placeholder'),
+      defaultValue = input.defaultValue;
+   
+      if(!defaultValue){
+   
+        input.val(text).addClass("phcolor");
+      }
+   
+      input.focus(function(){
+   
+        if(input.val() == text){
+     
+          $(this).val("");
+        }
+      });
+   
+    
+      input.blur(function(){
+   
+        if(input.val() == ""){
+         
+          $(this).val(text).addClass("phcolor");
+        }
+      });
+   
+      //输入的字符不为灰色
+      input.keydown(function(){
+    
+        $(this).removeClass("phcolor");
+      });
+    };
+   
+    //当浏览器不支持placeholder属性时，调用placeholder函数
+    if(!supportPlaceholder){
+   
+      $('input').each(function(){
+   
+        text = $(this).attr("placeholder");
+   
+        if($(this).attr("type") == "text"){
+   
+          placeholder($(this));
+        }
+      });
+    }
+    
+    
+})(jQuery);
+function loginIn(){
+	var username =$('#username').val();
+	var password =$('#password').val();
+	var yzm =$('#yzm').val();
+
+	if(username==undefined || username==""){
+		alert("请输入用户名");
+		return false;
+	}
+	if(username){
+		if(isChn(username)==false){
+			alert("不能带有中文的用户名");
+			return false;
+		}
+	}
+	
+	if(password==undefined || password==""){
+		alert("请输入密码");
+		return false;
+	}
+	if(yzm==undefined || yzm==""){
+		alert("请输入验证码");
+		return false;
+	}
+	if(yzm!=code){
+		alert("验证码输入错误");
+		return false;
+	}
+
+	window.location.href="./pay.html?orderprice="+orderprice+"&baoxing="+baoxing+"&carrier="+carrier+"&total="+total+"&count="+count+"&username="+username;
+};
+
+function isChn(str){
+    var reg = /^[u4E00-u9FA5]+$/;
+    if(!reg.test(str)){
+     return false;
+    }
+    return true;
+}
+</script>
+
+</html>

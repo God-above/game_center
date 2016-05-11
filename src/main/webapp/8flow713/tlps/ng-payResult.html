@@ -1,0 +1,68 @@
+<link href="../8flow/css/liuliang.css" rel="stylesheet">
+<style>
+.hrDiv {
+	border: 1px #cccccc dotted;
+	width: 100%;
+	margin-top: 20px;
+	margin-left:0px;
+}
+</style>
+<div class="logo">支付结果</div>
+<div class="content mg_t_10" ng-init="init()">
+	<div class="orderDiv" style="height:auto;">
+		<p ng-if="resultType=='success' || resultType=='default'" id="sucSpan" style="display: none;">
+		    <span ng-cloak class="ng-cloak" ng-show="batch" ng-if="batch.status=='2' || batch.status=='3'" style="color: #6DC929;font-size: 20px;"><img alt="" src="img/green.png">&nbsp;&nbsp;支付成功!</span>
+			<span ng-cloak class="ng-cloak" ng-show="!batch" ng-if="orderInfo.status!='10' && orderInfo.status!='12'"  style="color: #6DC929;font-size: 20px;"><img alt="" src="img/green.png">&nbsp;&nbsp;支付成功!</span>
+		</p>
+		<p ng-if="resultType=='fail' || resultType=='default'"  id="failSpan" style="display: none;">
+		    <span ng-cloak class="ng-cloak" ng-show="batch" ng-if="batch.status!=3 && batch.status!=2" style="color: #EE3428;font-size: 20px;"><img alt="" src="img/wrong.png">&nbsp;&nbsp;支付失败!</span>
+			<span ng-cloak class="ng-cloak" ng-show="!batch" ng-if="orderInfo.status==10 || orderInfo.status==12"  style="color: #EE3428;font-size: 20px;"><img alt="" src="img/wrong.png">&nbsp;&nbsp;支付失败!</span>
+		</p>
+		<p class="hrDiv"></p>
+		<h4><strong>订单详情</strong></h4>
+		<div ng-show="batch">
+			<p>订单号：{{batch.number}}</p>
+			<p>购买时间：{{batch.createDate | date : "yyyy-MM-dd HH:mm:ss"}}</p>
+			<p>订单金额：{{batch.totalPrice / 100 | currency :''}}元</p>
+			<p>订单状态：{{parseCouponStatus(batch.status)}}</p>
+			<p class="priceDiv">总金额：{{batch.totalPrice / 100 | currency :''}}元</p>
+		</div>
+		<div ng-show="!batch">
+			<p>订单号：{{orderInfo.orderNo}}</p>
+			<p>商品名称：{{orderInfo.productName}}</p>
+			<p>购买时间：{{orderInfo.createDate | date : "yyyy-MM-dd HH:mm:ss"}}</p>
+			<p>订单金额：{{orderInfo.totalPrice/100 | currency :''}}元</p>
+			<p>订单状态：{{parseStatus(orderInfo.status)}}</p>
+			<p class="priceDiv">总金额：{{orderInfo.totalPrice/100 | currency
+				:''}}元</p>
+		</div>
+	</div>
+	<div ng-show="batch">
+		<div class="text-left" ng-if="resultType=='success'|| batch.status==2 || batch.status==3">
+			<button class="primaryBtn" ng-click="returnOrder()">返回订单</button>
+			<a href="#buyCard" class="mg_l_15"><button class="primaryBtn" >继续购买</button></a>
+		</div>
+		<div class="text-left" ng-if="resultType=='fail' || (batch.status!=2 && batch.status!=3)">
+			<button class="primaryBtn" ng-click="closeOrder(batch.number);">取消订单</button>
+			<a class="mg_l_15"><button class="primaryBtn" ng-click="conturnPayBtn()">继续支付</button></a>
+		</div>
+	</div>
+	<div ng-show="!batch">
+		<div class="text-left" ng-if="resultType=='success' || (orderInfo.status!='10' && orderInfo.status!='12')">
+			<button class="primaryBtn" ng-click="returnOrder()">返回订单</button>
+			<a href="#user" class="mg_l_15"><button class="primaryBtn">继续购买</button></a>
+		</div>
+		<div class="text-left" ng-if="resultType=='fail' || orderInfo.status==10 || orderInfo.status==12">
+			<button  class="primaryBtn" ng-click="closeSingleOrder(orderInfo.orderNo);">取消订单</button>
+			<a class="mg_l_15"><button class="primaryBtn" ng-click="conturnPayBtn()">继续支付</button></a>
+		</div>
+	
+	</div>
+</div>
+
+<script type="text/javaScript">
+	$('.modal').modal({
+		backdrop : "static",
+		show : false
+	})
+</script>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="flowApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Browser-360 speed mode is enabled (webkit) -->
+<meta name="renderer" content="webkit">
+<!-- Use IE and Chrome latest version -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+
+<title>8流量demo</title>
+
+
+<!-- Bootstrap -->
+<link href="css/bootstrap/bootstrap.css" rel="stylesheet">
+<link href="./css/index.css" rel="stylesheet">
+<link href="./css/newCss/other.css" rel="stylesheet">
+<link href="css/page.css" rel="stylesheet">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+	<div id="main" ng-controller="indexController">
+		<!-- 导航 -->
+		<div class="top_bar" ng-init="init()">
+			<div class="top_title">
+				<a href="javascript:window.location='http://www.8liuliang.com/index.html'"><img src="./img/index/left.png" /> </a>
+				<span class="goback"> <a href="javascript:window.location='http://www.8liuliang.com/index.html'">返回8流量首页</a></span>
+
+				<span class="right"> <span class="greet">欢迎你! 用户 <a>{{userName}}</a>
+						<span><a ng-click="layout()">退出</a></span> <!-- <span>联系客服</span> -->
+				</span>
+				</span>
+			</div>
+			<div class="top_dh">
+				<div class="top_content"><!-- #mobileUpload -->
+					<img src="./img/index/liuliangGo.png" style="width:75px;height:20px;margin:28px 10px 10px 10px"/> <span class="top_nav"> <a href="#user"><span
+						class="top_nav_button">我的8流量</span></a> <a href="#order"><span class="top_nav_button">订单管理</span>
+						</a><a href="#accountMag"><span class="top_nav_button">账户管理</span></a>
+						<span class="top_nav_button" onclick="window.location='./upgrade.html'">服务大厅</span>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="contentMain">
+			<div ng-view></div>
+
+		</div>
+
+	</div>
+	<!--  ng-hide  ng-show="DIALOG_TOAST"-->
+	<div class=" alert alert-danger ng-cloak " style="display: none;" data-ng-show="DIALOG_TOAST" id="drag" role="alert" >
+	<span class="glyphicon glyphicon-exclamation-sign" style="color: #c05554;"></span>
+	<span ng-bind="DIALOG_TOAST_TITLE"></span>
+	</div>
+
+
+
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/angular/lib/jquery.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap/bootstrap.js"></script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/angular/lib/angular.min.js"></script>
+	<script src="js/angular/lib/angular-route.min.js"></script>
+	<script src="js/angular/lib/angular-cookies.min.js"></script>
+	<script src="js/angular/lib/angular-file-upload.js"></script>
+	<script src="js/angular/lib/ZeroClipboard.js"></script>
+	
+	<script src="js/common/app.js"></script>
+	<script src="js/common/ivan.js"></script>
+	<script src="js/util/base.js"></script>
+	<script src="js/util/CommonPerson.js"></script>
+	<script language="javascript" type="text/javascript"
+		src="js/My97DatePicker/WdatePicker.js"></script>
+	<script src="js/util/tm.pagination.js"></script>
+
+	<script src="js/angular/angularCtrl/flow-buyCardCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-userCenterCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-cardMangerCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-sumeHistroyCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-cardExchangeCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-payRecordCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-orderCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-orderDetailCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-backCardCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-adminTest.js"></script>
+	<script src="js/angular/angularCtrl/flow-accountCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-orderSingleDetailCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-mobileCtrl.js"></script>
+	<script src="js/angular/angularCtrl/cardMange.js"></script>
+	<script src="js/angular/angularCtrl/flow-sumeHistroyDetailCtrl.js"></script>
+	
+	
+
+	<script src="js/angular/angularCtrl/flow-confirmOrderCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-accountMagCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-changeTypeCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-indexCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-confirmPayCtrl.js"></script>
+	<script src="js/angular/angularCtrl/flow-returnFailCtrl.js"></script>
+	<script>
+		//启动提示 
+		$(function() {
+			$('[data-toggle="tooltip"]').tooltip();
+
+			$('#myTab a').click(function(e) {
+				e.preventDefault()
+			})
+		})
+	</script>
+</body>
+</html>

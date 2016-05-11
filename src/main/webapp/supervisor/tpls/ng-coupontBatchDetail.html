@@ -1,0 +1,45 @@
+<style type="text/css">
+	.mg_l_30{
+		margin-left: 30px;
+	}
+</style>
+<div ng-init="vm.batchDetailInit()">
+
+	<div class="panel panel-default" ng-class="{hidden: vmDetail.hidden}">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 流量卡详情 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vmDetail.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vmDetail.collapsed = !vmDetail.collapsed"></span>
+				</span>
+			</h4>
+		</div>
+		<div class="panel-collapse collapse"
+			ng-class="{in: !vmDetail.collapsed}">
+			<div class="panel-body">
+				<div class="mt_15 mg_l_30">
+					<label>订单编号:&nbsp;&nbsp;&nbsp;&nbsp;{{vm.couponDetail.orderNo}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>商品名称:&nbsp;&nbsp;&nbsp;&nbsp;{{vm.couponDetail.productName}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>商品编号:&nbsp;&nbsp;&nbsp;&nbsp;{{vm.couponDetail.productNo}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>流量卡状态:&nbsp;&nbsp;&nbsp;&nbsp;{{vm.couponDetail.statusText}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<label>创建时间:&nbsp;&nbsp;&nbsp;&nbsp;{{vm.couponDetail.createDate | date:'yyyy-MM-dd hh:mm:ss'}}</label>
+				</div>
+				<div class="mt_15 mg_l_30" ng-repeat="payment in vm.paymentList">
+					<label>支付类型:&nbsp;&nbsp;&nbsp;&nbsp;{{parsePayType(payment.paymentAssetType)}}</label>
+				</div>
+				<div class="mt_15 mg_l_30">
+					<a href="#couponBatch"><button class="btn btn-primary">返回</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,367 @@
+<link href="css/cardManger.css" rel="stylesheet">
+<style>
+.table-bordered td {
+	border-left: 1px solid #eeeeee ! important;
+	border-top: 0px ! important;
+}
+
+.table_hover {
+	display: none;
+}
+
+.batchOrder{
+padding: 0px; margin: 0px;
+}
+
+.batchOrder tr th{
+border-right-style:none ! important;
+border-left-style:none ! important;
+background:#e4e4e4;
+text-align:center;
+}
+.table th,td{
+width:180px;
+}
+.batchOrder tr td{
+text-align:center;
+}
+.batchOrder .noneBorder{
+border-right-style:none ! important;
+border-left-style:none ! important;
+}
+.tab_content  .form-inline{
+	width: 100%;
+	display: block;
+}
+.tab_content  .divSelect{
+width: 155px ! important;
+  height: 38px ! important;
+  float: left;
+}
+.mg_t_20{
+	margin-top: 20px;
+}
+.proNameCls{
+	width: 278px;
+}
+</style>
+<!-- 订单 -->
+<div style="margin: 0 10px;" ng-init="vm.initOrder()">
+	<!-- 流量卡logo -->
+	<div class="logo">
+		<span>订单查询</span>
+	</div>
+	<!-- /流量卡logo -->
+
+	<!-- tab -->
+	<div class="userTab">
+		<div class="tab tab_hover"
+			ng-class="{true: 'tab_hover'}[vm.tabContent==0]"
+			ng-click="vm.showTab('0')">
+			<div class="title" style="left: 10px;">流量卡订购</div>
+			<div class="san" ng-show="vm.tabContent==0"></div>
+		</div>
+		<div class="tab" ng-class="{true: 'tab_hover'}[vm.tabContent==1]"
+			ng-click="vm.showTab('1')">
+			<div class="title" style="left: 18px;">流量直充</div>
+			<div class="san" ng-show="vm.tabContent==1"></div>
+		</div>
+		<div class="tab" ng-class="{true: 'tab_hover'}[vm.tabContent==2]"
+			ng-click="vm.showTab('2')">
+			<div class="title" style="left: 10px;">流量卡退卡</div>
+			<div class="san" ng-show="vm.tabContent==2"></div>
+		</div>
+	</div>
+	<!-- /tab -->
+
+	<!-- tab-one -->
+	<div class="tab_content" ng-show="vm.tabContent	==	0">
+		<div>
+			<input class="form-control tabSearch" type="text"
+				ng-model="om.serchContent" placeholder="订单号/商品名称" />
+			<button class="btn btn-primary" ng-click="vm.btnSeach('total','1')">查询</button>
+			<div class="divDate">订购时间：</div>
+			<input class="Wdate date form-control tabDate" style="height: 30px;"
+				type="text" id="o_start_time"
+				onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+				placeholder="起始时间" ng-model="om.startTime" /> <span
+				class="divDate_mid">到</span> <input
+				class="Wdate date form-control tabDate" style="height: 30px;"
+				type="text" id="o_end_time"
+				onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+				placeholder="结束时间" ng-model="om.endTime" />
+		</div>
+		<div class="form-inline">
+			<div class="divDate mg_t_20" style="margin-left: 0px;">订购状态：</div>
+			<select class="form-control divSelect mg_t_20" ng-model="om.status" ng-options="Statu.code as Statu.description for Statu in om.statusList" >
+				<option value="">请选择</option>
+			</select>
+		</div>
+		<ul
+			style="list-style: none; width: 100%; height: auto; margin-top: 20px;"
+			class="tab_ul">
+			<li
+				style="width: 100%; height: auto; padding: 0px; margin: 0px; margin-bottom: 20px;"
+				ng-repeat="batch in vm.batchOrder" class="tab_li">
+				<div style="background: #f7f7f7; text-align: left;">
+					<span style="margin-left: 15px;">订单编号：{{batch.orderId}}</span> <span
+						style="margin-left: 15px;">时间：{{batch.time}}</span> <a
+						style="margin-left: 15px;" ng-click="vm.gofor(batch.orderId,1)">详情</a>
+					<span style="margin-right: 15px; float: right;">实付金额
+						：{{batch.totalPrice/100 | currency : '￥'}} 元</span>
+
+				</div>
+				<table class="table table-bordered batchOrder">
+					<thead>
+						<tr>
+							<th>商品</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>订购金额</th>
+							<th>订购状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="childOrder in batch.orderOneList">
+							<td class="proNameCls">{{childOrder.productName}}</td>
+							<td>{{childOrder.price/100 | currency : '￥'}}</td>
+							<td>{{childOrder.proCount}}</td>
+							<td>{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderOneList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								{{{true : childOrder.statusText,false:batch.statusText}[batch.status == 3]}}
+								<br>{{{true : '48小时自动取消',false:''}[batch.status == 1]}}							
+							</td>
+							<td rowspan="{{batch.orderOneList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+									<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											<a href="#confirmPay/1/{{batch.orderId}}" ng-show="batch.status == 1 || batch.status == 2">立即付款</a><span ng-show="batch.status == 1 || batch.status == 2">/</span><span ng-show="childOrder.status == 30" style="color: gray">查看卡密</span>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderOneList)">重新生成</a>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderOneList)">退款</a>
+											<a href="javascript:void(0)" ng-show="batch.status == 1 || batch.status == 2" ng-click="closeOrder(batch,batch.orderOneList)">取消</a></td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderTwoList">
+							<td class="proNameCls">{{childOrder.productName}}</td>
+							<td>{{childOrder.price/100 | currency : '￥'}}</td>
+							<td>{{childOrder.proCount}}</td>
+							<td>{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderTwoList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								{{{true : childOrder.statusText,false:batch.statusText}[batch.status == 3]}}
+								<br>{{{true : '48小时自动取消',false:''}[batch.status == 1]}}
+							</td>
+							<td rowspan="{{batch.orderTwoList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											<a href="#confirmPay/1/{{batch.orderId}}" ng-show="batch.status == 1 || batch.status == 2">立即付款</a><span ng-show="batch.status == 1 || batch.status == 2">/</span><span ng-show="childOrder.status == 30" style="color: gray">查看卡密</span>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderTwoList)">重新生成</a>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderTwoList)">退款</a>
+											<a href="javascript:void(0)" ng-show="batch.status == 1 || batch.status == 2" ng-click="closeOrder(batch,batch.orderTwoList)">取消</a>
+							</td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderThreeList">
+							<td class="proNameCls">{{childOrder.productName}}</td>
+							<td>{{childOrder.price/100 | currency : '￥'}}</td>
+							<td>{{childOrder.proCount}}</td>
+							<td>{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderThreeList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								{{{true : childOrder.statusText,false:batch.statusText}[batch.status == 3]}}
+								<br>{{{true : '48小时自动取消',false:''}[batch.status == 1]}}
+							</td>
+							<td rowspan="{{batch.orderThreeList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											<a href="#confirmPay/1/{{batch.orderId}}" ng-show="batch.status == 1 || batch.status == 2">立即付款</a><span ng-show="batch.status == 1 || batch.status == 2">/</span><span ng-show="childOrder.status == 30" style="color: gray">查看卡密</span>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderThreeList)">重新生成</a>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderThreeList)">退款</a>
+											<a href="javascript:void(0)" ng-show="batch.status == 1 || batch.status == 2" ng-click="closeOrder(batch,batch.orderThreeList)">取消</a>
+							</td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderFourList">
+							<td class="proNameCls">{{childOrder.productName}}</td>
+							<td>{{childOrder.price/100 | currency : '￥'}}</td>
+							<td>{{childOrder.proCount}}</td>
+							<td>{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderFourList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								{{{true : childOrder.statusText,false:batch.statusText}[batch.status == 3]}}
+								<br>{{{true : '48小时自动取消',false:''}[batch.status == 1]}}
+							</td>
+							<td rowspan="{{batch.orderFourList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											<a href="#confirmPay/1/{{batch.orderId}}" ng-show="batch.status == 1 || batch.status == 2">立即付款</a><span ng-show="batch.status == 1 || batch.status == 2">/</span><span ng-show="childOrder.status == 30" style="color: gray">查看卡密</span>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderFourList)">重新生成</a>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderFourList)">退款</a>
+											<a href="javascript:void(0)" ng-show="batch.status == 1 || batch.status == 2" ng-click="closeOrder(batch,batch.orderFourList)">取消</a>
+							</td>
+						</tr>
+						<tr ng-repeat="childOrder in batch.orderFiveList">
+							<td class="proNameCls">{{childOrder.productName}}</td>
+							<td>{{childOrder.price/100 | currency : '￥'}}</td>
+							<td>{{childOrder.proCount}}</td>
+							<td>{{childOrder.totalPrice/100 | currency : '￥'}}</td>
+							<td rowspan="{{batch.orderFiveList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								{{{true : childOrder.statusText,false:batch.statusText}[batch.status == 3]}}
+								<br>{{{true : '48小时自动取消',false:''}[batch.status == 1]}}
+							</td>
+							<td rowspan="{{batch.orderFiveList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">
+								<a href="#/cardManger" ng-show="childOrder.status == 31">查看卡密</a>
+											<a href="#confirmPay/1/{{batch.orderId}}" ng-show="batch.status == 1 || batch.status == 2">立即付款</a><span ng-show="batch.status == 1 || batch.status == 2">/</span><span ng-show="childOrder.status == 30" style="color: gray">查看卡密</span>
+											<a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="reCreate(batch.orderFiveList)">重新生成</a>
+										    <a href="javascript:void(0)" ng-show="childOrder.status == 32" ng-click="rowPay(batch.orderFiveList)">退款</a>
+											<a href="javascript:void(0)" ng-show="batch.status == 1 || batch.status == 2" ng-click="closeOrder(batch,batch.orderFiveList)">取消</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</li>
+		</ul>
+		
+		<div style="clear: both;"></div>
+		<div id="listPage" ng-show="vm.batchOrder.length > 0">
+			<!-- <expander></expander> -->
+			<tm-pagination conf="paginationConf"> </tm-pagination>
+		</div>
+		<div ng-show="vm.batchOrder.length == 0" style="margin-top: 0px;">
+			<div class="alert alert-info alert-dismissible" role="alert">
+				<strong>当前无订单!</strong>
+			</div>
+		</div>
+	</div>
+	<!-- /tab-one -->
+
+	<!-- tab-two -->
+	<div class="tab_content" ng-show="vm.tabContent==1">
+		<div>
+			<input class="form-control tabSearch" type="text"
+				ng-model="serchContent" placeholder="根据手机号查询" />
+			<button class="btn btn-primary" ng-click="vm.btnSeach('single','1')">查询</button>
+			<div class="divDate">订购时间：</div>
+
+
+			<input class="Wdate date form-control tabDate" style="height: 30px;"
+				type="text" id="t_start_time"
+				onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+				placeholder="起始时间" /> <span class="divDate_mid">到</span> <input
+				class="Wdate date form-control tabDate" style="height: 30px;"
+				type="text" id="t_end_time"
+				onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+				placeholder="结束时间" />
+		</div>
+		<div>
+			<div class="divDate mg_t_20" style="margin-left: 0px;">订购状态：</div>
+			<select class="form-control divSelect mg_t_20" ng-model="vm.status" ng-options="Statu.code as Statu.description for Statu in vm.statusList">
+				<option value="">请选择</option>
+			</select>
+		</div>
+		<div>
+		<table class="table table-bordered" ng-show="singleOrder.length > 0">
+			<thead>
+				<tr>
+					<th>订单号</th>
+					<th>订购时间</th>
+					<th>商品</th>
+					<th>手机号</th>
+					<th>订购金额</th>
+					<th>订购状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="order in singleOrder">
+					<td>{{order.orderNo}}</td>
+					<td>{{order.createDate | date:'yyyy-MM-dd HH:mm:ss'}}1</td>
+					<td>{{order.productName}}</td>
+					<td>{{order.rechargeAccount}}</td>
+					<td>{{order.totalPrice/100 | currency :'￥'}}元</td>
+					<td>{{order.statusStr}}</td>
+					<td><span ng-click="vm.gofor(order.orderNo,0)">详情</span></td>
+				</tr>
+			</tbody>
+		</table>
+			</div>
+		<div style="clear: both;"></div>
+		<div id="listPage" ng-show="singleOrder.length > 0">
+			<!-- <expander> </expander> -->
+			<tm-pagination conf="paginationConf"> </tm-pagination>
+		</div>
+		<div ng-show="singleOrder.length == 0" style="margin-top: 20px;">
+			<div class="alert alert-info alert-dismissible" role="alert">
+
+				<strong>当前无订单!</strong>
+			</div>
+		</div>
+	</div>
+	<!-- /tab-two -->
+
+	<!-- tab-three -->
+	<div class="tab_content" ng-show="vm.tabContent==2">
+		<div>
+			<input class="form-control tabSearch" type="text"
+				ng-model="tm.serchContent" placeholder="根据批次编号查询" />
+			<button class="btn btn-primary" ng-click="vm.btnSeach('detail','1')">查询</button>
+			<div class="divDate">退卡时间：</div>
+			<input class="Wdate date form-control tabDate" style="height: 30px;"
+				type="text" id="tm_start_time" ng-model="tm.startTime"
+				onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+				placeholder="起始时间" /> <span class="divDate_mid">到</span> <input
+				class="Wdate date form-control tabDate" style="height: 30px;"
+				type="text" id="tm_end_time" ng-model="tm.endTime"
+				onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'1980-12-12',maxDate:'2050-12-12'})"
+				placeholder="结束时间" />
+		</div>
+		<div>
+			<div class="divDate mg_t_20" style="margin-left: 0px;">订购状态：</div>
+			<select class="form-control divSelect mg_t_20" ng-model="tm.status" ng-options="Statu.code as Statu.description for Statu in tm.statusList">
+				<option value="">请选择</option>
+			</select>
+		</div>
+		<ul
+			style="list-style: none; width: 100%; height: auto; margin-top: 20px;"
+			class="tab_ul" ng-repeat="batch in vm.backBatchList">
+			<li style="width: 100%; height: auto; padding: 0px; margin: 0px;"
+				class="tab_li">
+				<div style="background: #f7f7f7; text-align: left;">
+					<span style="margin-left: 15px;">订单编号：{{batch.orderId}}</span> <span
+						style="margin-left: 15px;">时间：{{batch.createDate | date : 'yyyy-MM-dd HH:mm:ss'}}</span> <span
+						style="float: right; margin-right: 15px">实退金额 ：{{batch.totalPrice /100 | currency :'￥'}}</span> <span
+						style="float: right; margin-right: 15px">商品名称:{{batch.productName}}</span>
+
+
+				</div>
+				<table class="table table-bordered"
+					style="padding: 0px; margin: 0px;">
+					<thead>
+						<tr>
+							<th>批次号</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>退款金额</th>
+							<th>手续费</th>
+							<th>退款状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="backOrder in batch.orderList">
+							<td>{{backOrder.backOrderNo}}</td>
+							<td>{{backOrder.price / 100}}</td>
+							<td>{{backOrder.proCount}}</td>
+							<td>{{backOrder.backMoney / 100}}</td>
+							<td rowspan="{{batch.orderList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">0</td>
+							<td rowspan="{{batch.orderList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">{{batch.statusText}}</td>
+							<td rowspan="{{batch.orderList.length}}" ng-class="{true: 'table_hover'}[$index!=0]">--</td>
+						</tr>
+					</tbody>
+				</table>
+			</li>
+		</ul>
+		
+		<div style="clear: both;"></div>
+		<div id="listPage" ng-show="vm.backBatchList.length > 0">
+			<!-- <expander></expander> -->
+			<tm-pagination conf="paginationConf"> </tm-pagination>
+		</div>
+		<div ng-show="vm.backBatchList.length == 0" style="margin-top: 20px;">
+			<div class="alert alert-info alert-dismissible" role="alert">
+				<strong>当前无订单!</strong>
+			</div>
+		</div>
+	</div>
+	<!-- /tab-three -->
+</div>

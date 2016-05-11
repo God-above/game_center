@@ -1,0 +1,132 @@
+<div ng-init=vm.refundInit()>
+	<div class="panel panel-default" ng-class="{hidden: vm.hidden}">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 退卡订单查询 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vm.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vm.collapsed = !vm.collapsed"></span>
+				</span>
+			</h4>
+		</div>
+		<div class="panel-collapse collapse" ng-class="{in: !vm.collapsed}">
+			<div class="panel-body size_font">
+				<!-- 第一行 -->
+				<form class="form-horizontal mt_20" role="form">
+
+					<div class="form-group">
+						<div class="col-md-4">
+							<input type="text" placeholder="订单编号/商品编号/商品名称/充值帐号"
+								class="form-control" ng-model="searchInfo" />
+						</div>
+						<div class="col-md-3">
+							<input type="text" placeholder="注册用户账号名" class="form-control"
+								id="userInfo" ng-model="userInfo">
+						</div>
+					</div>
+				</form>
+
+				<form class="form-inline mt_15">
+					<label for="inputPassword">排序方式:</label> <select class="select"
+						id="status" ng-model="sortType">
+						<option value="">全部</option>
+						<option value="create">创建时间</option>
+						<option value="update">更新时间</option>
+					</select> <label for="inputPassword">创建时间:</label> <input
+						class="Wdate date input-group form-control" style="height: 34px;"
+						type="text" id="beginTime"
+						onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+						placeholder="请选择开始时间" ng-model="startCreateTime"> <label
+						class="line">—</label> <input
+						class="Wdate date input-group form-control" style="height: 34px;"
+						type="text" id="endTime"
+						onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+						placeholder="请选择截止时间" ng-model="endCreateTime">
+				</form>
+				<form class="form-inline mt_15">
+					<label for="inputPassword">退卡金额:</label> <input type="text"
+						class="form-control" placeholder="最低金额" ng-model="beginPrice" />
+					<label class="line">—</label> <input type="text"
+						class="form-control" placeholder="最高金额" ng-model="endPrice" />
+				</form>
+
+				<button class="btn btn-primary mt_15" type="button"
+					ng-click="vm.refundBtn(1,'btn')">查询</button>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default" ng-show="vm.orderList.length>0">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span> 退卡订单列表 <span
+					class="pull-right"> <span class="glyphicon"
+					ng-class="vmList.collapsed?'glyphicon-chevron-down':'glyphicon-chevron-up'"
+					ng-click="vmList.collapsed = !vmList.collapsed"></span>
+				</span>
+			</h4>
+
+		</div>
+		<div class="panel-collapse collapse"
+			ng-class="{in: !vmList.collapsed}">
+			<div class="panel-body">
+				<div class="table-responsive panel-table">
+					<table class="table table-hover panel-table-line">
+						<thead>
+							<tr>
+								<!-- <th><input type="checkbox" ng-model="checkBoxBtn" ng-click="chkAll()"/></th> -->
+								<th>订单编号</th>
+								<th>商品编号</th>
+								<th>商品名称</th>
+								<th>退卡金额/元</th>
+								<th>用户编号</th>
+								<th>创建时间</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="order in vm.orderList">
+								<!--  <td> <input type="checkbox" ng-model="order.checked" ng-click="check(order.checked,order)"/></td> -->
+								<td>{{order.orderNo}}</td>
+								<td>{{order.productNo}}</td>
+								<td>{{order.productName}}</td>
+								<td>{{{true:order.price/100,false:'---'}[order.price!=undefined
+									&& order.price!='' && order.price!=null]| currency:''}}</td>
+								<td>{{order.userCode}}</td>
+								<td>{{order.createDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+								<td>-- <span ng-if="order.status==40"
+									class="btn btn-primary" ng-click="vm.refund(order)">申请退款</span>
+							</tr>
+						</tbody>
+					</table>
+					<!-- 页码  -->
+					<div id="listPage">
+						<tm-pagination conf="paginationConf"> </tm-pagination>
+						<!-- <expander> </expander> -->
+					</div>
+					<!-- 页码  -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="alert alert-dangerin ng-hide" ng-show="disableAlert"
+		id="drag">
+		<div class="alertTitle">
+			<div class="col-md-6">
+				<span>{{disableAlert_title}}</span>
+			</div>
+			<button class="close close_btn" type="button"
+				ng-click="vm.refund.esc()">
+				<span class="glyphicon glyphicon-remove"></span>
+			</button>
+		</div>
+		<div class="alertContent">{{disableAlert_text}}</div>
+		<div class="alertFooter">
+			<button class="col-sm-offset-2 btn btn-primary btn-ls col-sm-2"
+				type="button" ng-click="vm.refund.confirm()">确认</button>
+			<button class="btn btn-default btn-ls" type="button"
+				ng-click="vm.refund.esc()">取消</button>
+		</div>
+	</div>
+</div>

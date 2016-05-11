@@ -1,0 +1,64 @@
+<div ng-init="init()">
+	<div class="logo">选择身份验证方式</div>
+	<!-- -------------------------------------------------------------------------------- -->
+	<div class="typeContent">
+		<!-- ------------------------------邮箱验证--------------------------------- -->
+		<div id="type2" ng-if="showType=='email' ||showType=='findPwd' ||showType=='payPwd' ||showType=='findPayPwd' ||showType=='setPayPwd'" 
+					class="rowBg row {{{true:'bgDisColor'}[userInfo.email==undefined ||userInfo.email==null || userInfo.email==''|| userInfo.email=='0']}}" ng-click="changeStyle(2,userInfo.email)">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<label class='fontWeight'>
+				绑定邮箱+邮箱验证： <span
+					ng-show="userInfo.email!=undefined && userInfo.email!=null && userInfo.email!=''&& userInfo.email!='0'">
+					已设置 </span> <span
+					ng-show="userInfo.email==undefined ||userInfo.email==null || userInfo.email==''"
+					class="errorColor"> 未设置 &nbsp;&nbsp;&nbsp;&nbsp;<span
+					class="glyphicon glyphicon-exclamation-sign "></span> &nbsp;&nbsp;
+					<span class="errorColor"><a href="#setChangeType/bindEmail">请设置！</a></span>
+				</span></label>
+			</div>
+		</div>
+		<!-- ------------------------------手机验证--------------------------------- -->
+		<div id="type3" ng-if="showType=='tel'||showType=='findPwd' ||showType=='payPwd' ||showType=='findPayPwd'  ||showType=='setPayPwd'"
+				 class="rowBg row {{{true:'bgDisColor'}[userInfo.tel==undefined||userInfo.tel==null || userInfo.tel==''|| userInfo.tel=='0' ]}}" ng-click="changeStyle(3,userInfo.tel)">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<label class='fontWeight'>
+				绑定手机+短信校验： <span
+					ng-show="userInfo.tel!=undefined && userInfo.tel!=null && userInfo.tel!='' && userInfo.tel!='0'">
+					已设置 </span> <span
+					ng-show="userInfo.tel==undefined ||userInfo.tel==null || userInfo.tel==''"
+					class="errorColor"> 未设置 &nbsp;&nbsp;&nbsp;&nbsp;<span
+					class="glyphicon glyphicon-exclamation-sign "></span> &nbsp;&nbsp;
+					<span class="errorColor"><a href="#setChangeType/bindTel">请设置！</a></span>
+				</span></label>
+			</div>
+		</div>
+		<!-- ------------------------------支付密码验证--------------------------------- -->
+		<div id="type4" ng-if="showType=='tel' || showType=='email' ||showType=='findPwd' ||showType=='payPwd'" 
+		class="rowBg row {{{true:'bgDisColor'}[ userInfo.payPassword==undefined||userInfo.payPassword==null || 
+		userInfo.payPassword==''|| userInfo.payPassword=='false' || userInfo.payPassword=='0']}}" ng-click="changeStyle(4,userInfo.payPassword)">
+			<div class="col-md-12 col-sm-12 col-xs-12" >
+				<label class='fontWeight'>
+					支付密码:<span
+					ng-show="userInfo.payPassword!=undefined && userInfo.payPassword!=null && userInfo.payPassword!='' && userInfo.payPassword!='0'&& userInfo.payPassword!='false'">
+					已设置 </span> <span
+					ng-show="userInfo.payPassword==undefined ||userInfo.payPassword==null || userInfo.payPassword=='' || userInfo.payPassword=='0'|| userInfo.payPassword=='false'"
+					class="errorColor"> 未设置 &nbsp;&nbsp;&nbsp;&nbsp;<span
+					class="glyphicon glyphicon-exclamation-sign "></span> &nbsp;&nbsp;
+					<span class="errorColor"><a href="#changeType/setPayPwd">请设置！</a></span>
+				</span></label>
+			</div>
+		</div>
+		<!-- ------------------------------人工服务--------------------------------- -->
+		<div id="type5" ng-if="showType=='tel'||showType=='email'" class="rowBg row bgDisColor" ><!-- ng-click="changeStyle(5,'default')" -->
+			<div class="col-md-12 col-sm-12 col-xs-12" ><!-- onclick="window.location='./upgrade.html'" -->
+				<label class='fontWeight'>
+					人工服务</label>
+			</div>
+		</div>
+		<div class="row mg_t_20">
+			<button class="primaryBtn" style="width: 110px;" ng-click="next()">下一步</button>
+
+		</div>
+	</div>
+
+</div>

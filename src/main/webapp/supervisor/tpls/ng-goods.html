@@ -1,0 +1,176 @@
+<div ng-init="init()">
+	<div class="panel  panel-default">
+		<div class="panel-heading">商品管理</div>
+		<div class="panel-body size_font">
+			<!-- 创建  -->
+			<!-- <a href="#goodsAdd">
+				<button type="button" class="btn btn-primary "><span class="glyphicon glyphicon-plus"></span>创建商品</button>
+			</a> -->
+			<form class="form-horizontal">
+				<div class="form-group mt_15">
+						<div class="col-md-9">
+							<div class="input-group">
+								<input type="text" placeholder="输入商品名称/商品编号进行模糊查询 "
+									class="form-control"  ng-model="searchText"  maxlength="40">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" type="button"
+										ng-click="allBtn(1,'page')">查询</button>
+								</span>
+							</div>
+						</div>
+				</div>
+			</form>
+			<!-- 创建  -->
+			<!-- form  -->
+			<form class="form-inline mt_15">
+			 <label for="inputPassword">商品类型:</label>
+			<select class="select"  ng-model="productType">
+									<option value="">全部</option>
+									<option value="1">虚拟商品</option>
+									<option value="2">券</option>
+								</select>			
+			<label for="inputPassword">商品价格:</label>
+			<input type="text" class="form-control" placeholder="最低金额"
+									ng-model="minPrice" />
+			<label class="line">—</label>
+			<input type="text" class="form-control" placeholder="最高金额"
+									ng-model="maxPrice" />
+										
+            </form>
+            <form class="form-inline mt_15">
+            <label for="inputPassword">商品状态:</label>
+			<select class="select" id="status" ng-model="status"
+									ng-change="reset()">
+									<option value="">全部</option>
+									<option value="0">禁用</option>
+									<option value="1">正常</option>
+								</select>
+			<input ng-model="remark" class="form-control" placeholder="输入禁用原因"
+				 id="text"  ng-show="status==0&&status!=''"/>	
+			<!-- <label for="inputPassword">创建时间:</label>
+			<input class="Wdate date input-group form-control"
+									style="height: 34px;" type="text" 
+									id="startCreateTime"
+									onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+									placeholder="请选择开始时间" ng-model="startCreateTime">
+			<label class="line">—</label>
+			<input class="Wdate date input-group form-control"
+									style="height: 34px;" type="text" 
+									id="endCreateTime"
+									onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'1980-12-12 11:30:00',maxDate:'2050-12-12 20:59:30'})"
+									placeholder="请选择截止时间" ng-model="endCreateTime"> -->
+            </form>
+            
+          
+            <!-- <form class="form-inline mt_15">
+            <button class="btn  btn-primary" ng-click="allBtn(1,'page')">查询</button>
+			<button class="btn  btn-primary"
+							ng-click="reBack()">重置</button>
+            </form> -->
+			<!-- form  -->
+		</div>
+	</div>
+
+	<!-- table显示   -->
+	<div class="panel panel-default" ng-show="productLists.length>0">
+		<div class="panel-heading">
+			<div class="form-group">
+				<div class="col-md-2">商品列表</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<!-- table  -->
+			<div class="table-responsive panel-table">
+			<table class="table  table-hover panel-table-line">
+				<thead>
+					<tr>
+						<th>商品编号</th>
+						<th>商品名称</th>
+						<th>商品类型</th>
+						<th>账号类型</th>
+						<th>商品单价/元</th>
+						<!-- <th>创建人</th> -->
+						<th>创建时间</th>
+						<th>状态</th>
+						<th>禁用原因</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="product in productLists"
+						ng-class="{true: 'danger', false: 'inactive'}[product.status==0]">
+						<td class="hand" ng-mouseover="getGoods(this,product.productNo)"
+							ng-mouseout="getTime(this)"
+							ng-click="showGoodsGo(product.productNo)">{{product.productNo}}
+						</td>
+						<td ng-mouseover="getGoods(this,product.productName)"
+							ng-mouseout="getTime(this)">
+							{{{true:product.productName,false:'暂无'}[product.productName!=null&&product.productName!='']}}
+						</td>
+						<td>
+							<span ng-if="product.type==1">虚拟商品</span>
+							<span ng-if="product.type==2">券</span>
+						<td>{{{true:product.accountType,false:'--'}[product.accountType!=null&&product.accountType!='']}}</td>
+						<td>{{product.price | currency :''}}</td>
+						<!-- <td>{{product.creator}}</td> -->
+						<td ng-mouseover="getGoods(this,product.createDate)"
+							ng-mouseout="getTime(this)">{{product.createDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+						<td><span style="color: red">{{{true:'禁用',false:''}[product.status==
+								0]}}</span> {{{true:'正常',false:''}[product.status== 1]}}</td>
+
+						<td ng-mouseover="getGoods(this,product.disableReason)"
+							ng-mouseout="getTime(this)">{{{true:product.disableReason,false:'--'}[product.disableReason!=null&&product.disableReason!=''&&product.status
+							== 0]}}</td>
+						<td><a href="#goodsEdit/{{product.productNo}}"
+								class="btn btn-xs btn-warning">编辑</a>
+							<button type="button"
+								class="btn btn-xs {{{true:'btn-danger',false:'btn-success'}[product.status==1]}}"
+								ng-click="changState('productReason',product)">{{{true:'禁用',false:'启用'}[product.status==1]}}</button></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<!--table  -->
+			<!-- 页码  -->
+			<div id="listPage">
+					<expander>
+					
+					</expander>
+			</div>
+			<!-- 页码  -->
+		</div>
+	</div>
+	<!-- table显示   -->
+	<!-- 浮动显示  -->
+	<div class="toastTiger1" id="liu" ng-show="test11"
+		ng-mouseout="outOrder()">{{orderList}}</div>
+
+	<div class="modal fade" id="newmyModal">
+		<div class="modal-dialog" style="width: 450px; margin-top: 200px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myLargeModalLabel">禁用原因</h4>
+				</div>
+				<div class="modal-body" style="background: #eff0f4;">
+					<div class="row" style="margin-top: 20px;">
+						<div class="col-md-10">
+							<input type="text" class="form-control"
+								ng-model="disReason" id="disReason"
+								placeholder="请输入禁用原因" />
+						</div>
+					</div>
+
+					<div class="row" style="margin-top: 50px; margin-left: 60%;">
+						<div class="col-md-offset-4">
+							<button type="submit" class="btn btn-success" ng-click="updateProStatus()">确认</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
