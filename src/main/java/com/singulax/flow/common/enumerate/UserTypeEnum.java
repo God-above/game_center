@@ -1,9 +1,12 @@
 package com.singulax.flow.common.enumerate;
 
 public enum UserTypeEnum {
-    PERSONAL(1, "个人"),
-    COMPANY(2, "公司"),
-    ADMIN(3, "管理员"),
+    ONE(1, "业务员"),
+    TWO(2, "客户"),
+    THREE(3, "管理员"),
+    FOUR(4, "副官"),
+    FIVE(5, "主管"),
+    SIX(6, "平台管理"),
     ;
 
     private Integer code;

@@ -208,7 +208,7 @@ public class LoginController extends BaseController{
                     result.setResultComment(ControllerResultEnum.SERVER_USER_DISABLE.getDescription());
                     return JSON.toJSONString(result);
                 }
-                if( user.getUserType()!=UserTypeEnum.ADMIN.getCode() ){// 登陆账号非管理员
+                if( user.getUserType()!=UserTypeEnum.SIX.getCode() ){// 登陆账号非管理员
                     result.setResultCode(ControllerResultEnum.ILLEGAL_ACCESS.getStatus());
                     result.setResultComment(ControllerResultEnum.ILLEGAL_ACCESS.getDescription());
                     return JSON.toJSONString(result);

@@ -17,10 +17,6 @@ import java.util.Map;
 @Entity
 public class User implements Serializable{
 
-    /** 
-	 * @author jiangchao 
-	 * @date 2014年10月13日 下午2:45:48
-	 */ 
 	private static final long serialVersionUID = -8706283871565868643L;
 	
 	/**
@@ -41,7 +37,7 @@ public class User implements Serializable{
     private String userName;// 用户名称
     private String nickName;// 用户昵称
     private String password;// 登陆密码
-    private Integer userType;// 用户类型：1-个人用户，2-公司客户
+    private Integer userType;// 用户类型：1-6越大登记越高
     private String companyName;// 公司名称（公司客户）
     private String companyAddress;// 公司地址（公司客户）
     private Date createDate;// 创建时间
